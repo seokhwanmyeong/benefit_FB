@@ -1,14 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./css/index.css";
-import App from "./shared/App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
-import {
-  BrowserRouter,
-  unstable_HistoryRouter as HistoryRouter,
-} from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { createBrowserHistory } from "history";
+
+import './css/index.css';
+import App from './shared/App';
 import store from "./redux/configureStore";
 
 export const history = createBrowserHistory();

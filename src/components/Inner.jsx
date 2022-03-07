@@ -10,10 +10,7 @@ const Inner = (props) => {
     );
 };
 const Styleinner = styled.div`
-    position: inherit;
-    display: inherit;
-    justify-content: inherit;
-    align-items: inherit;
+    margin: 0 auto;
     width: ${props => props.size ? props.size : "1280px"};
 `
 

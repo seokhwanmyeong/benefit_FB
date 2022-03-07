@@ -9,20 +9,25 @@ const Header = (props) => {
     return (
         <StyleHeader>
             <Inner>
-                <div className='logo'>
-                    <Link to={'/'} title="홈으로 가기">너만모를까나</Link>
-                </div>
-                <MenuLayer/>
+                <Wrap>
+                    <div className='logo'>
+                        <Link to={'/'} title="홈으로 가기">너만모를까나</Link>
+                    </div>
+                    <MenuLayer/>
+                </Wrap>
             </Inner>
         </StyleHeader>
     );
 };
 
-const StyleHeader = styled.div`
+const StyleHeader = styled.header`
+`
+const Wrap = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 10rem;
 `
 
 export default Header;

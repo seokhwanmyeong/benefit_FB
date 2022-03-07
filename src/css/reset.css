@@ -185,6 +185,12 @@ textarea {
   overflow: auto;
   resize: vertical;
 }
+
+/*CSS CUSTOM 초기화*/
+#root{
+  width: inherit;
+  height: inherit;
+}
 input,
 textarea {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

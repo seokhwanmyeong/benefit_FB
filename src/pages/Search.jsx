@@ -1,10 +1,14 @@
 import React from 'react';
 
+import { Banner, Card, Filter } from '../components/index';
+
 const Search = () => {
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+            <Banner/>
+            <Filter/>
+            <Card/>
+        </React.Fragment>
     );
 };
 

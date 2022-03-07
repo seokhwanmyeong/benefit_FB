@@ -1,4 +1,4 @@
-import React, {useState, useRef, forwardRef } from 'react';
+import React, {useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import { MenuBox } from '../components/index';

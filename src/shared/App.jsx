@@ -1,22 +1,21 @@
-import '../css/App.css';
+import "../css/App.css";
+
+import { Route, Routes } from "react-router-dom";
+import { Main, Kakao, GoogleButton } from "../pages/index";
+import { Header, Footer } from "../components/index";
+import Naver from "../pages/NaverLogin";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={null} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrap">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Kakao />} />
+        <Route path="/login2" element={<GoogleButton />} />
+        <Route path="/login3" element={<Naver />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }

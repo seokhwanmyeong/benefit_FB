@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import NaverLogin from "react-naver-login";
+import { SiNaver } from "react-icons/si";
 
 const Naver = () => {
   const oAuthHandler = (res) => {
@@ -17,7 +18,10 @@ const Naver = () => {
           onClick={renderProps.onClick}
           disabled={renderProps.disabled}
           isPopup="false"
-        ></NaverLoginBtn>
+        >
+          <SiNaver size="30" />
+          {/* 네이버 아이디로 로그인 */}
+        </NaverLoginBtn>
       )}
       buttonText="Sign In With Naver"
       onSuccess={oAuthHandler}
@@ -40,6 +44,7 @@ const NaverLoginBtn = styled.button`
   cursor: pointer;
   color: green;
   position: relative;
+
   &::before {
     content: "";
     position: absolute;

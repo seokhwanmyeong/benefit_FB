@@ -4,8 +4,9 @@ import axios from "axios";
 const instance = axios.create({
   // 우리가 바라볼 서버의 주소
   baseURL: "",
+  // 자바스크립트는 json형태로 받아와야 한다.
   headers: {
-    "content-type": "application/json;charset=UTF-8", // 자바스크립트는 json형태로 받아와야 한다.
+    "content-type": "application/json;charset=UTF-8",
     accept: "application/json",
   },
 });
@@ -19,3 +20,5 @@ instance.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${accessToken}`; // header에 토큰값을 넣는다 => header에 토큰값이 있어 앞으로 request를 자유자재로 할 수 있다.
   return config;
 });
+// 데이터 요청 to 서버
+export const apis = {};

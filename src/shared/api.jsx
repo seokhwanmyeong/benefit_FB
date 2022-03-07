@@ -20,10 +20,7 @@ instance.interceptors.request.use(function (config) {
   config.headers.common["Authorization"] = `Bearer ${accessToken}`; // header에 토큰값을 넣는다 => header에 토큰값이 있어 앞으로 request를 자유자재로 할 수 있다.
   return config;
 });
-<<<<<<< HEAD
 // 데이터 요청 to 서버
 export const apis = {};
-=======
 
 export default instance;
->>>>>>> af4c8a1a6acd43d74c3f45dcddd619a8ba46b039

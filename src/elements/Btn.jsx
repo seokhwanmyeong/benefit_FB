@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Children } from 'react';
 import styled from 'styled-components';
 
-const Btn = React.forwardRef(({ _text, _ariaLabel, _onClick}, _ref) => {
+const Btn = React.forwardRef(({ _text, _ariaLabel, _onClick, _className, children}, _ref) => {
     // const { _text, _ariaLabel, _onClick, _ref} = props;
 
     return (
-        <Button onClick={_onClick} aria-label={_ariaLabel} ref={_ref}>
+        <Button className={_className} onClick={_onClick} aria-label={_ariaLabel} ref={_ref}>
             {_text}
+            {children}
         </Button>
     );
 });

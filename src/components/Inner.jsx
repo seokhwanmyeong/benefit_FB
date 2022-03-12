@@ -11,7 +11,10 @@ const Inner = (props) => {
 };
 const Styleinner = styled.div`
     margin: 0 auto;
-    width: ${props => props.size ? props.size : "1280px"};
+    width: ${props => props.size ? props.size : "808px"};
+    @media screen and (max-width: 808px) {
+        width: 100%;
+    }
 `
 
 export default Inner;

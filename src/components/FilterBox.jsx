@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { useDispatch } from "react-redux"
 import { FilterController } from './Filter';
 
+import { CheckTrue, CheckFalse } from "../icons/ico_url"
+
 const FilterBox = () => {
     // const dispatch = useDispatch();
     const { toggleState, isOpen, FilterExit } = useContext(FilterController);
@@ -30,10 +32,10 @@ const FilterBox = () => {
         job_status : [
             "미취업",
             "자영업",
-            "구직자 / 취업준비생",
-            "재직자(중소포함)",
             "창업",
             "제한없음",
+            "구직자 / 취업준비생",
+            "재직자(중소포함)",
             "기타"
         ],
         apply_period : [
@@ -51,15 +53,15 @@ const FilterBox = () => {
             "기타",
             "제한없음",
         ],
-        category: [
-            ["c0", "전체"],
-            ["c1", "주거 금융"],
-            ["c2", "코로나 19"],
-            ["c3", "창업지원"],
-            ["c4", "생활 복지"],
-            ["c5", "정책 참여"],
-            ["c6", "취업"]
-        ],
+        // category: [
+        //     ["c0", "전체"],
+        //     ["c1", "주거 금융"],
+        //     ["c2", "코로나 19"],
+        //     ["c3", "창업지원"],
+        //     ["c4", "생활 복지"],
+        //     ["c5", "정책 참여"],
+        //     ["c6", "취업"]
+        // ],
         benefit: [
             "돈",
             "대여",
@@ -95,9 +97,6 @@ const FilterBox = () => {
             "false"
         ],
     }
-    // const getEntries = Object.entries(filter_list).map((entrie, idx) => {
-    //     return console.log(entrie, idx);
-    // });
 
     const menu_list = {
         job_status: jobStatus,
@@ -118,26 +117,32 @@ const FilterBox = () => {
         <Filter className={isOpen ? 'active' : 'inactive'}>
             {Object.entries(filter_list).map((cur, idx) => {
                 return(
-                    <div key={idx}>
-                        {cur[0] !== "category" 
-                            ?   cur[1].map((_cur) => {
-                                    return (
-                                        <label key={_cur}>
-                                            <input type="radio" />
-                                            <p>{_cur}</p>
-                                        </label>
-                                    )
-                                })
-                            :   cur[1].map((_cur) => {
-                                    return (
-                                        <label key={_cur[0]}>
-                                            <input type="radio" />
-                                            <p>{_cur[1]}</p>
-                                        </label>
-                                    )
-                                })
-                        }
-                    </div>
+                    <FilterWrap>
+                        <GroupProperty>
+                            <p>{cur[0]}</p>
+                        </GroupProperty>
+                        <GroupContents key={idx}>
+                            {cur[0] !== "category" 
+                                ?   
+                                    cur[1].map((_cur, idx) => {
+                                        return (
+                                            <label key={_cur}>
+                                                <input type="radio" />
+                                                <p>{_cur}</p>
+                                            </label>
+                                        )
+                                    })
+                                :   cur[1].map((_cur) => {
+                                        return (
+                                            <label key={_cur[0]}>
+                                                <input type="radio" />
+                                                <p>{_cur[1]}</p>
+                                            </label>
+                                        )
+                                    })
+                            }
+                        </GroupContents>
+                    </FilterWrap>
                 )
             })}
         </Filter>
@@ -149,10 +154,62 @@ const Filter = styled.div`
     position: absolute;
     right: 0;
     top: 0;
-    width: 20rem;
+    width: 33rem;
+    height: 100vh;
+    overflow-y: scroll;
     background-color: #ffffff;
     &.active {
         display: block;
+    }
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #2f3542;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: grey;
+        border-radius: 10px;
+    }
+    // @media screen and (max-width: 808px) {
+    //     display: none;
+    //     z-index: 10;
+    //     position: absolute;
+    //     right: 0;
+    //     top: 0;
+    //     background-color: #ffffff;
+    //     &.active {
+    //         display: block;
+    //     }
+    // }
+`
+const FilterWrap = styled.div`
+`
+const GroupProperty = styled.div`
+    padding: 2.6rem 2.2rem;
+    border-top: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+    font-size: 2.4rem;
+    font-weight: 600;
+`
+const GroupContents = styled.div`
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #eeeeee;
+    label{
+        display: block;
+        min-width: 50%;
+        &:first-child{
+            width: 100%;
+        }
+        &:before{
+            content: "";
+            width: 2.4rem;
+            height: 2.4rem;
+            background:
+        }
     }
 `
 

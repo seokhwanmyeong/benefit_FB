@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Routes, Route, } from 'react-router-dom';
 
 import { Header, Footer, Inner } from '../components/index';
-import { Main, Search, Kakao, GoogleButton } from '../pages/index';
-import Naver from "../pages/NaverLogin";
+import { Main, Search, Kakao, GoogleButton, Detail } from '../pages/index';
+// import Naver from "../pages/NaverLogin";
 import React from 'react';
 
-function App() {
+function App(props) {
   return (
     <React.Fragment>
       <Header />
@@ -18,7 +18,8 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/login" element={<Kakao />} />
             <Route path="/login2" element={<GoogleButton />} />
-            <Route path="/login3" element={<Naver />} />
+            {/* <Route path="/login3" element={<Naver />} /> */}
+            <Route path="/detail/:id" element={<Detail />} />
           </Routes>
         </Inner>
       </Container>
@@ -28,6 +29,7 @@ function App() {
 }
 const Container = styled.div`
   width: 100%;
+  flex-grow: 1;
 `
 
 export default App;

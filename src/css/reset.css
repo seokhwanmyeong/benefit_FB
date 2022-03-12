@@ -20,7 +20,9 @@ body {
   height: 100vh;
   background: #ffffff;
   font-size: 1.6rem;
-  font-family: "Nanum Myeongjo", serif;
+  font-family: Noto Sans, "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
 }
 ::selection,
 ::-moz-selection {
@@ -188,8 +190,11 @@ textarea {
 
 /*CSS CUSTOM 초기화*/
 #root{
+  display: flex;
+  flex-direction: column;
   width: inherit;
   height: inherit;
+  min-height: 100vh;
 }
 input,
 textarea {
@@ -232,8 +237,6 @@ button {
   font-weight: 700;
 }
 button {
-  padding: 0.2rem 1rem;
-  border: 1px solid #dddddd;
   cursor: pointer;
 }
 input {
@@ -247,4 +250,10 @@ input {
   content: "";
   display: block;
   clear: both;
+}
+.fl{
+  float:left;
+}
+.fr{
+  float: right;
 }

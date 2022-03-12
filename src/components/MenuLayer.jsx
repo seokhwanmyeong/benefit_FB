@@ -3,10 +3,13 @@ import styled from 'styled-components';
 
 import { MenuBox } from '../components/index';
 import { Btn } from '../elements/index';
+import { SvgMenu } from '../icons/ico_components'
 
 const MenuController = React.createContext();
 
 const MenuLayer = () => {
+    const BtnRef = useRef();
+
     // 메뉴가 열고 닫힘을 알 수 있는 상태
     const [isOpen,setOpen] = useState(false);
 
@@ -21,17 +24,29 @@ const MenuLayer = () => {
     return (
         <MenuController.Provider value={{toggleState, isOpen, MenuExit}}>
             <HeaderMenu>
-                <Btn _ariaLabel="메뉴 보기" _ariahaspopup={!isOpen} _ref={MenuExit} _onClick={toggleState} _text='MENU'/>
+                <Btn _className="btn-menu" _ariaLabel="메뉴 보기" _ariahaspopup={!isOpen} _ref={MenuExit} _onClick={toggleState}>
+                    <SvgMenu/>
+                </Btn>
                 <MenuBox/>
             </HeaderMenu>
         </MenuController.Provider>
     );
 };
 const HeaderMenu = styled.div`
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+    .btn-menu{
+        display: none;
+    }
+    @media screen and (max-width: 808px) {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .btn-menu{
+            display: block;
+        }
+    }
 `
 
 export default MenuLayer;

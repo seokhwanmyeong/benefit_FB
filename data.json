@@ -15,5 +15,202 @@
             "title": "redux-saga도 사용해봅시다",
             "body": "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법도 배워볼 거예요."
         }
+    ],
+    "main": {
+        "todayBest" : [
+            {
+            "postId" : "1",
+            "category" : "주거·금융",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "summary" : "청년 구직자를 위한 면접정장 대여사업",
+            "location" : "서울, 동작구",
+            "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+            "postId" : "2",
+            "category" : "취업지원",
+            "benefit" : "돈",
+            "title" : "청년희망적금 청년희망적금 청년희망적금 청년희망적금 청년희망적금 청년희망적금",
+            "summary" : "청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업",
+            "location" : "서울, 동작구",
+            "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+            "postId" : "3",
+            "category" : "생활·복지",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "summary" : "청년 구직자를 위한 면접정장 대여사업",
+            "location" : "서울, 동작구",
+            "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+            "postId" : "4",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "summary" : "청년 구직자를 위한 면접정장 대여사업",
+            "location" : "서울, 동작구",
+            "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+            "postId" : "5",
+            "category" : "정책참여",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "summary" : "청년 구직자를 위한 면접정장 대여사업",
+            "location" : "서울, 동작구",
+            "apply_period" : "2022-01-01 ~ 2022-01-02"
+            }
+        ], 
+        "categoryBest" : [
+            {
+                "postId" : "6",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+                "postId" : "7",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+                "postId" : "8",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+                "postId" : "9",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+                "postId" : "10",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            },
+            {
+                "postId" : "11",
+                "category" : "코로나19",
+                "benefit" : "돈",
+                "title" : "청년희망적금",
+                "summary" : "청년 구직자를 위한 면접정장 대여사업",
+                "location" : "서울, 동작구",
+                "apply_period" : "2022-01-01 ~ 2022-01-02"
+            }
+        ]
+    },
+    "search": [
+        {
+            "postId" : "12",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "13",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "14",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "15",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "16",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "17",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "18",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "19",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "20",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "21",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        }
     ]
 }

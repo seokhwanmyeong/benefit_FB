@@ -7,7 +7,7 @@ import { SvgMenu } from '../icons/ico_components'
 
 const MenuController = React.createContext();
 
-const MenuLayer = () => {
+const MenuLayer = (props) => {
     const BtnRef = useRef();
 
     // 메뉴가 열고 닫힘을 알 수 있는 상태

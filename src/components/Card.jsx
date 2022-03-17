@@ -8,8 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Center } from "../icons/ico_components";
-import { NaviPrev, NaviNext } from "../icons/ico_url";
+import { ImgBenefit, ImgRanking } from './index';
+import { Center, SvgPlus } from "../icons/ico_components";
+import { NaviPrev, NaviNext, CardDeco1, CardDeco2, CardDeco3 } from "../icons/ico_url";
 
 const Card = (props) => {
   const prevRef = useRef(null)
@@ -38,10 +39,10 @@ const Card = (props) => {
             <SwiperSlide key={cur.postId}>
               <MainCard>
                 <div className="card-rank">
-                  <p className="card-rank-content"><span>{idx + 1}</span>위</p>
+                  <ImgRanking rank={idx + 1}/>
                 </div>
                 <div className="card-head">
-                  <div className="card-head-img">지원형태 {cur.benefit}</div>
+                  <div className="card-head-img"><ImgBenefit benefit={cur.benefit}/></div>
                   <div className="card-head-cate">{cur.category}</div>
                 </div>
                 <h4 className="card-title">{cur.title}</h4>
@@ -59,7 +60,10 @@ const Card = (props) => {
         })}
         <SwiperSlide>
           <MovePage>
-            <Link to='/search'>더 보기</Link>
+            <Link to='/search'>
+              <SvgPlus/>
+              더 보기
+            </Link>
           </MovePage>
         </SwiperSlide>
       </Swiper>
@@ -80,59 +84,76 @@ const CardWrap = styled.div`
   }
 `;
 const MainCard = styled.div`
-  padding: 1.4rem 3rem 3.2rem;
+  position: relative;
+  padding: 9rem 3rem 0;
   width: 28rem;
-  border: 1px solid #000000;
-  .card-rank {
-    margin: 0 0 2rem;
-  }
-  .card-rank-content {
-    font-size: 2.3rem;
-  }
-  .card-rank-content span {
-    font-size: 3.4rem;
-    line-height: 1;
-  } 
-  .card-head {
-    margin: 0 0 2rem;
+  height: 33.6rem;
+  border-radius: ${props => props.theme.radius.card};
+  background-color: ${props => props.theme.color.g3};
+  &:before{
+    content: "";
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
     display: flex;
+    width: 100%;
+    height: 100%;
+    background: url('${CardDeco1}') no-repeat;
+  }
+  &:after{
+    content: "";
+    position: absolute;
+    top: 5.7rem;
+    left: 0.6rem;
+    display: flex;
+    width: 100%;
+    height: 5.4rem;
+    background: url('${CardDeco2}') no-repeat;
+  }
+  .card-rank {
+    position: absolute;
+    top: 0;
+    left: 3.2rem;
+  }
+  .card-head {
+    margin: 0 0 1.6rem;
+    display: flex;
+    height: 4rem;
     justify-content: space-between;
     align-items: flex-end;
   }
   .card-head-img {
-    width: 5.6rem;
-    height: 5.6rem;
-    background-color: #888888;
+    width: 4rem;
+    height: 4rem;
   }
   .card-head-cate {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 7rem;
+    min-width: 7.1rem;
     height: 2.4rem;
-    border: 1px solid #000000;
-    font-size: 1.4rem;
+    border: 1px solid ${props => props.theme.color.b0};
+    font: ${props => props.theme.font.p};
   }
   .card-title {
-    margin: 0 0 1.2rem;
-    height: 6.4rem;
+    margin: 0 0 1.6rem;
+    height: 2.4rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 2.4rem;
-    font-weight: 600;
+    font: ${props => props.theme.font.styleh4};
   }
   .card-contents {
-    margin: 0 0 1rem;
-    height: 5.7rem;
+    margin: 0 0 1.6rem;
+    height: 5.9rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 1.4rem;
+    font: ${props => props.theme.font.p};
   }
   .card-foot {
     display: flex;
@@ -140,7 +161,7 @@ const MainCard = styled.div`
     justify-content: space-between;
   }
   .card-period {
-    font-size: 1.3rem;
+    font: ${props => props.theme.font.p};
   }
   .card-agency {
     display: flex;
@@ -151,40 +172,74 @@ const MainCard = styled.div`
     margin-right: 0.5rem;
   }
   .card-agency-name {
-    font-size: 1.3rem;
+    font: ${props => props.theme.font.body};
+  }
+  &:hover{
+    background-color: ${props => props.theme.color.p2};
+    color: ${props => props.theme.color.w};
+    .card-head-img{
+      border-radius: 50%;
+      background-color: ${props => props.theme.color.kakao};
+    }
+    .card-head-cate {
+      border: 1px solid ${props => props.theme.color.w};
+    }
+    svg{
+      fill: ${props => props.theme.color.w};
+    }
   }
 `;
 const MovePage = styled.div`
-  width: 14.2rem;
+  display: flex;
+  align-items: center;
   height: 100%;
   a{
-    width: 100%;
-    height: 100%;
+    width: 11.6rem;
+    height: 11.6rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #000000;
+    background: ${props => props.theme.color.g3} url('${CardDeco3}') no-repeat 4px 4px;
+    border-radius: 50%;
+    font: ${props => props.theme.font.p};
+    color: ${props => props.theme.color.p2};
+    svg{
+      margin-bottom: 0.4rem;
+    }
+    &:hover{
+      background-color: ${props => props.theme.color.p2};
+      color: ${props => props.theme.color.w};
+      svg{
+        path{
+          stroke: #ffffff;
+        }
+      }
+    }
   }
 `;
 const CardNavi = styled.div`
+  z-index: 2;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
+  transform: translateY(-50%);
   width: 100%;
-  height: 100%;
   .navi{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
+    width: 3.2rem;
+    height: 3.2rem;
+    border: 1px solid #000000;
+    border-radius: 50%;
     &.navi--prev{
-      left: -30px;
-      background: url('${NaviPrev}') no-repeat center center;
+      left: -4rem;
+      background: ${props => props.theme.color.w} url('${NaviPrev}') no-repeat center center;
     }
     &.navi--next{
-      right: -30px;
-      background: url('${NaviNext}') no-repeat center center;
+      right: -1.6rem;
+      background: ${props => props.theme.color.w} url('${NaviNext}') no-repeat center center;
     }
     &.swiper-button-disabled{
       display: none;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { SvgSaving, SvgCounsel } from '../icons/ico_components'
 
-const BenefitImg = (props) => {
+const ImgBenefit = (props) => {
     const { benefit } = props;
     
     return (
@@ -16,4 +16,4 @@ const BenefitImg = (props) => {
     );
 };
 
-export default BenefitImg;
+export default ImgBenefit;

@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { BenefitImg } from './index';
+import { ImgBenefit } from './index';
 import { SvgView, SvgClose, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
 import { Btn } from '../elements';
 
 const CardSearch = (props) => {
-    const dispatch = useDispatch
+    const dispatch = useDispatch;
+    const navigate = useNavigate();
     const { data } = props;
-
+    console.log(data)
     //버튼을 클릭했을 때 state를 변경하는 토글
     const checkLike = (e) => { 
         if(e.currentTarget.classList.contains("on")){
@@ -18,14 +20,16 @@ const CardSearch = (props) => {
             e.currentTarget.classList.add("on")
         }
     }
-
+    const linkToDetail = (postId) => {
+        navigate(`/detail/${postId}`, { postId: postId })
+    }
     return (
         <SearchGroup>
             {data?.map(cur => {
                 return(
-                    <SearchList key={cur.postId}>
+                    <SearchList onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
                         <div className="card-head">
-                            <BenefitImg benefit={cur.benefit}/>
+                            <ImgBenefit benefit={cur.benefit}/>
                             <h4 className="card-title">{cur.title}</h4>
                             <div className="card-head-cate">{cur.category}</div>
                         </div>
@@ -51,6 +55,7 @@ const CardSearch = (props) => {
     );
 };
 const SearchGroup = styled.ul`
+    flex-grow: 1;
     li + li{
         margin: 2rem 0 0 0;
     }

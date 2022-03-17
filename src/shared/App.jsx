@@ -1,15 +1,16 @@
 import '../css/App.css';
-import styled from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
 import { Routes, Route, } from 'react-router-dom';
 
 import { Header, Footer, Inner } from '../components/index';
 import { Main, Search, Kakao, GoogleButton, Detail } from '../pages/index';
+import Theme from './Theme';
 // import Naver from "../pages/NaverLogin";
 import React from 'react';
 
 function App(props) {
   return (
-    <React.Fragment>
+    <ThemeProvider theme={Theme}>
       <Header />
       <Container className='container'>
         <Inner>
@@ -24,7 +25,7 @@ function App(props) {
         </Inner>
       </Container>
       <Footer />
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 const Container = styled.div`

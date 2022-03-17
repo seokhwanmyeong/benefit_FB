@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { MenuLayer, Inner } from '../components/index';
+import { SvgLogo } from '../icons/ico_components';
 
 const Header = (props) => {
 
     return (
         <StyleHeader>
-            <Inner>
+            <Inner _padding="1.55rem 2.4rem">
                 <Wrap>
                     <div className='logo'>
-                        <Link to={'/'} title="홈으로 가기">청바지</Link>
+                        <Link to={'/'} title="홈으로 가기">
+                            <SvgLogo/>
+                        </Link>
                     </div>
                     <MenuLayer/>
                 </Wrap>
@@ -21,14 +24,15 @@ const Header = (props) => {
 };
 
 const StyleHeader = styled.header`
-    border-bottom: 1px solid #231F20;
+    min-height: 8rem;   
+    border-bottom: 1px solid ${props => props.theme.color.b0};
 `
 const Wrap = styled.div`
     position: relative;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 8.4rem;
     @media screen and (max-width: 808px) {
         justify-content: center;
     }

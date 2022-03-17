@@ -1,71 +1,47 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Banner, Card, CateBest, SessionTitle } from "../components/index";
-import { Btn } from "../elements";
+import { actionCreators as postActions } from "../redux/modules/post"
+import { Banner, Card, CateBest, SessionTitle, CardReview } from "../components/index";
 
 import axios from 'axios';
 const Main = () => {
-  const [data, setData] = useState('')
-  const getMain = async () => {
-    const response = await axios.get('http://localhost:4000/main');
-    setData(response.data);
-    console.log(data)
-  };
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.post.main_list);
+  
   useEffect(() => {
-    getMain();
+    dispatch(postActions.setMainFB())
   }, [])
 
   return (
     <StyleMain>
       <Banner/>
-      <section>
+      <section className="main-card">
         <SessionTitle>오늘의 베스트</SessionTitle>
         <Card data={data.todayBest} type="main"/>
       </section>
       <section>
-        <SessionTitle>카테고리별 베스트</SessionTitle>
         <CateBest data={data.categoryBest}/>
       </section>
       <section>
-        <SessionTitle>나에게 꼭 필요한 정책을 찾아볼까요?</SessionTitle>
-        <MoreLink>
-          <MoreLinkBtn to='/search'>맞춤 정책 찾기</MoreLinkBtn>
-        </MoreLink>
+        <SessionTitle>후기부터 읽어보세요!</SessionTitle>
+        <CardReview data={data.review_link}/>
       </section>
     </StyleMain>
   );
 };
 const StyleMain = styled.div`
-  padding: 0 0 0 20px;
   section{
-    padding-top: 8rem;
-    .cont-tit{
-      margin: 0 0 6rem 0;
-      display: flex;
-      justify-content: center;
-      font-size: 2.4rem;
-      font-weight: 600;
+    padding: 3.2rem 2.4rem;
+    &.main-card{
+      padding: 3.2rem 0 3.2rem 2.4rem
+    }
+    :last-child{
+      padding: 5.6rem 2.4rem;
     }
   }
-`
-const MoreLink = styled.div`
-  margin: 0 0 8rem;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-`
-const MoreLinkBtn = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15.7rem;
-  height: 6.4rem;
-  background-color: #aeaec9;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #ffffff;
 `
 
 export default Main;

@@ -67,7 +67,7 @@
         "categoryBest" : [
             {
                 "postId" : "6",
-                "category" : "코로나19",
+                "category" : "주거·금융",
                 "benefit" : "돈",
                 "title" : "청년희망적금",
                 "summary" : "청년 구직자를 위한 면접정장 대여사업",
@@ -85,7 +85,7 @@
             },
             {
                 "postId" : "8",
-                "category" : "코로나19",
+                "category" : "창업지원",
                 "benefit" : "돈",
                 "title" : "청년희망적금",
                 "summary" : "청년 구직자를 위한 면접정장 대여사업",
@@ -94,7 +94,7 @@
             },
             {
                 "postId" : "9",
-                "category" : "코로나19",
+                "category" : "생활·복지",
                 "benefit" : "돈",
                 "title" : "청년희망적금",
                 "summary" : "청년 구직자를 위한 면접정장 대여사업",
@@ -103,7 +103,7 @@
             },
             {
                 "postId" : "10",
-                "category" : "코로나19",
+                "category" : "정책참여",
                 "benefit" : "돈",
                 "title" : "청년희망적금",
                 "summary" : "청년 구직자를 위한 면접정장 대여사업",
@@ -112,13 +112,21 @@
             },
             {
                 "postId" : "11",
-                "category" : "코로나19",
+                "category" : "창업지원",
                 "benefit" : "돈",
                 "title" : "청년희망적금",
                 "summary" : "청년 구직자를 위한 면접정장 대여사업",
                 "location" : "서울, 동작구",
                 "apply_period" : "2022-01-01 ~ 2022-01-02"
             }
+        ],
+        "review_link": [
+            "https://kyobolifeblog.co.kr/4632",
+            "https://investingstudy-hino87.tistory.com/959",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632"
         ]
     },
     "search": [
@@ -212,5 +220,156 @@
             "view" : "10",
             "operation": "운영 기관"
         }
-    ]
+    ],
+    "search1": [
+        {
+            "postId" : "12",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "test다",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "13",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "14",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "15",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "16",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "17",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "18",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "19",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "20",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        },
+        {
+            "postId" : "21",
+            "category" : "코로나19",
+            "benefit" : "돈",
+            "title" : "청년희망적금",
+            "apply_period" : "2022-01-01 ~ 2022-01-02",
+            "view" : "10",
+            "operation": "운영 기관"
+        }
+    ],
+    "detail" : {
+        "post": 
+        {
+            "postId" : "1",
+            "title" : "2022년 소상공인 코로나 19 극복통장",
+            "group" : "지자체",
+            "location" : "경기,전체",
+            "summary" : "코로나19 장기화로 경제적 어려움을 겪는 도내 소상공인에게 지원",
+            "category" : "코로나19",
+            "benefit_desc" : "업체당 2천만원 이내 마이너스 한도대출",
+            "benefit" : "돈",
+            "apply_period" : "2022.1.24~한도 소진시",
+            "scale" : "2,000억원",
+            "age" : "제한없음",
+            "education" : "제한없음",
+            "major": "제한없음",
+            "job_status" : "제한없음",
+            "special" : "제한없음",
+            "process": "NH농협은행(경기도내 영업점)",
+            "dday": "-",
+            "apply_site" : "https://www.yw.go.kr/",
+            "operation": "읍면사무소",
+            "do_period": "-",
+            "residence" : "· 기준일(22.1.25(화) 24:00 까지) 이전부터 신청일 현재까지 계속해서 영월군에 주민등록이 되어있는 군민\n· 내국인 1인이상 포함된 주민등록표에 가족으로 등재된 외국인\n· 영월군에 거소 등록한 결혼이민자(F6) 또는 영주권자(F5)",
+            "plus" : "-",
+            "submit" : "-",
+            "etc" : "NH농협은행 고객센터 1661-3000\n경기신용보증재단 1577-5900",
+            "maker" :"경기도청",
+            "reference_site1" : "https://www.gg.go.kr/bbs/boardView.do?bIdx=39243829&bsIdx=464&bcIdx=521&menuId=1534&isManager=true&isCharge=true&page=1",
+            "reference_site2" : "https://www.gg.go.kr/bbs/boardView.do?bIdx=39243829&bsIdx=464&bcIdx=521&menuId=1534&isManager=true&isCharge=true&page=1",
+            "zzim_status" : "false"
+        },
+
+        "comment" : 
+        {
+            "commentId" : "",
+            "content" : "",
+            "insert_time" : ""
+        },
+        
+        "review_link": [
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632",
+            "https://kyobolifeblog.co.kr/4632"
+        ]
+        
+    }
 }

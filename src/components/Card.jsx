@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -13,10 +13,14 @@ import { Center, SvgPlus } from "../icons/ico_components";
 import { NaviPrev, NaviNext, CardDeco1, CardDeco2, CardDeco3 } from "../icons/ico_url";
 
 const Card = (props) => {
+  const navigate = useNavigate();
   const prevRef = useRef(null)
   const nextRef = useRef(null)
   const { data } = props;
 
+  const linkToDetail = (postId) => {
+    navigate(`/detail/${postId}`, {state: {id: postId}})
+  }
   return (
     <CardWrap>
       <CardNavi>
@@ -36,7 +40,7 @@ const Card = (props) => {
       >
         {data?.map((cur, idx) => {
           return(
-            <SwiperSlide key={cur.postId}>
+            <SwiperSlide onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
               <MainCard>
                 <div className="card-rank">
                   <ImgRanking rank={idx + 1}/>

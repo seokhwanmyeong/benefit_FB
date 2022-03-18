@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as postActions } from "../redux/modules/post"
 import { Banner, Card, CateBest, SessionTitle, CardReview } from "../components/index";
 
-import axios from 'axios';
 const Main = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.post.main_list);
-  
+  console.log(data)
   useEffect(() => {
     dispatch(postActions.setMainFB())
   }, [])

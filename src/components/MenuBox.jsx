@@ -1,23 +1,42 @@
 import React, { useContext, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { Btn } from '../elements';
 import { SvgHome, SvgLogin, SvgSearch, SvgClose, SvgLogo } from '../icons/ico_components'
+import { actionCreators as userActions } from '../redux/modules/user';
 import { MenuController } from './MenuLayer';
 
 const MenuBox = (props) => {
+    const dispatch = useDispatch();
     const { toggleState, isOpen, MenuExit } = useContext(MenuController);
-
+    const is_login = localStorage.getItem('is_login');
+    console.log(is_login)
     //메뉴가 열리면 초점이 보내질 요소를 가리킬 ref
     const MenuEntrance = useRef();
 
     //map 메소드로 반복하여 항목 링크 생성을 위한 배열
-    const menu_list=[
-        // {name :'Home', path : '/', img: <SvgHome/>},
-        {name :'Search', path : '/search', img: <SvgSearch/>, cate: "c0"},
-        {name :'Login', path : '/', img: <SvgLogin/>, cate: ""},
-    ]
+    let menu_list = {};
+
+    if (is_login) {
+        menu_list = [
+            {name :'Home', path : '/', img: <SvgHome/>, cate: ""},
+            {name :'Search', path : '/search', img: <SvgSearch/>, cate: "c0"},
+            {name :'Mypage', path : '/mypage', img: <SvgLogin/>, cate: ""},
+            {name :'Logout', path : '/', img: <SvgLogin/>, cate: ""},
+        ]
+    } else {
+        menu_list = [
+            {name :'Home', path : '/', img: <SvgHome/>, cate: ""},
+            {name :'Search', path : '/search', img: <SvgSearch/>, cate: "c0"},
+            {name :'Login', path : '/login', img: <SvgLogin/>, cate: ""},
+        ]
+    }
+
+    const logoutHandler = () => {
+        dispatch(userActions.logoutFB());
+    }
 
     useEffect(() => {
         isOpen ? MenuEntrance.current?.focus() : MenuExit.current?.focus();
@@ -35,7 +54,11 @@ const MenuBox = (props) => {
                 <ul>
                     {menu_list.map((cur, idx) => {
                         if(idx === 0){
-                            return <li key={idx}><Link to={{pathname: cur.path, state: {cate: cur.cate}}} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
+                            return <li key={idx}><Link to={cur.path} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
+                        }else if(cur.name === 'Search'){
+                            return <li key={idx}><Link to={{pathname: cur.path, state: {cate: cur.cate, test: "test"}}}>{cur.img}{cur.name}</Link></li>
+                        }else if(cur.name === 'Logout'){
+                            return <li key={idx}><Link to={cur.path} onClick={logoutHandler}>{cur.img}{cur.name}</Link></li>
                         }
                         return <li key={idx}><Link to={cur.path} >{cur.img}{cur.name}</Link></li>
                     })}
@@ -92,9 +115,6 @@ const Nav = styled.nav`
         display: flex;
         li{
             margin-right: 1.6rem;
-            &:last-child{
-                margin-right: 0;
-            }
             a{
                 display: flex;
                 align-items: center;
@@ -103,6 +123,12 @@ const Nav = styled.nav`
                 svg{
                     margin-right: 1.6rem;
                 }
+            }
+            &:first-child{
+                display:none;
+            }
+            &:last-child{
+                margin-right: 0;
             }
         }
     }
@@ -117,6 +143,9 @@ const Nav = styled.nav`
                 align-items: center;
                 justify-content: center;
                 border-bottom: 1px solid ${props => props.theme.color.g1};
+                &:first-child{
+                    display:flex;
+                }
                 &:last-child{
                     margin-right: 0;
                 }

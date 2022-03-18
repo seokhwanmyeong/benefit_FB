@@ -1,7 +1,8 @@
 import Main from "./Main";
 import Search from "./Search";
-import Kakao from "./Kakao";
-import GoogleButton from "./GoogleLogin";
 import Detail from "./Detail";
+import Login from "./Login";
+import Mypage from "./Mypage";
+import Auth from "./Auth";
 
-export { Main, Search, Kakao, GoogleButton, Detail };
+export { Main, Search, Detail, Login, Mypage, Auth };

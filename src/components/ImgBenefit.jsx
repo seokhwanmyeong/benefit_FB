@@ -7,10 +7,15 @@ const ImgBenefit = (props) => {
     return (
         <React.Fragment>
             {{
-                "돈" : <SvgSaving/>,
-                "상담" : <SvgCounsel/>,
-                "대여" : <SvgSaving/>,
-                "기타" : <SvgSaving/>
+                "cash" : <SvgSaving/>,
+                "clothes" : <SvgSaving/>,
+                "consulting" : <SvgSaving/>,
+                "counsel" : <SvgSaving/>,
+                "edu" : <SvgSaving/>,
+                "equipment" : <SvgSaving/>,
+                "place" : <SvgSaving/>,
+                "support" : <SvgSaving/>,
+                "support,consulting" : <SvgSaving/>,
             }[benefit]}
         </React.Fragment>
     );

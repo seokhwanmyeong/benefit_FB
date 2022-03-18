@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from "react-redux";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { history } from './redux/configureStore';
 
 import './css/index.css';
 import App from './shared/App';
 import store from "./redux/configureStore";
-
-export const history = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>

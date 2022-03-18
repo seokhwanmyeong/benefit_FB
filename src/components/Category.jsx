@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { Pagination, Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,24 +9,31 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import { Btn } from "../elements";
 import { actionCreators as postActions } from "../redux/modules/post"
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Category = (props) => {
-    const { _margin, _path } = props;
     const dispatch = useDispatch();
+    const { _margin, cate } = props;
+    const list = useSelector((state) => state.post.search_list);
+    const cate_list = useSelector((state) => state.post.cate)
+    // console.log(cate_list)
 
     const key_group = [
-        {id: "c0", content: "전체", count: 100},
-        {id: "c1", content: "생활·복지", count: 100},
-        {id: "c2", content: "창업지원", count: 100},
-        {id: "c3", content: "정책참여", count: 100},
-        {id: "c4", content: "코로나19", count: 100},
-        {id: "c5", content: "주거·금융", count: 100},
-        {id: "c6", content: "창업지원", count: 100},
+        {id: "c0", content: "전체", count: list.c0.length},
+        {id: "c1", content: "주거·금융", count: list.c1.length},
+        {id: "c2", content: "코로나 19", count: list.c2.length},
+        {id: "c3", content: "창업지원", count: list.c3.length},
+        {id: "c4", content: "생활·복지", count: list.c4.length},
+        {id: "c5", content: "정책참여", count: list.c5.length},
+        {id: "c6", content: "취업지원", count: list.c6.length},
     ]
-    const changCate = (id) => {
-        dispatch(postActions.getCateListFBtest(id))
+
+    const changCate = (e, id) => {
+        dispatch(postActions.setCate(id))
     }
+
     return (
         <StyleCategory margin={_margin}>
             <Swiper
@@ -39,7 +46,17 @@ const Category = (props) => {
             >
                 {key_group.map((cur, idx) => {
                     return(
-                        <SwiperSlide key={cur.id}><div onClick={() => changCate(cur.id)} className="cate">{cur.content}<span>{cur.count}</span></div></SwiperSlide>
+                        <SwiperSlide 
+                        key={cur.id}
+                        >
+                            <Btn 
+                            _onClick={(e) => changCate(e, cur.id)} 
+                            _className={cate_list.includes(cur.id) ? 'cate active' : 'cate'}
+                            >
+                                {cur.content}
+                                <span>{cur.count}</span>
+                            </Btn>
+                        </SwiperSlide>
                     )
                 })}
             </Swiper>
@@ -77,8 +94,5 @@ const StyleCategory = styled.div`
             }
         }
     }
-`
-const CateGroupe = styled.ul`
-
 `
 export default Category;

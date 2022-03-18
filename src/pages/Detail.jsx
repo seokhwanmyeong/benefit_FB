@@ -11,7 +11,8 @@ import { Btn } from '../elements';
 import axios from 'axios';
 const Detail = (props) => {
     const dispatch = useDispatch();
-    const { postId } = useLocation();
+    const path = useLocation();
+    const postId = path.state.id;
     const data = useSelector((state) => state.post.list_detail);
     console.log(data)
     

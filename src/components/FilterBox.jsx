@@ -23,7 +23,7 @@ const FilterBox = () => {
     const [txt, setTxt] = useState("all"); 
     const [job_status, setJob] = useState("all");
     const [education, setEdu] = useState("all");
-    const [benefit, setBenefit] = useState("all");
+    const [benefit, setBenefit] = useState(["all"]);
     const [limit, setLimit] = useState("all");
     const [special_limit, setSlimit] = useState("all");
     const [apply_period, setPeriod] = useState(["all"]);
@@ -51,8 +51,8 @@ const FilterBox = () => {
                 "상시",
                 "선착순",
                 "공모중",
-                "마감일 임박 (7일 미만)",
-                "신청 예정 (7일 미만) ",
+                "마감일 임박 (14일 미만)",
+                "신청 예정 (14일 미만)",
                 "기타",
                 "마감",
             ],
@@ -68,28 +68,33 @@ const FilterBox = () => {
             ],
             overlap: false
         },
-        "category" : { 
-            name: "카테고리", 
-            content: [
-                "전체",
-                "주거 금융",
-                "코로나 19",
-                "창업지원",
-                "생활 복지",
-                "정책 참여",
-                "취업"
-            ],
-            overlap: true
-        },
+        // "category" : { 
+        //     name: "카테고리", 
+        //     content: [
+        //         "전체",
+        //         "주거 금융",
+        //         "코로나 19",
+        //         "창업지원",
+        //         "생활 복지",
+        //         "정책 참여",
+        //         "취업"
+        //     ],
+        //     overlap: true
+        // },
         "benefit" : { 
             name: "지원내용", 
             content: [
-                "돈",
-                "대여",
-                "상담",
-                "기타"
+                "전체",
+                "cash",
+                "clothes",
+                "edu",
+                "equipment",
+                "place",
+                "support",
+                "counsel",
+                "consulting",
             ],
-            overlap: false
+            overlap: true
         },
         "location" : { 
             name: "대상지역", 
@@ -117,18 +122,18 @@ const FilterBox = () => {
             overlap: true
         },
         "limit" : { 
-            name: "제한대상", 
+            name: "나이·전공제한", 
             content: [
-                "true",
-                "false"
+                "제한 O",
+                "제한 X"
             ],
             overlap: false
         },
         "special_limit" : { 
-            name: "특별제한대상", 
+            name: `기타제한대상\nex) 군인, 소득제한, etc`, 
             content: [
-                "true",
-                "false"
+                "제한 O",
+                "제한 X"
             ],
             overlap: false
         },
@@ -139,7 +144,6 @@ const FilterBox = () => {
         job_status: job_status,
         apply_period: apply_period,
         education: education,
-        category : category,
         benefit : benefit,
         location : location,
         limit : limit,
@@ -151,31 +155,33 @@ const FilterBox = () => {
             case 'apply_period': 
                 // 체크 시, 전체에 해당하는 filter_list[id].content[0]을 제와하고 spread를 통해 넣기 및 체크
                 if (e.currentTarget.checked) {
-                    setPeriod([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
+                    // setPeriod([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
+                    setPeriod(["all"]);
                     e.currentTarget.checked = true;
                 // 체크 해제할 시, 데이터 빈배열로 넣기 및 체크해제
                 } else {
-                    setPeriod([]);
+                    setPeriod(["all"]);
                     e.currentTarget.checked = false;
                 }
                 break;
-                // 위와 상동
-            case 'category': 
-                if (e.currentTarget.checked) {
-                    setCate([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
-                    e.currentTarget.checked = true;
-                } else {
-                    setCate([]);
-                    e.currentTarget.checked = false;
-                }
-                break;
-                // 위와 상동
+            // 위와 상동
             case 'location': 
                 if (e.currentTarget.checked) {
-                    setLocate([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
+                    // setLocate([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
+                    setLocate(["all"]);
                     e.currentTarget.checked = true;
                 } else {
-                    setLocate([]);
+                    setLocate(["all"]);
+                    e.currentTarget.checked = false;
+                }
+                break;
+            case 'benefit': 
+                if (e.currentTarget.checked) {
+                    // setLocate([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
+                    setLocate(["all"]);
+                    e.currentTarget.checked = true;
+                } else {
+                    setLocate(["all"]);
                     e.currentTarget.checked = false;
                 }
                 break;
@@ -190,29 +196,22 @@ const FilterBox = () => {
             case 'apply_period': 
                 // 체크 시, checkList 해당 id값 spread를 통해 넣기
                 if (e.currentTarget.checked) {
-                    setPeriod([...apply_period, e.target.value])
+                    setPeriod([...apply_period, e.target.value].filter((checkedId) => checkedId !== 'all'));
+
                     // 데이터 배열길이와 useState배열길이가 같다면(전체는 미포함) 전체 선택
                     if (apply_period.length === filter_list[id].content.length - 2) {
                         document.getElementById(`${id}`).checked = true;
+                        setPeriod(["all"])
+                    }else {
+                        document.getElementById(`${id}`).checked = false;
                     }
                 // 체크 해제할 시, filter를 사용하여 checkList 해당 id값이 `아닌` 값만 배열에 넣기
                 } else {
-                    setPeriod(apply_period.filter((checkedId) => checkedId !== e.target.value));
+                    setPeriod(apply_period.filter((checkedId) => checkedId !== e.target.value & checkedId !== 'all'));
+                    if(apply_period.length === 1){
+                        setPeriod(["all"])
+                    }
                     // 전체클릭이 되어있다면, 해제
-                    if (document.getElementById(`${id}`).checked) {
-                        document.getElementById(`${id}`).checked = false;
-                    }
-                }
-                break;
-                // 위와 상동
-            case 'category': 
-                if (e.currentTarget.checked) {
-                    setCate([...category, e.target.value])
-                    if (category.length === filter_list[id].content.length - 2) {
-                        document.getElementById(`${id}`).checked = true;
-                    }
-                } else {
-                    setCate(category.filter((checkedId) => checkedId !== e.target.value));
                     if (document.getElementById(`${id}`).checked) {
                         document.getElementById(`${id}`).checked = false;
                     }
@@ -221,12 +220,37 @@ const FilterBox = () => {
                 // 위와 상동
             case 'location': 
                 if (e.currentTarget.checked) {
-                    setLocate([...location, e.target.value])
+                    setLocate([...location, e.target.value].filter((checkedId) => checkedId !== 'all'));
                     if (location.length === filter_list[id].content.length - 2) {
                         document.getElementById(`${id}`).checked = true;
+                        setLocate(["all"])
+                    }else {
+                        document.getElementById(`${id}`).checked = false;
                     }
                 } else {
-                    setLocate(location.filter((checkedId) => checkedId !== e.target.value));
+                    setLocate(location.filter((checkedId) => checkedId !== e.target.value & checkedId !== 'all'));
+                    if(location.length === 1){
+                        setLocate(["all"])
+                    }
+                    if (document.getElementById(`${id}`).checked) {
+                        document.getElementById(`${id}`).checked = false;
+                    }
+                }
+                break;
+            case 'benefit': 
+                if (e.currentTarget.checked) {
+                    setBenefit([...benefit, e.target.value].filter((checkedId) => checkedId !== 'all'));
+                    if (benefit.length === filter_list[id].content.length - 2) {
+                        document.getElementById(`${id}`).checked = true;
+                        setBenefit(["all"])
+                    }else {
+                        document.getElementById(`${id}`).checked = false;
+                    }
+                } else {
+                    setBenefit(benefit.filter((checkedId) => checkedId !== e.target.value & checkedId !== 'all'));
+                    if(benefit.length === 1){
+                        setBenefit(["all"])
+                    }
                     if (document.getElementById(`${id}`).checked) {
                         document.getElementById(`${id}`).checked = false;
                     }
@@ -252,17 +276,17 @@ const FilterBox = () => {
                 // console.log(e.currentTarget.value);
                 select_filter[id] === id ? setEdu("") : setEdu(e.currentTarget.value)
                 break;
-            case 'benefit': 
-                // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setBenefit("") : setBenefit(e.currentTarget.value)
-                break;
+            // case 'benefit': 
+            //     // console.log(e.currentTarget.value);
+            //     select_filter[id] === id ? setBenefit("") : setBenefit(e.currentTarget.value)
+            //     break;
             case 'limit': 
                 // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setLimit("") : setLimit(e.currentTarget.value == 'false' ? 'all' : 'true')
+                select_filter[id] === id ? setLimit("all") : setLimit(e.currentTarget.value == '제한 X' ? 'false' : 'true')
                 break;
             case 'special_limit': 
                 // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setSlimit("") : setSlimit(e.currentTarget.value == 'false' ? 'all' : 'true')
+                select_filter[id] === id ? setSlimit("all") : setSlimit(e.currentTarget.value == '제한 X' ? 'false' : 'true')
                 break;
             default : 
                 // console.log(e.currentTarget.value);
@@ -290,12 +314,12 @@ const FilterBox = () => {
 
     const adaptOption = () => {
         console.log("검색시작")
-        dispatch(postActions.getFilterListFB(select_filter))
+        dispatch(postActions.getCateListFB(select_filter))
     }
 
     useEffect(() => {
         console.log(select_filter)
-    }, [txt, job_status, apply_period, education, category, benefit, location, limit, special_limit,])
+    }, [txt, job_status, apply_period, education, benefit, location, limit, special_limit,])
 
     return (
         <Filter className={isOpen ? 'active' : 'inactive'}>
@@ -352,7 +376,7 @@ const FilterBox = () => {
                                                         type="radio"  
                                                         name={cur[0]} 
                                                         value={list} 
-                                                        checked={select_filter[cur[0]] === list} 
+                                                        // checked={select_filter[cur[0]] === list} 
                                                         className='check-int'
                                                     />
                                                     <span className='check-box'></span>
@@ -432,7 +456,8 @@ const ResultGroup = styled.div`
 const GroupProperty = styled.div`
     padding: 1.6rem 1.6rem 1.2rem;
     p{
-        font: ${props => props.theme.font.option_title}
+        font: ${props => props.theme.font.option_title};
+        white-space: pre-line;
     }
 `   
 const GroupContents = styled.div`

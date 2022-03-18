@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from 'styled-components';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 // Import Swiper styles
 import "swiper/css";
@@ -14,11 +16,13 @@ import { Center } from "../icons/ico_components";
 import { NaviPrev, NaviNext } from "../icons/ico_url";
 
 const CateBest = (props) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const prevRef = useRef(null)
     const nextRef = useRef(null)
     const { data } = props;
     const [btnText, setText] = useState('')
+    
     // ["c0", "전체"],
                 // ["c1", "주거 금융"],
                 // ["c2", "코로나 19"],
@@ -26,6 +30,7 @@ const CateBest = (props) => {
                 // ["c4", "생활 복지"],
                 // ["c5", "정책 참여"],
                 // ["c6", "취업"]
+
     const catId = (id) => {
         const id_list = {
             "주거·금융" : "c1",
@@ -37,6 +42,11 @@ const CateBest = (props) => {
         }
         return(id_list[id])
     }
+
+    const linkToDetail = (postId) => {
+        navigate(`/detail/${postId}`, {state: {id: postId}})
+    }
+
     useEffect(() => {
 		if(data && data.length > 0) {
 			setText(data[0].category);
@@ -75,7 +85,7 @@ const CateBest = (props) => {
                         <SwiperSlide key={cur.postId}>
                             <CardCate>{cur.category}</CardCate>
                             <BgCate></BgCate>
-                            <Card>
+                            <Card onClick={() => linkToDetail(cur.postId)}>
                                 <div className="card-deco">BEST</div>
                                 <h4 className="card-title">{cur.title}</h4>
                                 <p className="card-contents">{cur.summary}</p>
@@ -87,7 +97,13 @@ const CateBest = (props) => {
                                     </div>
                                 </div>
                             </Card>
-                            <Btn _type='normal' _onClick={() => {navigate('/search', {state : {cate: catId(cur.category)}})}} _text={cur.category + ' 분야 정책 더보기'}/>
+                            <Btn 
+                            _type='normal' 
+                            _onClick={() => {
+                                navigate('/search')
+                                dispatch(postActions.setCate(catId(cur.category), true))
+                            }} 
+                            _text={cur.category + ' 분야 정책 더보기'}/>
                         </SwiperSlide>
                     )
                 })}
@@ -138,6 +154,8 @@ const BgCate = styled.div`
         position: absolute;
         bottom: 0;
         left: 0;
+        margin-bottom: 6rem;
+        padding-top: 9rem;
         width: 100%;
         height: 100%;
     } 

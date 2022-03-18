@@ -17,107 +17,118 @@
         }
     ],
     "main": {
-        "todayBest" : [
+        "todayBest": [
             {
-            "postId" : "1",
-            "category" : "주거·금융",
-            "benefit" : "돈",
-            "title" : "청년희망적금",
-            "summary" : "청년 구직자를 위한 면접정장 대여사업",
-            "location" : "서울, 동작구",
-            "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 1,
+              "category": "주거·금융",
+              "benefit": "cash",
+              "title": "청년희망적금",
+              "summary": "청년의 자산형성을 지원하기위해 최대 월 50만원 까지 자유롭게 납입할 수 있는 청년 전용 2년 만기 적금 상품 정책",
+              "location": "전국",
+              "apply_period": "2022-02-21 ~ 2022-12-31",
+              "view": 815
             },
             {
-            "postId" : "2",
-            "category" : "취업지원",
-            "benefit" : "돈",
-            "title" : "청년희망적금 청년희망적금 청년희망적금 청년희망적금 청년희망적금 청년희망적금",
-            "summary" : "청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업청년 구직자를 위한 면접정장 대여사업",
-            "location" : "서울, 동작구",
-            "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 13,
+              "category": "창업지원",
+              "benefit": "cash",
+              "title": "사회적기업가 육성사업",
+              "summary": "사회적 목적 실현 및 사업화 등 창업의 전 과정을 지원하고 사회적기업가 육성을 지원",
+              "location": "전국",
+              "apply_period": "2022-01-03 ~ 2022-06-24",
+              "view": 776
             },
             {
-            "postId" : "3",
-            "category" : "생활·복지",
-            "benefit" : "돈",
-            "title" : "청년희망적금",
-            "summary" : "청년 구직자를 위한 면접정장 대여사업",
-            "location" : "서울, 동작구",
-            "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 11,
+              "category": "코로나19",
+              "benefit": "cash",
+              "title": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+              "summary": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+              "location": "전국",
+              "apply_period": "2022-01-01 ~ 2022-12-31",
+              "view": 715
             },
             {
-            "postId" : "4",
-            "category" : "코로나19",
-            "benefit" : "돈",
-            "title" : "청년희망적금",
-            "summary" : "청년 구직자를 위한 면접정장 대여사업",
-            "location" : "서울, 동작구",
-            "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 55,
+              "category": "정책참여",
+              "benefit": "",
+              "title": "비정규직 노동자지원센터",
+              "summary": "임금체불, 해고 등 노동문제 상담 및 법률지원 추진, 코로나블루 심리상담 운영",
+              "location": "경기,고양시",
+              "apply_period": "2022-01-01 ~ 2022-12-31",
+              "view": 681
             },
             {
-            "postId" : "5",
-            "category" : "정책참여",
-            "benefit" : "돈",
-            "title" : "청년희망적금",
-            "summary" : "청년 구직자를 위한 면접정장 대여사업",
-            "location" : "서울, 동작구",
-            "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 37,
+              "category": "취업지원",
+              "benefit": "clothes",
+              "title": "2022년 면접정장 대여&증명사진 촬영지원 '청년 꿈이름 프로젝트'",
+              "summary": "취업을 희망하는 관내 청년들을 응원하고, 취업을 희망하는 청년들에게 청년 구직활동에 필요한 면접정장 대여와 증명사진 촬영비 지원 서비스를 원스톱으로 제공하여 경제적 부담 경감과 취업에 성공할 수 있도록 적극 지원하고자 함",
+              "location": "경기,광주시",
+              "apply_period": "2022-01-03 ~ 2022-12-23",
+              "view": 632
             }
-        ], 
-        "categoryBest" : [
+        ],
+        "categoryBest": [
             {
-                "postId" : "6",
-                "category" : "주거·금융",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 1,
+              "category": "주거·금융",
+              "benefit": "cash",
+              "title": "청년희망적금",
+              "summary": "청년의 자산형성을 지원하기위해 최대 월 50만원 까지 자유롭게 납입할 수 있는 청년 전용 2년 만기 적금 상품 정책",
+              "location": "전국",
+              "apply_period": "2022-02-21 ~ 2022-12-31",
+              "view": 815
             },
             {
-                "postId" : "7",
-                "category" : "코로나19",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 11,
+              "category": "코로나19",
+              "benefit": "cash",
+              "title": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+              "summary": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+              "location": "전국",
+              "apply_period": "2022-01-01 ~ 2022-12-31",
+              "view": 715
             },
             {
-                "postId" : "8",
-                "category" : "창업지원",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 13,
+              "category": "창업지원",
+              "benefit": "cash",
+              "title": "사회적기업가 육성사업",
+              "summary": "사회적 목적 실현 및 사업화 등 창업의 전 과정을 지원하고 사회적기업가 육성을 지원",
+              "location": "전국",
+              "apply_period": "2022-01-03 ~ 2022-06-24",
+              "view": 776
             },
             {
-                "postId" : "9",
-                "category" : "생활·복지",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 29,
+              "category": "생활·복지",
+              "benefit": "counsel",
+              "title": "직업 트라우마 센터 운영",
+              "summary": "직장생활 중 다양한 사건·사고(중대재해, 동료의 자살, 직장 내 괴롭힘, 성희롱, 성폭력, 정신적 피해 등)로 정신적 외상(직업적 트라우마)를 겪은 사람에게 무료 심리상담 제공",
+              "location": "전국",
+              "apply_period": "2022-01-01 ~ 2022-12-31",
+              "view": 576
             },
             {
-                "postId" : "10",
-                "category" : "정책참여",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 55,
+              "category": "정책참여",
+              "benefit": "",
+              "title": "비정규직 노동자지원센터",
+              "summary": "임금체불, 해고 등 노동문제 상담 및 법률지원 추진, 코로나블루 심리상담 운영",
+              "location": "경기,고양시",
+              "apply_period": "2022-01-01 ~ 2022-12-31",
+              "view": 681
             },
             {
-                "postId" : "11",
-                "category" : "창업지원",
-                "benefit" : "돈",
-                "title" : "청년희망적금",
-                "summary" : "청년 구직자를 위한 면접정장 대여사업",
-                "location" : "서울, 동작구",
-                "apply_period" : "2022-01-01 ~ 2022-01-02"
+              "postId": 37,
+              "category": "취업지원",
+              "benefit": "clothes",
+              "title": "2022년 면접정장 대여&증명사진 촬영지원 '청년 꿈이름 프로젝트'",
+              "summary": "취업을 희망하는 관내 청년들을 응원하고, 취업을 희망하는 청년들에게 청년 구직활동에 필요한 면접정장 대여와 증명사진 촬영비 지원 서비스를 원스톱으로 제공하여 경제적 부담 경감과 취업에 성공할 수 있도록 적극 지원하고자 함",
+              "location": "경기,광주시",
+              "apply_period": "2022-01-03 ~ 2022-12-23",
+              "view": 632
             }
         ],
         "review_link": [
@@ -313,7 +324,1035 @@
             "operation": "운영 기관"
         }
     ],
+    "search3": {
+        "cZip" : {
+            "c0" : [
+            {
+                "postId": 1,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년희망적금",
+                "apply_period": "2022-02-21 ~ 2022-12-31",
+                "view": 815,
+                "operation": "KB국민은행, 신한은행, 하나은행, 우리은행, NH농협은행, 기업은행, 부산은행, 대구은행, 광주은행, 전북은행, 제주은행, 2월 28일 기준 경남은행,"
+            },
+            {
+                "postId": 13,
+                "category": "창업지원",
+                "benefit": "cash",
+                "title": "사회적기업가 육성사업",
+                "apply_period": "2022-01-03 ~ 2022-06-24",
+                "view": 776,
+                "operation": "한국사회적기업진흥원"
+            },
+            {
+                "postId": 11,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 715,
+                "operation": "-"
+            },
+            {
+                "postId": 55,
+                "category": "정책참여",
+                "benefit": "",
+                "title": "비정규직 노동자지원센터",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 681,
+                "operation": "미정"
+            },
+            {
+                "postId": 37,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년 면접정장 대여&증명사진 촬영지원 '청년 꿈이름 프로젝트'",
+                "apply_period": "2022-01-03 ~ 2022-12-23",
+                "view": 632,
+                "operation": "-"
+            },
+            {
+                "postId": 14,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "희망플러스 장학금",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 615,
+                "operation": "서울장학재단"
+            },
+            {
+                "postId": 29,
+                "category": "생활·복지",
+                "benefit": "counsel",
+                "title": "직업 트라우마 센터 운영",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 576,
+                "operation": "(산업재해예방)안전보건공단"
+            },
+            {
+                "postId": 8,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "1인 자영업자 고용보험료 가입지원",
+                "apply_period": "2022-01-24 ~ 2022-12-30",
+                "view": 500,
+                "operation": "경상남도청 소상공인정책과"
+            },
+            {
+                "postId": 9,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "평창군 재난기본소득 지급",
+                "apply_period": "2022-01-19 ~ 2022-03-31",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 10,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "유연근무제 간접노무비 지원(사업장 지원)",
+                "apply_period": "2020-03-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 3,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "평택시 재난지원금",
+                "apply_period": "2022-02-17 ~ 2022-04-30",
+                "view": 500,
+                "operation": "평택시청"
+            },
+            {
+                "postId": 12,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "신진연구자 기초연구비 지원(신진연구, 생애첫연구)",
+                "apply_period": "2022-05-01 ~ 2022-05-31",
+                "view": 500,
+                "operation": "과학기술정보통신부, 한국산업기술진흥협회"
+            },
+            {
+                "postId": 2,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "중소기업탐방 프로그램",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 7,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "1인 자영업자 산재보험료 가입지원",
+                "apply_period": "2022-01-24 ~ 2022-12-30",
+                "view": 500,
+                "operation": "경상남도청 소상공인정책과"
+            },
+            {
+                "postId": 15,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "서울 우수인재 장학금",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 500,
+                "operation": "서울장학재단"
+            },
+            {
+                "postId": 16,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "중소기업취업연계장학금(희망사다리장학금 I 유형)",
+                "apply_period": "2022-03-03 ~ 2022-03-24",
+                "view": 500,
+                "operation": "한국장학재단"
+            },
+            {
+                "postId": 17,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "남양주시 입영지원금 신청",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "남양주시 시민안전관 민방위팀"
+            },
+            {
+                "postId": 18,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "여주시 입영지원금",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "여주시 시민안전과"
+            },
+            {
+                "postId": 19,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "김포청년 시험 응시료 지원",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "김포시 일자리경제과"
+            },
+            {
+                "postId": 20,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "2022년 용인시 청년일자리사업 - 용인 청년 글로벌기업 멘토링",
+                "apply_period": "2022-02-01 ~ 2022-03-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 21,
+                "category": "창업지원",
+                "benefit": "consulting",
+                "title": "전통시장 및 상점가 활성화 지원사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "소상공인시장진흥공단"
+            },
+            {
+                "postId": 22,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "WFK-KOICA NGO봉사단",
+                "apply_period": "2021-12-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "국제개발협력민간협의회"
+            },
+            {
+                "postId": 23,
+                "category": "취업지원",
+                "benefit": "edu",
+                "title": "2022년 용인시 청년일자리사업 - 용인 청년 디지털 트레이닝",
+                "apply_period": "2022-05-01 ~ 2022-06-30",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 24,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년도 '청년면접정장 무료대여사업' 운영",
+                "apply_period": "2022-01-03 ~ 2022-12-23",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 26,
+                "category": "취업지원",
+                "benefit": "support",
+                "title": "참 괜찮은 중소기업 플랫폼",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소기업중앙회"
+            },
+            {
+                "postId": 27,
+                "category": "창업지원",
+                "benefit": "consulting",
+                "title": "실전창업교육",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "대학, 공공기관 등"
+            },
+            {
+                "postId": 28,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "(건강보험) 임의계속가입제도",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "국민건강보험공단"
+            },
+            {
+                "postId": 4,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "영월군 재난 생활안정 지원금 3차",
+                "apply_period": "2022-03-14 ~ 2022-04-15",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 30,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "시흥 긴급복지지원 사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "시흥시청"
+            },
+            {
+                "postId": 5,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "횡성군 3차 재난지원금",
+                "apply_period": "2022-02-24 ~ 2022-03-31",
+                "view": 500,
+                "operation": "읍·면 행정복지센터"
+            },
+            {
+                "postId": 32,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "지역주도형 청년일자리사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 33,
+                "category": "창업지원",
+                "benefit": "support",
+                "title": "수산모태펀드 운용",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 34,
+                "category": "취업지원",
+                "benefit": "support",
+                "title": "테크노파크",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소벤처기업부 일자리정책과"
+            },
+            {
+                "postId": 35,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "중소기업 정책자금 융자계획",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소벤처기업진흥공단"
+            },
+            {
+                "postId": 36,
+                "category": "취업지원",
+                "benefit": "equipment",
+                "title": "김포청년공간 창공 유튜브 스튜디오 및 장비 이용",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 6,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 양구군 전군민 지역경제활성화자금 3차",
+                "apply_period": "2022-02-14 ~ 2022-03-25",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 38,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "청년 면접합격 응원세트",
+                "apply_period": "2022-01-01 ~ 2022-12-18",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 39,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "청년 면접정장 무료대여 서비스",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 40,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "청년구직자 면접정장 대여사업",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 41,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년 과천시 청년옷장",
+                "apply_period": "2022-01-05 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 42,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "경기청년 맞춤형 채용지원서비스 사업",
+                "apply_period": "2022-03-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 43,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "파주시 소상공인 운전자금",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "경기도 신용보증재단"
+            },
+            {
+                "postId": 44,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "광명사랑화폐 인센티브 10% 지급기간 연장",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 45,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 확산에 따른 구리사랑카드 인센티브 한도 상향 및 특별 인센티브",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 46,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 확산에 따른 군포愛머니 특별이벤트",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 47,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나 19 감염병 예방을 위한 종교시설 재난지원금",
+                "apply_period": "2021-01-14 ~ 2022-03-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 48,
+                "category": "코로나19",
+                "benefit": "support",
+                "title": "소상공인 수도요금 감면",
+                "apply_period": "2021-07-21 ~ 2022-03-31",
+                "view": 500,
+                "operation": "상수도사업본부"
+            },
+            {
+                "postId": 49,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "소상공인 3무 플러스 특별자금",
+                "apply_period": "2021-12-13 ~ 2022-06-30",
+                "view": 500,
+                "operation": "시중은행 및 부산 신용보증재단"
+            },
+            {
+                "postId": 50,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "북구 2차 재난 긴급생활지원금",
+                "apply_period": "2021-12-13 ~ 2022-03-31",
+                "view": 500,
+                "operation": "동 행정복지센터"
+            },
+            {
+                "postId": 51,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년우대형 청약통장",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주택도시보증공사 기금기획실"
+            },
+            {
+                "postId": 52,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년 월세 지원 사업",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 53,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "평택 청년 면접정장 무료 대여 서비스",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 54,
+                "category": "생활·복지",
+                "benefit": "cash",
+                "title": "익산 청년 주택임차보증금 대출이자 지원사업",
+                "apply_period": "2021-04-16 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 31,
+                "category": "주거·금융",
+                "benefit": "place",
+                "title": "사회주택 도입을 통해 신진예술가 주거공간 마련",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            }
+            ],
+    
+            "c1" :[
+            {
+                "postId": 1,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년희망적금",
+                "apply_period": "2022-02-21 ~ 2022-12-31",
+                "view": 815,
+                "operation": "KB국민은행, 신한은행, 하나은행, 우리은행, NH농협은행, 기업은행, 부산은행, 대구은행, 광주은행, 전북은행, 제주은행, 2월 28일 기준 경남은행,"
+            },
+            {
+                "postId": 14,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "희망플러스 장학금",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 615,
+                "operation": "서울장학재단"
+            },
+            {
+                "postId": 15,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "서울 우수인재 장학금",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 500,
+                "operation": "서울장학재단"
+            },
+            {
+                "postId": 16,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "중소기업취업연계장학금(희망사다리장학금 I 유형)",
+                "apply_period": "2022-03-03 ~ 2022-03-24",
+                "view": 500,
+                "operation": "한국장학재단"
+            },
+            {
+                "postId": 17,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "남양주시 입영지원금 신청",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "남양주시 시민안전관 민방위팀"
+            },
+            {
+                "postId": 18,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "여주시 입영지원금",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "여주시 시민안전과"
+            },
+            {
+                "postId": 28,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "(건강보험) 임의계속가입제도",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "국민건강보험공단"
+            },
+            {
+                "postId": 31,
+                "category": "주거·금융",
+                "benefit": "place",
+                "title": "사회주택 도입을 통해 신진예술가 주거공간 마련",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 51,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년우대형 청약통장",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주택도시보증공사 기금기획실"
+            },
+            {
+                "postId": 52,
+                "category": "주거·금융",
+                "benefit": "cash",
+                "title": "청년 월세 지원 사업",
+                "apply_period": "2022-03-01 ~ 2022-04-30",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            }
+            ],
+    
+            "c2" :[
+            {
+                "postId": 11,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "22년 금융 지원 강화를 통한 코로나 피해 관광업계 조기 회복 지원",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 715,
+                "operation": "-"
+            },
+            {
+                "postId": 3,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "평택시 재난지원금",
+                "apply_period": "2022-02-17 ~ 2022-04-30",
+                "view": 500,
+                "operation": "평택시청"
+            },
+            {
+                "postId": 4,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "영월군 재난 생활안정 지원금 3차",
+                "apply_period": "2022-03-14 ~ 2022-04-15",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 5,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "횡성군 3차 재난지원금",
+                "apply_period": "2022-02-24 ~ 2022-03-31",
+                "view": 500,
+                "operation": "읍·면 행정복지센터"
+            },
+            {
+                "postId": 6,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 양구군 전군민 지역경제활성화자금 3차",
+                "apply_period": "2022-02-14 ~ 2022-03-25",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 7,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "1인 자영업자 산재보험료 가입지원",
+                "apply_period": "2022-01-24 ~ 2022-12-30",
+                "view": 500,
+                "operation": "경상남도청 소상공인정책과"
+            },
+            {
+                "postId": 8,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "1인 자영업자 고용보험료 가입지원",
+                "apply_period": "2022-01-24 ~ 2022-12-30",
+                "view": 500,
+                "operation": "경상남도청 소상공인정책과"
+            },
+            {
+                "postId": 9,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "평창군 재난기본소득 지급",
+                "apply_period": "2022-01-19 ~ 2022-03-31",
+                "view": 500,
+                "operation": "읍면사무소"
+            },
+            {
+                "postId": 10,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "유연근무제 간접노무비 지원(사업장 지원)",
+                "apply_period": "2020-03-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 30,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "시흥 긴급복지지원 사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "시흥시청"
+            },
+            {
+                "postId": 43,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "파주시 소상공인 운전자금",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "경기도 신용보증재단"
+            },
+            {
+                "postId": 44,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "광명사랑화폐 인센티브 10% 지급기간 연장",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 45,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 확산에 따른 구리사랑카드 인센티브 한도 상향 및 특별 인센티브",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 46,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나19 확산에 따른 군포愛머니 특별이벤트",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 47,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "코로나 19 감염병 예방을 위한 종교시설 재난지원금",
+                "apply_period": "2021-01-14 ~ 2022-03-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 48,
+                "category": "코로나19",
+                "benefit": "support",
+                "title": "소상공인 수도요금 감면",
+                "apply_period": "2021-07-21 ~ 2022-03-31",
+                "view": 500,
+                "operation": "상수도사업본부"
+            },
+            {
+                "postId": 49,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "소상공인 3무 플러스 특별자금",
+                "apply_period": "2021-12-13 ~ 2022-06-30",
+                "view": 500,
+                "operation": "시중은행 및 부산 신용보증재단"
+            },
+            {
+                "postId": 50,
+                "category": "코로나19",
+                "benefit": "cash",
+                "title": "북구 2차 재난 긴급생활지원금",
+                "apply_period": "2021-12-13 ~ 2022-03-31",
+                "view": 500,
+                "operation": "동 행정복지센터"
+            }
+            ],
+    
+            "c3" :[
+            {
+                "postId": 13,
+                "category": "창업지원",
+                "benefit": "cash",
+                "title": "사회적기업가 육성사업",
+                "apply_period": "2022-01-03 ~ 2022-06-24",
+                "view": 776,
+                "operation": "한국사회적기업진흥원"
+            },
+            {
+                "postId": 21,
+                "category": "창업지원",
+                "benefit": "consulting",
+                "title": "전통시장 및 상점가 활성화 지원사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "소상공인시장진흥공단"
+            },
+            {
+                "postId": 27,
+                "category": "창업지원",
+                "benefit": "consulting",
+                "title": "실전창업교육",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "대학, 공공기관 등"
+            },
+            {
+                "postId": 33,
+                "category": "창업지원",
+                "benefit": "support",
+                "title": "수산모태펀드 운용",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            }
+            ],
+    
+            "c4" :[
+            {
+                "postId": 29,
+                "category": "생활·복지",
+                "benefit": "counsel",
+                "title": "직업 트라우마 센터 운영",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 576,
+                "operation": "(산업재해예방)안전보건공단"
+            },
+            {
+                "postId": 54,
+                "category": "생활·복지",
+                "benefit": "cash",
+                "title": "익산 청년 주택임차보증금 대출이자 지원사업",
+                "apply_period": "2021-04-16 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            }
+            ],
+    
+            "c5" :[
+            {
+                "postId": 55,
+                "category": "정책참여",
+                "benefit": "",
+                "title": "비정규직 노동자지원센터",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 681,
+                "operation": "미정"
+            }
+            ],
+    
+            "c6" :[
+            {
+                "postId": 37,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년 면접정장 대여&증명사진 촬영지원 '청년 꿈이름 프로젝트'",
+                "apply_period": "2022-01-03 ~ 2022-12-23",
+                "view": 632,
+                "operation": "-"
+            },
+            {
+                "postId": 2,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "중소기업탐방 프로그램",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 12,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "신진연구자 기초연구비 지원(신진연구, 생애첫연구)",
+                "apply_period": "2022-05-01 ~ 2022-05-31",
+                "view": 500,
+                "operation": "과학기술정보통신부, 한국산업기술진흥협회"
+            },
+            {
+                "postId": 19,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "김포청년 시험 응시료 지원",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "김포시 일자리경제과"
+            },
+            {
+                "postId": 20,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "2022년 용인시 청년일자리사업 - 용인 청년 글로벌기업 멘토링",
+                "apply_period": "2022-02-01 ~ 2022-03-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 22,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "WFK-KOICA NGO봉사단",
+                "apply_period": "2021-12-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "국제개발협력민간협의회"
+            },
+            {
+                "postId": 23,
+                "category": "취업지원",
+                "benefit": "edu",
+                "title": "2022년 용인시 청년일자리사업 - 용인 청년 디지털 트레이닝",
+                "apply_period": "2022-05-01 ~ 2022-06-30",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 24,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년도 '청년면접정장 무료대여사업' 운영",
+                "apply_period": "2022-01-03 ~ 2022-12-23",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 26,
+                "category": "취업지원",
+                "benefit": "support",
+                "title": "참 괜찮은 중소기업 플랫폼",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소기업중앙회"
+            },
+            {
+                "postId": 32,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "지역주도형 청년일자리사업",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            },
+            {
+                "postId": 34,
+                "category": "취업지원",
+                "benefit": "support",
+                "title": "테크노파크",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소벤처기업부 일자리정책과"
+            },
+            {
+                "postId": 35,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "중소기업 정책자금 융자계획",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "중소벤처기업진흥공단"
+            },
+            {
+                "postId": 36,
+                "category": "취업지원",
+                "benefit": "equipment",
+                "title": "김포청년공간 창공 유튜브 스튜디오 및 장비 이용",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 38,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "청년 면접합격 응원세트",
+                "apply_period": "2022-01-01 ~ 2022-12-18",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 39,
+                "category": "취업지원",
+                "benefit": "cash",
+                "title": "청년 면접정장 무료대여 서비스",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 40,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "청년구직자 면접정장 대여사업",
+                "apply_period": "2022-01-03 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 41,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "2022년 과천시 청년옷장",
+                "apply_period": "2022-01-05 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 42,
+                "category": "취업지원",
+                "benefit": "consulting",
+                "title": "경기청년 맞춤형 채용지원서비스 사업",
+                "apply_period": "2022-03-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "-"
+            },
+            {
+                "postId": 53,
+                "category": "취업지원",
+                "benefit": "clothes",
+                "title": "평택 청년 면접정장 무료 대여 서비스",
+                "apply_period": "2022-01-01 ~ 2022-12-31",
+                "view": 500,
+                "operation": "주관기관과 동일"
+            }
+            ]
+        }
+    },
     "detail" : {
+        "post": {
+            "postId": 5,
+            "title": "횡성군 3차 재난지원금",
+            "group": "지자체",
+            "location": "강원,횡성군",
+            "summary": "코로나 19의 재확산으로 어려움을 겪고 있는 군민의 생활안정과 침체된 지역경기 활성화를 위하여 전 군민을 대상으로 지원금 지급",
+            "category": "코로나19",
+            "benefit_desc": "선불카드 지급(1인당 20만원)",
+            "benefit": "cash",
+            "apply_period": "마을로 찾아가는 서비스 : 22.2.21(월)~22.2.23(수) / 각 읍·면 행정복지센터 방문 신청 : 22.2.24(목)~22.3.31(목)",
+            "scale": "-",
+            "age": "제한없음",
+            "education": "제한없음",
+            "major": "제한없음",
+            "job_status": "제한없음",
+            "special": "제한없음",
+            "process": "각 읍·면 행정복지센터 방문 신청",
+            "dday": "-",
+            "apply_site": "-",
+            "operation": "읍·면 행정복지센터",
+            "do_period": "-",
+            "residence": "21.12.31 이전부터 신청일까지 횡성군에 주민등록이 되어 있는 자",
+            "plus": "-",
+            "submit": "-",
+            "etc": "사용기한 : 22.8.31까지 / 사용처 : 횡성군에서만 사용 가능(온라인결제, 유흥, 사행성 업종 등 사용제한)",
+            "maker": "횡성군청",
+            "reference_site1": "https://www.hsg.go.kr/00002311/00003165.web",
+            "reference_site2": "-",
+            "view": 500
+        }
+    },
+    "detail2" : {
         "post": 
         {
             "postId" : "1",

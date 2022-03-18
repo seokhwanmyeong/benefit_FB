@@ -1,31 +1,53 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { ImgBenefit } from './index';
 import { SvgView, SvgClose, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
 import { Btn } from '../elements';
+import { actionCreators as postActions } from "../redux/modules/post"
 
 const CardSearch = (props) => {
-    const dispatch = useDispatch;
+    const { option } = props;
+    const list = useSelector((state) => state.post.search_list);
+    const cate_list = useSelector((state) => state.post.cate);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { data } = props;
-    console.log(data)
-    //버튼을 클릭했을 때 state를 변경하는 토글
-    const checkLike = (e) => { 
-        if(e.currentTarget.classList.contains("on")){
-            e.currentTarget.classList.remove("on")
-        }else {
-            e.currentTarget.classList.add("on")
-        }
-    }
+    const [data, setData] = useState([])
+
+    // const checkLike = (e) => { 
+    //     if(e.currentTarget.classList.contains("on")){
+    //         e.currentTarget.classList.remove("on")
+    //     }else {
+    //         e.currentTarget.classList.add("on")
+    //     }
+    // }
+
     const linkToDetail = (postId) => {
-        navigate(`/detail/${postId}`, { postId: postId })
+        navigate(`/detail/${postId}`, {state: {id: postId}})
     }
+
+    useEffect(() => {
+        dispatch(postActions.getCateListFB(option))
+    }, [])
+
+    let list_data = [];
+
+    useEffect(() => {
+        let middle = []
+        const arr = cate_list.map((cur, idx) => {
+            for(let y = 0; y < list[cur].length; y++){
+                middle.push(list[cur][y])
+            }
+            return middle;
+        })
+        setData(middle);
+    }, [list, cate_list])
+
     return (
         <SearchGroup>
-            {data?.map(cur => {
+            {data.map(cur => {
                 return(
                     <SearchList onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
                         <div className="card-head">
@@ -43,9 +65,9 @@ const CardSearch = (props) => {
                                     <SvgView/>
                                     <span>{cur.view}</span>
                                 </div>
-                                <Btn _onClick={checkLike} _className={cur.check ? "on" : ""}>
+                                {/* <Btn _onClick={checkLike} _className={cur.check ? "on" : ""}>
                                     {cur.check ? <SvgLikeOn/> : <SvgLikeOff/>}
-                                </Btn>
+                                </Btn> */}
                             </div>
                         </div>
                     </SearchList>
@@ -56,6 +78,7 @@ const CardSearch = (props) => {
 };
 const SearchGroup = styled.ul`
     flex-grow: 1;
+    width: 30%;
     li + li{
         margin: 2rem 0 0 0;
     }

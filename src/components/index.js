@@ -10,13 +10,18 @@ import FilterBox from "./FilterBox";
 import CateBest from "./CateBest";
 import Category from "./Category";
 import CardSearch from "./CardSearch";
-import BenefitImg from "./ImgBenefit"
-import SessionTitle from "./SessionTitle"
-import CardReview from "./CardReview"
-import ModalPop from "./ModalPop"
-import DetailContent from "./DetailContent"
-import ImgBenefit from "./ImgBenefit"
-import ImgRanking from "./ImgRanking"
+import BenefitImg from "./ImgBenefit";
+import SessionTitle from "./SessionTitle";
+import CardReview from "./CardReview";
+import ModalPop from "./ModalPop";
+import DetailContent from "./DetailContent";
+import ImgBenefit from "./ImgBenefit";
+import ImgRanking from "./ImgRanking";
+import Kakao from "./KakaoLogin";
+import Google from "./GoogleLogin";
+import Naver from "./NaverLogin";
+import Myreview from "./Myreview";
+import Myzzim from "./Myzzim";
 
 export { 
     Header, 
@@ -37,6 +42,11 @@ export {
     ModalPop,
     DetailContent,
     ImgBenefit,
-    ImgRanking
+    ImgRanking,
+    Kakao,
+    Google,
+    Naver,
+    Myreview,
+    Myzzim
 }
  

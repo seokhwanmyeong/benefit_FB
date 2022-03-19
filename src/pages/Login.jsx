@@ -19,7 +19,7 @@ const Login = () => {
 };
 
 const Container = styled.div`
-  height: 100vh;
+  height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;

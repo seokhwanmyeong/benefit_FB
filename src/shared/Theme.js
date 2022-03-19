@@ -18,6 +18,7 @@ const Theme = {
         body : 'normal 400 1.4rem/1.45 Work sans, sans-serif',
         small_number : 'normal 400 1.2rem/1.45 Noto sans, sans-serif',
         option_title : 'normal 600 1.6rem/1.3 Noto sans, sans-serif',
+        option_selected: 'normal 400 1.2rem/1.3 Noto sans, sans-serif',
         btn_medium : 'normal 400 1.8rem/1.3 Noto sans, sans-serif',
     },
     /* p = primary, s = secondary, o = other, b = black, g = gray, w = white, w1 = warning */
@@ -38,7 +39,8 @@ const Theme = {
         w: '#ffffff',
         w1: '#D14F33',
         naver: '#03D55D',
-        kakao: '#FAE100',
+        kakao: '#FEE500',
+        // kakao: '#FAE100',
         filter_pc_color: 'rgba(170, 196, 228, 1)',
     },
     radius : {

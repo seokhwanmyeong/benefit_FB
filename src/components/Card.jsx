@@ -14,13 +14,14 @@ import { NaviPrev, NaviNext, CardDeco1, CardDeco2, CardDeco3 } from "../icons/ic
 
 const Card = (props) => {
   const navigate = useNavigate();
-  const prevRef = useRef(null)
-  const nextRef = useRef(null)
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
   const { data } = props;
 
   const linkToDetail = (postId) => {
     navigate(`/detail/${postId}`, {state: {id: postId}})
   }
+  
   return (
     <CardWrap>
       <CardNavi>
@@ -94,6 +95,7 @@ const MainCard = styled.div`
   height: 33.6rem;
   border-radius: ${props => props.theme.radius.card};
   background-color: ${props => props.theme.color.g3};
+  cursor: pointer;
   &:before{
     content: "";
     position: absolute;

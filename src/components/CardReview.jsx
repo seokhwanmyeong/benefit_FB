@@ -1,36 +1,35 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Grid } from "swiper";
 import { LinkPreview } from '@dhaiwat10/react-link-preview';
 
 import { NaviPrev, NaviNext } from "../icons/ico_url"
 
 // Import Swiper styles
 import "swiper/css";
+import "swiper/css/grid";
 import "swiper/css/pagination";
 
 const CardReview = (props) => {
-    const { data } = props;
+    const { data, _line, _view, _type } = props;
     console.log(data)
     return (
-      <ReviewWrap>
+      <ReviewWrap type={_type}>
         <Swiper
           spaceBetween={16}
-          // onInit={(swiper) => {
-          // swiper.params.navigation.prevEl = prevRef.current;
-          // swiper.params.navigation.nextEl = nextRef.current;
-          // swiper.navigation.init();
-          // swiper.navigation.update();
-          // }}
-          // modules={[Navigation]}
+          modules={[Grid]}
+          grid={{
+            rows: _line ? _line : 1,
+          }}
           breakpoints={{
             0 : {
               slidesPerView: 2,
               slidesPerGroup: 2
             },
             808 : {
-              slidesPerView: 4,
-              slidesPerGroup: 4,
+              slidesPerView: _view ? _view : 4,
+              slidesPerGroup: _view? _view * 2 : 4,
               spaceBetween: 16
             }
           }}
@@ -54,6 +53,16 @@ const CardReview = (props) => {
 };
 const ReviewWrap = styled.div`
   display: flex;
+  ${props => props.type === 'grid' ? css`
+    .swiper-wrapper{
+      height: auto;
+      flex-direction: row;
+      .swiper-slide{
+        margin-top: 0px!important;
+        margin-bottom: 2rem;
+      }
+    }
+  ` : ''}
 `
 const Preview = styled(LinkPreview)`
   .LowerContainer{

@@ -1,16 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import { IntSeacrh } from '../icons/ico_url'
 
 const Input = (props) => {
-    const { _onChange, _type, _placeholder, _value, _img, _width, } = props;
-    const navigate = useNavigate();
-    const ref = useRef();
-
+    const { _onChange, _onKeyPress, _type, _placeholder, _value, _img, _width, _ref } = props;
+    const ref = useRef(_ref ? _ref : "");
+    
     const inputHandler = (e) => {
         e.target.value !== '' ? ref.current.classList.add('active') : ref.current.classList.remove('active');
+        _onChange(e);
     }
 
     if(_type === 'text'){
@@ -27,9 +26,10 @@ const Input = (props) => {
                     placeholder={_placeholder} 
                     value={_value}
                     width={_width} 
-                    onChange={_onChange}
+                    onChange={inputHandler}
+                    onKeyPress={_onKeyPress}
                 />
-                <div className='Int-deco-img' onClick={() => {navigate({pathname: '/search', state: {txt: ""}})}}></div>
+                <div className='Int-deco-img'></div>
                 <div className='Int-deco-focus'>Enter</div>
             </StyleInt>
         );
@@ -114,6 +114,21 @@ const StyleInt = styled.div`
             }
             .Int-deco-focus{
                 display: inline-block;
+            }
+        }
+        @media screen and (max-width: 808px) {
+            input{
+                padding-right: 1.8rem;
+                ::placeholder,
+                ::-webkit-input-placeholder{
+                    padding-left: 2.8rem;
+                }
+                :-ms-input-placeholder {
+                    padding-left: 2.8rem;
+                }
+                :focus{
+                    padding-right: 3.6rem;
+                }
             }
         }
     `

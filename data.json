@@ -1,21 +1,4 @@
 {
-    "posts": [
-        {
-            "id": 1,
-            "title": "리덕스 미들웨어를 배워봅시다",
-            "body": "리덕스 미들웨어를 직접 만들어보면 이해하기 쉽죠."
-        },
-        {
-            "id": 2,
-            "title": "redux-thunk를 사용해봅시다",
-            "body": "redux-thunk를 사용해서 비동기 작업을 처리해봅시다!"
-        },
-        {
-            "id": 3,
-            "title": "redux-saga도 사용해봅시다",
-            "body": "나중엔 redux-saga를 사용해서 비동기 작업을 처리하는 방법도 배워볼 거예요."
-        }
-    ],
     "main": {
         "todayBest": [
             {
@@ -144,7 +127,7 @@
         {
             "postId" : "12",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "cash",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -153,7 +136,7 @@
         {
             "postId" : "13",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "clothes",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -162,7 +145,7 @@
         {
             "postId" : "14",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "consulting",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -171,7 +154,7 @@
         {
             "postId" : "15",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "counsel",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -180,7 +163,7 @@
         {
             "postId" : "16",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "edu",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -189,7 +172,7 @@
         {
             "postId" : "17",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "equipment",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -198,7 +181,7 @@
         {
             "postId" : "18",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "place",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -207,7 +190,7 @@
         {
             "postId" : "19",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "support",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",
@@ -216,7 +199,7 @@
         {
             "postId" : "20",
             "category" : "코로나19",
-            "benefit" : "돈",
+            "benefit" : "support,consulting",
             "title" : "청년희망적금",
             "apply_period" : "2022-01-01 ~ 2022-01-02",
             "view" : "10",

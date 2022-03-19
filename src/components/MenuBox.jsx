@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -12,13 +12,14 @@ const MenuBox = (props) => {
     const dispatch = useDispatch();
     const { toggleState, isOpen, MenuExit } = useContext(MenuController);
     const is_login = localStorage.getItem('is_login');
-    console.log(is_login)
+
     //메뉴가 열리면 초점이 보내질 요소를 가리킬 ref
     const MenuEntrance = useRef();
 
     //map 메소드로 반복하여 항목 링크 생성을 위한 배열
     let menu_list = {};
 
+    //로그인 조건부렌더링을 위한 객체
     if (is_login) {
         menu_list = [
             {name :'Home', path : '/', img: <SvgHome/>, cate: ""},
@@ -34,10 +35,13 @@ const MenuBox = (props) => {
         ]
     }
 
+    //로그아웃
     const logoutHandler = () => {
         dispatch(userActions.logoutFB());
+        toggleState();
     }
 
+    // tap 이동관련
     useEffect(() => {
         isOpen ? MenuEntrance.current?.focus() : MenuExit.current?.focus();
     }, [isOpen, MenuEntrance, MenuExit])
@@ -54,13 +58,13 @@ const MenuBox = (props) => {
                 <ul>
                     {menu_list.map((cur, idx) => {
                         if(idx === 0){
-                            return <li key={idx}><Link to={cur.path} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
+                            return <li key={idx}><Link to={cur.path} onClick={toggleState} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
                         }else if(cur.name === 'Search'){
-                            return <li key={idx}><Link to={{pathname: cur.path, state: {cate: cur.cate, test: "test"}}}>{cur.img}{cur.name}</Link></li>
+                            return <li key={idx}><Link to={{pathname: cur.path}} onClick={toggleState}>{cur.img}{cur.name}</Link></li>
                         }else if(cur.name === 'Logout'){
                             return <li key={idx}><Link to={cur.path} onClick={logoutHandler}>{cur.img}{cur.name}</Link></li>
                         }
-                        return <li key={idx}><Link to={cur.path} >{cur.img}{cur.name}</Link></li>
+                        return <li key={idx}><Link to={cur.path} onClick={toggleState} >{cur.img}{cur.name}</Link></li>
                     })}
                 </ul>
             </Nav>
@@ -109,12 +113,11 @@ const Menu = styled.div`
 const Logo = styled(SvgLogo)`
     width: 10rem;
 `
-
 const Nav = styled.nav`
     ul{
         display: flex;
         li{
-            margin-right: 1.6rem;
+            margin-right: 4.8rem;
             a{
                 display: flex;
                 align-items: center;

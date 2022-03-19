@@ -19,6 +19,8 @@ import { ReactComponent as SvgRank4 } from "./img_rank_4nd.svg";
 import { ReactComponent as SvgRank5 } from "./img_rank_5nd.svg";
 import { ReactComponent as SvgLogo } from "./img_logo.svg";
 import { ReactComponent as SvgPlus } from "./ico_plus.svg";
+import { ReactComponent as SvgReset } from "./ico_reset.svg";
+import { ReactComponent as SvgGotop} from "./ico_gototop.svg";
 
 export { 
     Center, 
@@ -41,5 +43,7 @@ export {
     SvgRank4,
     SvgRank5,
     SvgLogo,
-    SvgPlus
+    SvgPlus,
+    SvgReset,
+    SvgGotop
 }

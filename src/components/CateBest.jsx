@@ -157,7 +157,7 @@ const BgCate = styled.div`
         margin-bottom: 6rem;
         padding-top: 9rem;
         width: 100%;
-        height: 100%;
+        height: 22rem;
     } 
 `
 const Card = styled.div`
@@ -166,6 +166,7 @@ const Card = styled.div`
     padding: 3.2rem 3rem; 
     width: 42.2rem;
     border: 1px solid ${props => props.theme.color.g2};
+    cursor: pointer;
     .card-deco {
         margin: 0 0 2.4rem;
         font-size: 2.8rem;

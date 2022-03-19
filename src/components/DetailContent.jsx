@@ -10,9 +10,17 @@ import "swiper/css/pagination";
 import { NaviPrev, NaviNext } from "../icons/ico_url";
 
 const DetailContent = (props) => {
-    const prevRef = useRef(null)
-    const nextRef = useRef(null)
-    const { data } = props;
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
+    const paginationRef = useRef(null)
+    const { data, _className } = props;
+
+    const pagination = {
+        clickable: true,
+        renderBullet: function (index, className) {
+          return '<span class="' + className + '">' + "</span>";
+        },
+    };
 
     const sortDB = [
         {
@@ -50,20 +58,28 @@ const DetailContent = (props) => {
     ]
     console.log(Object.entries(sortDB))
     return (
-        <Content>
-            <div>
+        <Content className={_className}>
+            <CardNavi>
                 <div className="navi navi--prev" ref={prevRef}></div>
                 <div className="navi navi--next" ref={nextRef}></div>
-            </div>
+            </CardNavi>
             <StyleSwiper
                 slidesPerView={"auto"}
+                modules={[Navigation, Pagination]}
+                pagination={{ el: paginationRef.current, clickable: true }}
+                paginationbulletrender= {{
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                        return '<span class="' + className + '">' + "</span>";
+                    },
+                }}
                 onInit={(swiper) => {
                     swiper.params.navigation.prevEl = prevRef.current;
-                    swiper.params.navigation.nextEl = nextRef.current;
+                    swiper.params.navigation.nextEl = nextRef.current
+                    swiper.params.navigation.el = paginationRef.current;
                     swiper.navigation.init();
                     swiper.navigation.update();
                 }}
-                modules={[Navigation, Pagination]}
                 spaceBetween={16}
             >
                 {sortDB.map((cur, idx) => {
@@ -87,10 +103,16 @@ const DetailContent = (props) => {
                     )
                 })}
             </StyleSwiper>
+            <CardPagenation ref={paginationRef} className="test"></CardPagenation>
         </Content>
     );
 };
 const Content = styled.div`
+    position: relative;
+    display: none;
+    &.active{
+        display: block;
+    }
 `
 const StyleSwiper = styled(Swiper)`
     .swiper-wrapper{
@@ -130,4 +152,51 @@ const DetailCard = styled.div`
     @media screen and (max-width: 808px) {
     }
 `
+const CardNavi = styled.div`
+  z-index: 11;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  .navi{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3.2rem;
+    height: 3.2rem;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    cursor: pointer;
+    &.navi--prev{
+      left: -1.6rem;
+      background: ${props => props.theme.color.w} url('${NaviPrev}') no-repeat center center;
+    }
+    &.navi--next{
+      right: -1.6rem;
+      background: ${props => props.theme.color.w} url('${NaviNext}') no-repeat center center;
+    }
+    &.swiper-button-disabled{
+      display: none;
+    }
+  }
+  @media screen and (max-width: 808px) {
+    display: none;
+  } 
+`;
+const CardPagenation = styled.div`
+    margin: 2rem 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .swiper-pagination-bullet{
+        margin: 0 3px;
+        &-active{
+            border-radius: 8px;
+            width: 32px;
+            background-color: ${props => props.theme.color.b0};
+        }
+    }
+`;
+
 export default DetailContent;

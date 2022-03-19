@@ -22,6 +22,9 @@ import Google from "./GoogleLogin";
 import Naver from "./NaverLogin";
 import Myreview from "./Myreview";
 import Myzzim from "./Myzzim";
+import DetailSideMenu from "./DetailSideMenu";
+import DetailTap from "./DetailTap";
+import CardComment from "./CardComment";
 
 export { 
     Header, 
@@ -47,6 +50,9 @@ export {
     Google,
     Naver,
     Myreview,
-    Myzzim
+    Myzzim,
+    DetailSideMenu,
+    DetailTap,
+    CardComment
 }
  

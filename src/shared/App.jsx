@@ -17,11 +17,12 @@ function App(props) {
   // const is_loaded = useSelector((state) => state.movie.is_loading);
 
   React.useEffect(() => {
-    // if (!token) {
-    //   dispatch(userActions.logoutFB());
-    //   return;
-    // }
-    // dispatch(userActions.loginCheckFB());
+    if (!token) {
+      dispatch(userActions.logoutFB());
+      return;
+    }else {
+      dispatch(userActions.loginCheckFB());
+    } 
   }, []);
 
   return (

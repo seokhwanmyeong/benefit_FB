@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux"
 import { FilterController } from './Filter';
 
 import { Btn, Input } from '../elements';
-import { SvgClose } from '../icons/ico_components'
+import { SvgClose, SvgReset } from '../icons/ico_components'
 import { CheckTrue, CheckFalse } from "../icons/ico_url"
 import { actionCreators as postActions } from "../redux/modules/post"
 
 const FilterBox = () => {
     const dispatch = useDispatch();
+    const inputRef = useRef();
     const { toggleState, isOpen, FilterExit } = useContext(FilterController);
 
     //메뉴가 열리면 초점이 보내질 요소를 가리킬 ref
@@ -27,7 +28,7 @@ const FilterBox = () => {
     const [limit, setLimit] = useState("all");
     const [special_limit, setSlimit] = useState("all");
     const [apply_period, setPeriod] = useState(["all"]);
-    const [category, setCate] = useState(["all"]);
+    // const [category, setCate] = useState(["all"]);
     const [location, setLocate] = useState(["all"]);
 
     const filter_list = {
@@ -177,11 +178,10 @@ const FilterBox = () => {
                 break;
             case 'benefit': 
                 if (e.currentTarget.checked) {
-                    // setLocate([...filter_list[id].content].filter((checkedId) => checkedId !== filter_list[id].content[0]))
-                    setLocate(["all"]);
+                    setBenefit(["all"]);
                     e.currentTarget.checked = true;
                 } else {
-                    setLocate(["all"]);
+                    setBenefit(["all"]);
                     e.currentTarget.checked = false;
                 }
                 break;
@@ -274,12 +274,8 @@ const FilterBox = () => {
                 break;
             case 'education': 
                 // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setEdu("") : setEdu(e.currentTarget.value)
+                select_filter[id] === id ? setEdu("all") : setEdu(e.currentTarget.value)
                 break;
-            // case 'benefit': 
-            //     // console.log(e.currentTarget.value);
-            //     select_filter[id] === id ? setBenefit("") : setBenefit(e.currentTarget.value)
-            //     break;
             case 'limit': 
                 // console.log(e.currentTarget.value);
                 select_filter[id] === id ? setLimit("all") : setLimit(e.currentTarget.value == '제한 X' ? 'false' : 'true')
@@ -295,14 +291,17 @@ const FilterBox = () => {
     };
 
     const reset = () => {
+        setTxt("all")
         setJob("all");
         setEdu("all");
-        setBenefit("all");
         setLimit("all");
         setSlimit("all");
         setPeriod(["all"]);
-        setCate(["all"]);
+        setBenefit(["all"]);
         setLocate(["all"]);
+        // setCate(["all"]);
+        inputRef.current.value = "";
+
         document.getElementById(`apply_period`).checked = false;
         document.getElementById(`category`).checked = false;
         document.getElementById(`location`).checked = false;
@@ -314,7 +313,9 @@ const FilterBox = () => {
 
     const adaptOption = () => {
         console.log("검색시작")
-        dispatch(postActions.getCateListFB(select_filter))
+        dispatch(postActions.setCate('c0'));
+        dispatch(postActions.getCateListFB(select_filter));
+        toggleState();
     }
 
     useEffect(() => {
@@ -324,18 +325,22 @@ const FilterBox = () => {
     return (
         <Filter className={isOpen ? 'active' : 'inactive'}>
             <div className='filter-head'>
+                <h4>세부검색</h4>
                 <Btn _className="btn-close" _ariaLabel="필터 메뉴 닫기" _onClick={toggleState}>
                     <SvgClose/>
                 </Btn>
             </div>
+            <FilterDeco>세부검색</FilterDeco>
             <FilterWrap>
                 <ResultGroup>
-                    <GroupProperty>
-                        <Input _onChange={onInput} _type='text' _placeholder='ex) 학자금 대출' />
+                    <GroupProperty className='int-search'>
+                        <h5>검색어</h5>
+                        <Input _ref={inputRef} _onChange={onInput} _type='text' _placeholder='ex) 학자금 대출' />
                     </GroupProperty>
-                    <GroupProperty>
-                        <Btn _onClick={reset}>초기화</Btn>
-                        <Btn _onClick={adaptOption} _text='검색'/>
+                    <hr/>
+                    <GroupProperty className='btn-group'>
+                        <Btn _type="normal" _onClick={reset} _className="btn-reset" _width="4.8rem" _bg={'#E5E5E5'}><SvgReset/></Btn>
+                        <Btn _type="normal" _onClick={adaptOption} _text='검색하기'/>
                     </GroupProperty>
                 </ResultGroup>
                 {Object.entries(filter_list).map((cur) => {
@@ -376,7 +381,7 @@ const FilterBox = () => {
                                                         type="radio"  
                                                         name={cur[0]} 
                                                         value={list} 
-                                                        // checked={select_filter[cur[0]] === list} 
+                                                        checked={select_filter[cur[0]] === list} 
                                                         className='check-int'
                                                     />
                                                     <span className='check-box'></span>
@@ -394,6 +399,7 @@ const FilterBox = () => {
     );
 };        
 const Filter = styled.div`
+    position: relative;
     margin-left: 1.6rem;
     width: 27rem;
     height: 80vh;
@@ -401,70 +407,143 @@ const Filter = styled.div`
     display: flex;
     flex-direction: column;
     z-index: 10;
-    background-color: #ffffff;
-    overflow-y: scroll;
-    border: 1px solid ${props => props.theme.color.filter_pc_color};
-    border-radius: 0 1.2rem 1.2rem;
     .filter-head{
         display:none;
     }
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: #2f3542;
-        border-radius: 10px;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: grey;
-        border-radius: 10px;
-    }
     @media screen and (max-width: 808px) {
         z-index: 10;
-        position: absolute;
+        position: fixed;
         right: 0;
         top: 0;
         display: none;
         flex-direction: column;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background-color: #ffffff;
         &.active {
             display: flex;
         }
-        &::-webkit-scrollbar {
-            width: 5px;
-        }
-        &::-webkit-scrollbar-thumb {
-            background-color: #2f3542;
-            border-radius: 10px;
-        }
-        &::-webkit-scrollbar-track {
-            background-color: grey;
-            border-radius: 10px;
-        }
         .filter-head{
-            display: block;
+            padding: 2rem 1.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #000000;
+            h4{
+                font: ${props => props.theme.font.option_title};
+                font-size: 2rem;
+                color: ${props => props.theme.color.b0};
+            }
         }
     }
 `
 const FilterWrap = styled.div`
+    width: 27rem;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    background-color: #ffffff;
+    overflow-y: scroll;
+    border: 1px solid ${props => props.theme.color.g3};
+    border-top: 0;
+    border-radius: 0 0.4rem 0.4rem;
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: ${props => props.theme.color.filter_pc_color};
+        border-radius: 0 10px 0 0;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: ${props => props.theme.color.g3};
+        border-radius: 0 10px 0 0;
+    }
+    @media screen and (max-width: 808px) {
+        z-index: 10;
+        position: absolute;
+        right: 0;
+        top: 7.8rem;
+        padding: 0 1.6rem 20rem;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+    }
 `
 const ResultGroup = styled.div`
     background-color: ${props => props.theme.color.filter_pc_color};
+    hr{
+        margin: 0 auto;
+        width: 83%;
+        border-bottom: 1px solid ${props => props.theme.color.g3};
+    }
+    @media screen and (max-width: 808px) {
+        background-color: ${props => props.theme.color.w};
+        hr{
+            width: 100%;
+            border-bottom: 1px solid ${props => props.theme.color.g1};
+        }
+    }
 `
 const GroupProperty = styled.div`
     padding: 1.6rem 1.6rem 1.2rem;
     p{
         font: ${props => props.theme.font.option_title};
+        color: ${props => props.theme.color.b0};
         white-space: pre-line;
+    }
+    &.int-search{
+        h5{
+            margin: 0 0 2.4rem;
+            font: ${props => props.theme.font.option_title};
+            color: ${props => props.theme.color.b0};
+        }
+    }
+    &.btn-group{
+        display: flex;
+        .btn-reset{
+            flex-shrink: 0;
+            margin-right: 0.8rem;
+        }
+    }
+    @media screen and (max-width: 808px) {
+        padding: 1.6rem 1.6rem 1.2rem;
+        &.int-search{
+            padding: 2.4rem 1.6rem;
+            display: flex;
+            align-items: center;
+            h5{
+                margin: 0 1rem;
+                flex-shrink: 0;
+            }
+        }
+        &.btn-group{
+            z-index: 11;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: ${props => props.theme.color.w};
+            border-top: 1px solid ${props => props.theme.color.p2};
+            border-radius: 2.4rem 2.4rem 0 0;
+            .btn-reset{
+                width: 14rem;
+                &:after{
+                    content: "초기화";
+                    color: ${props => props.theme.color.b0}
+                }
+            }
+        }
     }
 `   
 const GroupContents = styled.div`
     padding: 3.2rem 2rem;
     display: flex;
     flex-wrap: wrap;
-    background-color: #eeeeee;
+    background-color: ${props => props.theme.color.g3};
     label{
         margin: 1.6rem 0 0;
         display: block;
@@ -489,9 +568,32 @@ const GroupContents = styled.div`
             }
         }
         .check-cont{
-            margin: 0 0 0 1.6rem;
-            line-height: 1;
+            margin: 0 0 0 0.8rem;
+            font: ${props => props.theme.font.option_selected};
         }
+    }
+    @media screen and (max-width: 808px) {
+        border-bottom: 1px solid ${props => props.theme.color.g1};
+        label{
+            min-width: 33.33%
+        }
+    }
+`
+const FilterDeco = styled.div`
+    position: absolute;
+    top: -4rem;
+    left: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8.4rem;
+    height: 4rem;
+    border-radius: 12px 12px 0px 0px;
+    background-color: ${props => props.theme.color.filter_pc_color};
+    font: ${props => props.theme.font.p};
+    color: ${props => props.theme.color.p1};
+    @media screen and (max-width: 808px) {
+        display: none;
     }
 `
 

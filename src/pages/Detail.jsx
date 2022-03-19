@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { actionCreators as postActions } from "../redux/modules/post"
-import { BenefitImg, DetailContent, CardReview } from '../components/index';
+import { BenefitImg, DetailContent, CardReview, DetailSideMenu, DetailTap } from '../components/index';
 import { SvgView, SvgClose, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
 import { Btn } from '../elements';
 
@@ -14,7 +14,10 @@ const Detail = (props) => {
     const path = useLocation();
     const postId = path.state.id;
     const data = useSelector((state) => state.post.list_detail);
+    const review_link = useSelector((state) => state.post.review_link);
+    const [_className, setClass] = useState("");
     console.log(data)
+    console.log(review_link)
     
     const checkLike = (e) => { 
         if(e.currentTarget.classList.contains("on")){
@@ -30,12 +33,16 @@ const Detail = (props) => {
         setOpen(!isOpen);
     }
 
+    const detail_toggle = () => {
+        _className === "active" ? setClass("") : setClass("active")
+    }
+
     useEffect(() => {
         dispatch(postActions.getOnePostFB(postId));
     }, [])
-
     return (
         <DetailWrap>
+            <DetailSideMenu postId={data.post?.postId}/>
             <DetailHead key={data.post?.postId}>
                 <div className="detail-head-top">
                     <div className="detail-head-cate">{data.post?.category}</div>
@@ -67,16 +74,16 @@ const Detail = (props) => {
                             <td>{data.post?.summary}</td>
                         </tr>
                         <tr>
-                            <th>지원내용</th>
-                            <td>{data.post?.benefit_desc}</td>
+                            <th>운영 기간</th>
+                            <td>{data.post?.apply_period}</td>
                         </tr>
                         <tr>
                             <th>주관 기관</th>
                             <td>{data.post?.operation}</td>
                         </tr>
                         <tr>
-                            <th>운영 기간</th>
-                            <td>{data.post?.apply_period}</td>
+                            <th>지원내용</th>
+                            <td>{data.post?.benefit_desc}</td>
                         </tr>
                         <tr>
                             <th>연령</th>
@@ -85,11 +92,11 @@ const Detail = (props) => {
                     </tbody>
                 </table>
             </DetailCard>
-            <DetailContent data={data?.post}/>
+            <DetailContent data={data?.post} _className={_className}/>
             <DetailFooter>
-                {/* <Btn _type="normal" _onClick={null} _ariaLabel="상세내용 보기" _ariahaspopup={!isOpen} _text="정책 자세히 보기"/> */}
+                <Btn _type="normal" _onClick={detail_toggle} _ariaLabel="상세내용 보기" _ariahaspopup={!isOpen} _text="정책 자세히 보기"/>
             </DetailFooter>
-            <CardReview data={data.review_link}/>
+            <DetailTap data={review_link}/>
         </DetailWrap>
     );
 };
@@ -124,6 +131,8 @@ const DetailHead = styled.div`
         align-items: center;
         justify-content: center;
         svg{
+            margin-right: 1rem;
+            flex-shrink: 0;
             width: 4.8rem;
             height: 4.8rem;
         }
@@ -148,6 +157,9 @@ const DetailHead = styled.div`
         align-items: center;
         svg{}
         span{}
+    }
+    .detail-head-view:last-child{
+        margin-left: 0.8rem;
     }
     @media screen and (max-width: 808px) {
     }

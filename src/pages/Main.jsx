@@ -8,7 +8,7 @@ import { Banner, Card, CateBest, SessionTitle, CardReview } from "../components/
 const Main = () => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.post.main_list);
-  console.log(data)
+  // console.log(data)
   useEffect(() => {
     dispatch(postActions.setMainFB())
   }, [])

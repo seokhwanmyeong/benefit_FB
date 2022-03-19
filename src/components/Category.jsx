@@ -15,10 +15,8 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 const Category = (props) => {
     const dispatch = useDispatch();
-    const { _margin, cate } = props;
     const list = useSelector((state) => state.post.search_list);
     const cate_list = useSelector((state) => state.post.cate)
-    // console.log(cate_list)
 
     const key_group = [
         {id: "c0", content: "전체", count: list.c0.length},
@@ -35,13 +33,13 @@ const Category = (props) => {
     }
 
     return (
-        <StyleCategory margin={_margin}>
+        <StyleCategory>
             <Swiper
                 slidesPerView={"auto"}
                 // slidesPerGroup={1}
                 // navigation={true}
                 // modules={[Navigation]}
-                spaceBetween={16}
+                spaceBetween={8}
                 className="cate-group"
             >
                 {key_group.map((cur, idx) => {
@@ -52,6 +50,7 @@ const Category = (props) => {
                             <Btn 
                             _onClick={(e) => changCate(e, cur.id)} 
                             _className={cate_list.includes(cur.id) ? 'cate active' : 'cate'}
+                            _disabled={cur.count === 0 ? true : false}
                             >
                                 {cur.content}
                                 <span>{cur.count}</span>
@@ -64,7 +63,7 @@ const Category = (props) => {
     );
 };
 const StyleCategory = styled.div`
-    margin: ${props => props.margin ? props.margin : ""};
+    margin: 3.2rem 0 2.4rem;
     .cate-group{
         display:flex;
         .swiper-wrapper{
@@ -93,6 +92,9 @@ const StyleCategory = styled.div`
                 color: inherit;
             }
         }
+    }
+    @media screen and (max-width: 808px){
+        padding: 0 0 0 1rem;
     }
 `
 export default Category;

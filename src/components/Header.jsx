@@ -13,7 +13,7 @@ const Header = (props) => {
                 <Wrap>
                     <div className='logo'>
                         <Link to={'/'} title="홈으로 가기">
-                            <SvgLogo/>
+                            <Logo/>
                         </Link>
                     </div>
                     <MenuLayer/>
@@ -26,6 +26,11 @@ const Header = (props) => {
 const StyleHeader = styled.header`
     min-height: 8rem;   
     border-bottom: 1px solid ${props => props.theme.color.b0};
+`
+const Logo = styled(SvgLogo)`
+    path{
+        fill: ${props => props.theme.color.p1};
+    }
 `
 const Wrap = styled.div`
     position: relative;

@@ -22,6 +22,7 @@ const CateBest = (props) => {
     const nextRef = useRef(null)
     const { data } = props;
     const [btnText, setText] = useState('')
+    console.log(data)
     
     // ["c0", "전체"],
                 // ["c1", "주거 금융"],

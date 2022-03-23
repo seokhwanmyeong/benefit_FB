@@ -6,7 +6,7 @@ import { Btn } from '../elements';
 
 const DetailTap = (props) => {
     const { data } = props;
-    console.log(data)
+    // console.log(data)
 
     const [tabState, setTabState] = useState({
         tapReview: true,

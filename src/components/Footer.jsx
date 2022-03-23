@@ -53,7 +53,7 @@ const Logo = styled(SvgLogo)`
     width: 10.2rem;
     height: 3.6rem;
     path{
-        fill: #ffffff;
+        fill: ${props => props.theme.color.w};
     }
 `
 const FooterContents = styled.div`

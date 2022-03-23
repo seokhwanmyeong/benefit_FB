@@ -3,59 +3,60 @@ import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as likeActions } from "../redux/modules/like";
 import { ImgBenefit } from './index';
 import { Btn } from "../elements";
 import { SvgView, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
 
 const Myzzim = (props) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const data = useSelector((state) => state.post.user_like_list);
-  console.log(data)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const data = useSelector((state) => state.like.like_list);
+    console.log(data)
 
-  const linkToDetail = (postId) => {
-    navigate(`/detail/${postId}`, {state: {id: postId}})
-  }
-    const deleteLike = (e, postId) => { 
-        e.stopPropagation();
-        dispatch(postActions.deleteLikeFB(postId));
+    const linkToDetail = (postId) => {
+        navigate(`/detail/${postId}`, {state: {id: postId}})
     }
 
-  useEffect(() => {
-    dispatch(postActions.setMyLikeFB());
-  }, [])
+    const deleteLike = (e, postId) => { 
+        e.stopPropagation();
+        dispatch(likeActions.setLikeFB(postId, false));
+    }
 
-  return (
-    <LikeGroup>
-        {data.map(cur => {
-            return(
-                <LikeList onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
-                    <div className="card-head">
-                        <ImgBenefit benefit={cur.benefit}/>
-                        <h4 className="card-title">{cur.title}</h4>
-                        <div className="card-head-cate">{cur.category}</div>
-                    </div>
-                    <div className="card-foot">
-                        <div className="card-agency">
-                            <span className="card-agency-name">{cur.operation}</span>
+    useEffect(() => {
+        dispatch(likeActions.setMyLikeFB());
+    }, [])
+
+    return (
+        <LikeGroup>
+            {data?.map(cur => {
+                return(
+                    <LikeList onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
+                        <div className="card-head">
+                            <ImgBenefit benefit={cur.benefit}/>
+                            <h4 className="card-title">{cur.title}</h4>
+                            <div className="card-head-cate">{cur.category}</div>
                         </div>
-                        <p className="card-period">{cur.apply_period}</p>
-                        <div className='card-info'>
-                            <div className='card-view'>
-                                <SvgView/>
-                                <span>{cur.view}</span>
+                        <div className="card-foot">
+                            <div className="card-agency">
+                                <span className="card-agency-name">{cur.operation}</span>
                             </div>
-                            <Btn _onClick={(e) => deleteLike(e, cur.postId)} _className="on">
-                                <SvgLikeOn/>
-                            </Btn>
+                            <p className="card-period">{cur.apply_period}</p>
+                            <div className='card-info'>
+                                <div className='card-view'>
+                                    <SvgView/>
+                                    <span>{cur.view}</span>
+                                </div>
+                                <Btn _onClick={(e) => deleteLike(e, cur.postId)} _className="on">
+                                    <SvgLikeOn/>
+                                </Btn>
+                            </div>
                         </div>
-                    </div>
-                </LikeList>
-            )
-        })}
-    </LikeGroup>
-  );
+                    </LikeList>
+                )
+            })}
+        </LikeGroup>
+    );
 };
 
 const LikeGroup = styled.ul`

@@ -8,13 +8,10 @@ import axios from "axios";
 //Action
 const SET_POST_MAIN = "SET_POST_MAIN";
 const GET_CATE_LIST = "GET_CATE_LIST";
-const GET_FILTER_LIST = "GET_FILTER_LIST";
 const GET_DETAIL = "GET_DETAIL";
 const SET_OPTIONS = "SET_OPTIONS";
 const SET_CATE = "SET_CATE";
 const SET_STANDARD = "SET_STANDARD";
-const SET_LIKE_LIST = "SET_LIKE_LIST";
-const SET_LIKE = "SET_LIKE";
 const LOADING = "LOADING";
 
 //Action Creators
@@ -24,8 +21,6 @@ const getDetail = createAction(GET_DETAIL, (contents, review_link) => ({ content
 const setOptions = createAction(SET_OPTIONS, (options) => ({ options }));
 const setCate = createAction(SET_CATE, (cate, reset) => ({ cate, reset }));
 const setStandard = createAction(SET_STANDARD, (standard) => ({ standard }));
-const setMyLikeList = createAction(SET_LIKE_LIST, (list) => ({ list }));
-const setLike = createAction(SET_LIKE, (postId, result) => ({ postId, result }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 // initialState
@@ -58,7 +53,6 @@ const initialState = {
   standard: "popul",
   list_detail: {},
   review_link: [],
-  user_like_list: [],
   is_loading: false,
   // paging: { start: null, next: null, size: 3 },
 };
@@ -68,6 +62,7 @@ const setMainFB = () => {
   return function (dispatch, getState, { history }) {
     instance.get("/main").then((res) => {
       // console.log("axios", res.data);
+      dispatch(loading(true));
       axios.get('http://localhost:4000/main').then((_res) => {
         console.log(_res.data.review_link);
         dispatch(setPostMain(res.data , _res.data.review_link));
@@ -81,16 +76,17 @@ const setMainFB = () => {
 
 const getCateListFB = (option) => {
   return function (dispatch, getState, { history }) {
+    dispatch(loading(true));
     let trans_locate = option.location.map((cur, idx, arr) => {
       if(cur === "지역무관"){
         cur = "전국"
       }
       return cur;
     })
-    console.log(trans_locate)
+    // console.log(trans_locate)
 
     if(option.txt === "") option.txt = "all"
-    console.log(option)
+    // console.log(option)
     instance.post(
       "/search",
       {
@@ -120,7 +116,7 @@ const getOnePostFB = (post_id) => {
       console.log(res.data);
       axios.get('http://localhost:4000/main').then((_res) => {
         console.log(_res.data.review_link);
-        dispatch(getDetail(res.data, _res.data.review_link));
+        dispatch(getDetail(res.data.post, _res.data.review_link));
       })
     })
     .catch((error) => {
@@ -128,51 +124,6 @@ const getOnePostFB = (post_id) => {
     })
   };
 };
-
-const setMyLikeFB = () => {
-  return function (dispatch, getState) {
-    instance.get(`/user/pick`).then((res) => {
-      console.log(res.data.ZzimList);
-      dispatch(setMyLikeList(res.data.ZzimList));
-    }).catch((error) => {
-      console.log(error)
-    })
-  };
-} 
-
-const setLikeFB = (postId, result) => {
-  return function (dispatch, getState) {
-    console.log("찜시작")
-    console.log(postId, result);
-    instance.post(`/detail/${postId}/zzim`, {
-      zzim_status: result
-    }).then((res) => {
-      console.log(res)
-      dispatch(setLike(postId, result))
-    }).catch((error) => {
-      console.log(error)
-    })
-
-  };
-}
-
-const deleteLikeFB = (postId) => {
-  return function (dispatch, getState) {
-    let origin = Array.from(getState().post.user_like_list).filter((cur, idx, arr) => {
-      return cur.postId !== postId;
-    });
-    console.log(origin);
-    dispatch(setLike(postId, false));
-    instance.post(`/detail/${postId}/zzim`, {
-      zzim_status: false
-    }).then((res) => {
-      console.log(res)
-      dispatch(setMyLikeList(origin));
-    }).catch((error) => {
-      console.log(error)
-    })
-  };
-}
 
 // reducer
 export default handleActions(
@@ -226,17 +177,9 @@ export default handleActions(
           }
         }
     }),
-    [SET_OPTIONS]: (state, action) =>
-      produce(state, (draft) => {
-        draft.options = action.payload.options;
-    }),
     [SET_STANDARD]: (state, action) =>
       produce(state, (draft) => {
         draft.standard = action.payload.standard;
-    }),
-    [SET_LIKE_LIST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.user_like_list = action.payload.list;
     }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
@@ -255,9 +198,6 @@ const actionCreators = {
   setOptions,
   setStandard,
   setCate,
-  setMyLikeFB,
-  setLikeFB,
-  deleteLikeFB
 };
 
 export { actionCreators };

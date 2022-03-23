@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Btn } from '../elements';
 import { SvgShare, SvgLikeOff, SvgLikeOn, SvgGotop } from '../icons/ico_components'
-import { actionCreators as postActions } from "../redux/modules/post"
+import { actionCreators as likeActions } from "../redux/modules/like"
 
 const DetailSideMenu = (props) => {
-    const { postId } = props;
-    const [className, setClass] = useState("");
-    console.log(postId)
+    const { postId, like } = props;
+    const [className, setClass] = useState(like ? "on" : "");
     const dispatch = useDispatch();
     const onShareEvent = () => {
         // if (!document.queryCommandSupported("copy")) {
@@ -28,13 +27,13 @@ const DetailSideMenu = (props) => {
 
     const checkLike = (e, postId) => { 
         if(e.currentTarget.classList.contains("on")){
-            e.currentTarget.classList.remove("on")
-            setClass("")
-            dispatch(postActions.setLikeFB(postId, false));
+            e.currentTarget.classList.remove("on");
+            setClass("");
+            dispatch(likeActions.setLikeFB(postId, false));
         }else {
-            e.currentTarget.classList.add("on")
-            setClass("on")
-            dispatch(postActions.setLikeFB(postId, true));
+            e.currentTarget.classList.add("on");
+            setClass("on");
+            dispatch(likeActions.setLikeFB(postId, true));
         }
     }
     

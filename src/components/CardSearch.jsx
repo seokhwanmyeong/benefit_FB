@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { ImgBenefit } from './index';
 import { Btn } from '../elements';
-import { SvgView, SvgClose, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
-import { actionCreators as postActions } from "../redux/modules/post"
+import { SvgView, SvgLikeOn, SvgLikeOff } from '../icons/ico_components';
+import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as likeActions } from "../redux/modules/like"
 
 const CardSearch = (props) => {
     const { option } = props;
@@ -19,12 +20,13 @@ const CardSearch = (props) => {
 
     const checkLike = (e, postId) => { 
         e.stopPropagation();
+        console.log(e.currentTarget.childNodes)
         if(e.currentTarget.classList.contains("on")){
             e.currentTarget.classList.remove("on")
-            dispatch(postActions.setLikeFB(postId, false));
+            dispatch(likeActions.setLikeFB(postId, false));
         }else {
             e.currentTarget.classList.add("on")
-            dispatch(postActions.setLikeFB(postId, true));
+            dispatch(likeActions.setLikeFB(postId, true));
         }
     }
 

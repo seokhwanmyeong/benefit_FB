@@ -13,7 +13,7 @@ import "swiper/css/pagination";
 
 const CardReview = (props) => {
     const { data, _line, _view, _type } = props;
-    console.log(data)
+    // console.log(data)
     return (
       <ReviewWrap type={_type}>
         <Swiper

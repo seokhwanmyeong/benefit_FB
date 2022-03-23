@@ -3,16 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useDispatch } from "react-redux";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
+import { actionCreators as postActions } from "../redux/modules/post";
 import { ImgBenefit, ImgRanking } from './index';
 import { Center, SvgPlus } from "../icons/ico_components";
 import { NaviPrev, NaviNext, CardDeco1, CardDeco2, CardDeco3 } from "../icons/ico_url";
 
 const Card = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -65,7 +68,7 @@ const Card = (props) => {
         })}
         <SwiperSlide>
           <MovePage>
-            <Link to='/search'>
+            <Link to='/search' onClick={() => {dispatch(postActions.setCate('c0', true))}}>
               <SvgPlus/>
               더 보기
             </Link>

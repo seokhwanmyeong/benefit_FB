@@ -17,7 +17,7 @@ const Filter = () => {
         popul: true,
         period: false,
     });
-    console.log(tabState)
+    
     // 메뉴가 열고 닫힘을 알 수 있는 상태
     const [isOpen,setOpen] = useState(false);
 

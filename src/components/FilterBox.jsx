@@ -69,19 +69,6 @@ const FilterBox = () => {
             ],
             overlap: false
         },
-        // "category" : { 
-        //     name: "카테고리", 
-        //     content: [
-        //         "전체",
-        //         "주거 금융",
-        //         "코로나 19",
-        //         "창업지원",
-        //         "생활 복지",
-        //         "정책 참여",
-        //         "취업"
-        //     ],
-        //     overlap: true
-        // },
         "benefit" : { 
             name: "지원내용", 
             content: [
@@ -138,6 +125,13 @@ const FilterBox = () => {
             ],
             overlap: false
         },
+        /*
+        switch형식 버튼
+            1. 나이 제한 (    ㅇ)
+            2. 전공 제한 (    ㅇ)
+            3. 소득 기준 (    ㅇ)
+            4. 직업 조건 (    ㅇ)
+        */
     }
 
     const select_filter = {
@@ -190,7 +184,8 @@ const FilterBox = () => {
     };
 
     const onCheckBox = (e, id) => {
-        console.log(e.currentTarget.checked)
+        // console.log(e.currentTarget.checked)
+
         // 체크할 시 checkList id값 넣기
         switch(id){
             case 'apply_period': 
@@ -319,7 +314,7 @@ const FilterBox = () => {
     }
 
     useEffect(() => {
-        console.log(select_filter)
+        // console.log(select_filter)
     }, [txt, job_status, apply_period, education, benefit, location, limit, special_limit,])
 
     return (

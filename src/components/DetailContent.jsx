@@ -33,22 +33,22 @@ const DetailContent = (props) => {
             "지원형태" : data?.benefit,
             "신청기간" : data?.apply_period,
             "지원규모" : data?.scale,
-            "요건-연령" : data?.age
         },
         {
+            "요건-연령" : data?.age,
             "요건-학력" : data?.education,
             "요건-전공" : data?.major,
             "요건-취업상태" : data?.job_status,
             "요건-특화분야" : data?.special,
-            "신청절차" : data?.process,
-            "심사 및 발표" : data?.dday,
-            "신청 사이트" : data?.apply_site,
             "운영기관" : data?.operation,
             "사업 운영 기간" : data?.do_period,
             "거주지 및 소득" : data?.residence,
             "추가 단서 사항" : data?.plus
         },
         {
+            "신청절차" : data?.process,
+            "심사 및 발표" : data?.dday,
+            "신청 사이트" : data?.apply_site,
             "제출서류" : data?.submit,
             "기타 유익 정보" : data?.etc,
             "주관 기관" : data?.maker,
@@ -56,7 +56,7 @@ const DetailContent = (props) => {
             "참고사이트2" : data?.reference_site2
         }
     ]
-    console.log(Object.entries(sortDB))
+    
     return (
         <Content className={_className}>
             <CardNavi>
@@ -92,7 +92,12 @@ const DetailContent = (props) => {
                                             return(
                                                 <tr key={list[0]}>
                                                     <th>{list[0]}</th>
-                                                    <td>{list[1]}</td>
+                                                    <td>
+                                                        {(list[0] === "신청 사이트" || list[0] === "참고사이트1" || list[0] === "참고사이트2") & list[1]?.includes('http')
+                                                            ? <a href={list[1]} target='_blank'>{list[1]}</a>
+                                                            : list[1]?.replace(/(\\r\\n|\\n|\\r)/g, '\n')
+                                                        }
+                                                    </td>
                                                 </tr>
                                             )
                                         })}
@@ -116,13 +121,14 @@ const Content = styled.div`
 `
 const StyleSwiper = styled(Swiper)`
     .swiper-wrapper{
-        height: 50vh;
+        height: 70rem;
     }
 `
 const DetailCard = styled.div`
     padding: 1.6rem;
     height: 100%;
     border: 1px solid ${props => props.theme.color.b0};
+    overflow-y: scroll;
     table {
         width: 100%;
         height: 100%;
@@ -148,6 +154,7 @@ const DetailCard = styled.div`
         text-align: left;
         vertical-align: top;
         word-break: break-all;
+        white-space: pre-wrap;
     }
     @media screen and (max-width: 808px) {
     }

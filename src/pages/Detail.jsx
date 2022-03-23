@@ -17,7 +17,7 @@ const Detail = (props) => {
     const review_link = useSelector((state) => state.post.review_link);
     const [_className, setClass] = useState("");
     console.log(data)
-    console.log(review_link)
+    // console.log(review_link)
     
     const checkLike = (e) => { 
         if(e.currentTarget.classList.contains("on")){
@@ -40,28 +40,29 @@ const Detail = (props) => {
     useEffect(() => {
         dispatch(postActions.getOnePostFB(postId));
     }, [])
+
     return (
         <DetailWrap>
-            <DetailSideMenu postId={data.post?.postId}/>
-            <DetailHead key={data.post?.postId}>
+            <DetailSideMenu postId={data?.postId} like={data.zzim_status ? data.zzim_status : false}/>
+            <DetailHead key={data?.postId}>
                 <div className="detail-head-top">
-                    <div className="detail-head-cate">{data.post?.category}</div>
+                    <div className="detail-head-cate">{data?.category}</div>
                 </div>
                 <div className="detail-head-middle">
-                    <BenefitImg benefit={data.post?.benefit}/>
-                    <h4 className="detail-head-title">{data.post?.title}</h4>
+                    <BenefitImg benefit={data?.benefit}/>
+                    <h4 className="detail-head-title">{data?.title}</h4>
                 </div>
                 <div className="detail-head-bot">
                     <div className='detail-head-info'>
                         <div className='detail-head-view'>
                             <SvgView/>
-                            <span>{data.post?.view}</span>
+                            <span>{data?.view}</span>
                         </div>
                         <div className='detail-head-view'>
-                            <Btn _onClick={checkLike} _className={data.post?.check ? "on" : ""}>
-                                {data.post?.check ? <SvgLikeOn/> : <SvgLikeOff/>}
+                            <Btn _onClick={checkLike} _className={data?.check ? "on" : ""}>
+                                {data?.check ? <SvgLikeOn/> : <SvgLikeOff/>}
                             </Btn>
-                            <span>{data.post?.zzim}</span>
+                            <span>{data?.zzim}</span>
                         </div>
                     </div>
                 </div>
@@ -71,28 +72,28 @@ const Detail = (props) => {
                     <tbody>
                         <tr>
                             <th>세부 항목</th>
-                            <td>{data.post?.summary}</td>
+                            <td>{data.summary?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}</td>
                         </tr>
                         <tr>
                             <th>운영 기간</th>
-                            <td>{data.post?.apply_period}</td>
+                            <td>{data.apply_period?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}</td>
                         </tr>
                         <tr>
                             <th>주관 기관</th>
-                            <td>{data.post?.operation}</td>
+                            <td>{data.operation?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}</td>
                         </tr>
                         <tr>
                             <th>지원내용</th>
-                            <td>{data.post?.benefit_desc}</td>
+                            <td>{data.benefit_desc?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}</td>
                         </tr>
                         <tr>
                             <th>연령</th>
-                            <td>{data.post?.age}</td>
+                            <td>{data.age?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}</td>
                         </tr>
                     </tbody>
                 </table>
             </DetailCard>
-            <DetailContent data={data?.post} _className={_className}/>
+            <DetailContent data={data} _className={_className}/>
             <DetailFooter>
                 <Btn _type="normal" _onClick={detail_toggle} _ariaLabel="상세내용 보기" _ariahaspopup={!isOpen} _text="정책 자세히 보기"/>
             </DetailFooter>
@@ -191,6 +192,7 @@ const DetailCard = styled.div`
         color: ${props => props.theme.color.b0};
         text-align: left;
         vertical-align: top;
+        white-space: pre-wrap;
     }
     @media screen and (max-width: 808px) {
         padding: 1.6rem;

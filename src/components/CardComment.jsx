@@ -1,72 +1,151 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
+import { actionCreators as commentActions } from '../redux/modules/comment';
+import { ImgBenefit } from '../components/index'
 import { Btn } from '../elements';
+import { useNavigate } from 'react-router-dom';
 
-const CardComment = () => {
+const CardComment = (props) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const ref = useRef();
+    const { data } = props;
+    const [comment, setComment] = useState("");
+    // console.log(data)
 
-    const deleteCommentHandler = () => {
-
+    const updateComment = (e, commentId) => {
+        e.stopPropagation();
+        if(comment === ""){
+            alert('내용을 입력해주세요')
+            return;
+        }
+        dispatch(commentActions.updateCommentFB(commentId, comment));
+        e.currentTarget.parentNode.classList.remove('active');
+        setComment("")
+        e.currentTarget.previousSibling.value = "";
     }
 
-    const openTextareaHandler = () => {
-        if(ref.current.classList.contains('active')){
-            ref.current.classList.remove('active');
+    const deleteComment = (e, commentId) => {
+        e.stopPropagation();
+        dispatch(commentActions.deleteCommentFB(commentId))
+    }
+
+    const onChangeComment = (e) => {
+        e.stopPropagation();
+        setComment(e.currentTarget.value);
+    }
+
+    const fixTextareaHandler = (e) => {
+        e.stopPropagation();
+        if(e.currentTarget.nextSibling.classList.contains('active')){
+            e.currentTarget.nextSibling.classList.remove('active');
         }else{
-            ref.current.classList.add('active');
+            e.currentTarget.nextSibling.classList.add('active');
         }
     }
 
     return (
-        <CommentWrap>
-            <CommentInput>
-                <Btn _onClick={openTextareaHandler} _className='btn-open'>
-                    <span>댓글을 입력해주세요.</span>
-                </Btn>
-                <CommentTextarea ref={ref}>
-                    <textarea placeholder='댓글을 입력해주세요'></textarea>
-                    <Btn _type="small" _onClick={null} _className='btn-submit' _text='등록하기'/>
-                </CommentTextarea>
-            </CommentInput>
-            <Comment>
-                <ul className='comment-group'>
-                    <li className='comment-list'>
-                        <div className='comment-info'>
-                            <span className='comment-user'>example</span>
-                            <span className='comment-period'>22.02.28</span>
-                        </div>
-                        <div className='comment-cont'>
-                            <p>lorem loremlorem loremlorem loremlorem loremlorem loremlorem lorem</p>
-                        </div>
-                        <Btn _onClick={deleteCommentHandler} _className='btn-delete' _text='삭제'/>
-                    </li>
-                </ul>
-            </Comment>
-        </CommentWrap>
+        <React.Fragment>
+            <CommentGroup>
+                {data?.map(cur => {
+                    return (
+                        <CommentList onClick={() => navigate(`/detail/${cur.postId}`)} key={cur.commentId}>
+                            <div className='comment-top'>
+                                <p>{cur.createdAt?.split('T')[0].replaceAll('-','.')}</p>
+                            </div>
+                            <p className='comment-content'>{cur.content}</p>
+                            <Btn _className='btn_controll' _onClick={(e) => deleteComment(e, cur.commentId)} _text="삭제"/>
+                            <Btn _className="update btn_controll" _onClick={fixTextareaHandler} _text="수정"/>
+                            <CommentTextarea>
+                                <textarea onClick={(e) => e.stopPropagation()} onChange={onChangeComment} placeholder='수정할 내용을 입력해주세요'></textarea>
+                                <Btn _type="small" _onClick={(e) => updateComment(e, cur.commentId)} _text='수정'/>
+                            </CommentTextarea>
+                            <div className='comment-bot'>
+                                <ImgBenefit benefit={cur.benefit}/>
+                                <p>{cur.title}</p>
+                                <span>정책에 남긴 답글</span>
+                            </div>
+                        </CommentList>
+                    )
+                })}
+            </CommentGroup>
+        </React.Fragment>
     );
 };
-const CommentWrap = styled.div`
-
-`;
-const CommentInput = styled.div`
-    margin: 2rem 0;
-    .btn-open{
-        padding: 1rem 2rem;
-        display: flex;
+const CommentGroup = styled.ul`
+    li+li{
+        margin: 4px 0 0;
+    }
+`
+const CommentList = styled.li`
+    position: relative;
+    padding: 2.4rem;
+    background-color: ${props => props.theme.color.g3};
+    cursor: pointer;
+    .comment-top{
+        margin-bottom: 1.3rem;
         width: 100%;
-        border: 1px solid ${props => props.theme.color.g1};
+        font: ${props => props.theme.font.p};
+        color: ${props => props.theme.color.p1};
+    }
+    .comment-content{
+        margin-bottom: 3.2rem;
+        width: 100%;
+        font: ${props => props.theme.font.p};
+        color: ${props => props.theme.color.b0};
+        word-break: break-word;
+    }
+    .comment-bot{
+        padding: 0 2rem 1rem;
+        display: inline-flex;
+        align-items: flex-end;
+        border-bottom: 2px solid ${props => props.theme.color.p1};
+        p{
+            margin: 0 0.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 15rem;
+            font: ${props => props.theme.font.styleh6};
+            color: ${props => props.theme.color.p1};
+        }
         span{
-            font: ${props => props.theme.font.p};
-            color: ${props => props.theme.color.g1};
+            flex-shrink: 0;
+            font: ${props => props.theme.font.small_number};
+            color: ${props => props.theme.color.p1};
+        }
+        svg{
+            width: 4rem;
+            height: 4rem;
         }
     }
-`;
+    .btn_controll{
+        position: absolute;
+        right: 2.4rem;
+        top: 2.4rem;
+        font: ${props => props.theme.font.p};
+        color: ${props => props.theme.color.b0};
+        &.update{
+            right: 6rem; 
+        }
+    }
+    @media screen and (max-width: 808px) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .comment-bot{
+            padding: 0 0rem 1rem;
+        }
+    }
+`
 const CommentTextarea = styled.div`
     margin: 1.4rem 0 0;
     display: none;
+    ${props => props.theme.font.p};
     &.active{
         display: flex;
         flex-direction: column;
@@ -89,51 +168,6 @@ const CommentTextarea = styled.div`
             color: ${props => props.theme.color.g1};
         }
     }
-    .btn-submit{
-    }
-`
-const Comment = styled.div`
-    .comment-group{
-        position: relative;
-        .comment-list{
-            padding: 0 0 1.4rem;
-            border-bottom: 1px solid ${props => props.theme.color.b0};
-        }
-        .comment-info{
-            margin: 0 0 1.4rem;
-            span{
-                font: ${props => props.theme.font.p};
-                color: ${props => props.theme.color.b0};
-            }
-            .comment-user{
-                &:after{
-                    content: "";
-                    margin: 0 0.5rem;
-                    display: inline-block;
-                    width: 1px;
-                    height: 14px;
-                    background-color: ${props => props.theme.color.b0};
-                    transform: translateY(2px);
-                }
-            }
-            .comment-period{
-    
-            }
-        }
-        .comment-cont{
-            p{
-                padding-right: 15%;
-                font: ${props => props.theme.font.p};
-                color: ${props => props.theme.color.b0};
-            }
-        }
-        .btn-delete{
-            position: absolute;
-            right: 0;
-            top: 0;
-            font: ${props => props.theme.font.p};
-            color: ${props => props.theme.color.b0};
-        }
-    }
 `;
+
 export default CardComment;

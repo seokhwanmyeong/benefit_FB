@@ -19,13 +19,13 @@ const Category = (props) => {
     const cate_list = useSelector((state) => state.post.cate)
 
     const key_group = [
-        {id: "c0", content: "전체", count: list.c0.length},
-        {id: "c1", content: "주거·금융", count: list.c1.length},
-        {id: "c2", content: "코로나 19", count: list.c2.length},
-        {id: "c3", content: "창업지원", count: list.c3.length},
-        {id: "c4", content: "생활·복지", count: list.c4.length},
-        {id: "c5", content: "정책참여", count: list.c5.length},
-        {id: "c6", content: "취업지원", count: list.c6.length},
+        {id: "all", content: "전체", count: list.count?.c0},
+        {id: "c1", content: "주거·금융", count: list.count?.c1},
+        {id: "c2", content: "코로나 19", count: list.count?.c2},
+        {id: "c3", content: "창업지원", count: list.count?.c3},
+        {id: "c4", content: "생활·복지", count: list.count?.c4},
+        {id: "c5", content: "정책참여", count: list.count?.c5},
+        {id: "c6", content: "취업지원", count: list.count?.c6},
     ]
 
     const changCate = (e, id) => {
@@ -34,7 +34,7 @@ const Category = (props) => {
 
     return (
         <StyleCategory>
-            <Swiper
+            <StyleSwiper
                 slidesPerView={"auto"}
                 // slidesPerGroup={1}
                 // navigation={true}
@@ -58,43 +58,43 @@ const Category = (props) => {
                         </SwiperSlide>
                     )
                 })}
-            </Swiper>
+            </StyleSwiper>
         </StyleCategory>
     );
 };
 const StyleCategory = styled.div`
-    margin: 3.2rem 0 2.4rem;
-    .cate-group{
-        display:flex;
-        .swiper-wrapper{
-            justify-content: flex-start;
-            .swiper-slide{
-                width: auto;
-            }
-        }
-    }
-    .cate{
-        padding: 0.8rem;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        border: 1px solid ${props => props.theme.color.p3};
-        font: ${props => props.theme.font.cat_tags};
-        span{
-            margin-left: 2px;
-            font: ${props => props.theme.font.small_number};
-        }
-        &.active{
-            background-color: ${props => props.theme.color.p2};
-            border: 1px solid ${props => props.theme.color.p2};
-            color: ${props => props.theme.color.w};
-            span{
-                color: inherit;
-            }
-        }
-    }
+    margin: 3.2rem 0 3.6rem;
     @media screen and (max-width: 808px){
+        margin: 2rem 0 1.2rem;
         padding: 0 0 0 1rem;
+    }
+`;
+const StyleSwiper = styled(Swiper)`
+    display:flex;
+    .swiper-wrapper{
+        justify-content: flex-start;
+        .swiper-slide{
+            width: auto;
+            .cate{
+                padding: 1.2rem 2rem;
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+                border: 1px solid ${props => props.theme.color.g2};
+                font: ${props => props.theme.font.tags_cate_tab};
+                border-radius: 24px;
+                span{
+                    margin-left: 2px;
+                    font: ${props => props.theme.font.tab_category_number};
+                    color: inherit;
+                }
+                &.active{
+                    background-color: ${props => props.theme.color.p31};
+                    border: 1px solid ${props => props.theme.color.p31};
+                    color: ${props => props.theme.color.w};
+                }
+            }
+        }
     }
 `
 export default Category;

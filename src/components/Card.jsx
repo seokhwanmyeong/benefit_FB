@@ -10,9 +10,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { ImgBenefit, ImgRanking } from './index';
-import { Center, SvgPlus } from "../icons/ico_components";
-import { NaviPrev, NaviNext, CardDeco1, CardDeco2, CardDeco3 } from "../icons/ico_url";
+import { ImgBenefit, ImgRanking, ImgLocation, CateBox } from './index';
+import { SvgPlus } from "../icons/ico_components";
+import { NaviPrev, NaviNext } from "../icons/ico_url";
+import { CardDeco1, CardDeco2, CardDeco3 } from "../img/img_url";
 
 const Card = (props) => {
   const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const Card = (props) => {
   const nextRef = useRef(null);
   const { data } = props;
 
-  const linkToDetail = (postId) => {
-    navigate(`/detail/${postId}`, {state: {id: postId}})
+  const linkToDetail = (postId, cate) => {
+    navigate(`/detail/${postId}`, {state: {cate: cate}})
   }
   
   return (
@@ -44,22 +45,22 @@ const Card = (props) => {
       >
         {data?.map((cur, idx) => {
           return(
-            <SwiperSlide onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
+            <SwiperSlide onClick={() => linkToDetail(cur.postId, cur.category)} key={`best${cur.postId}`}>
               <MainCard>
                 <div className="card-rank">
                   <ImgRanking rank={idx + 1}/>
                 </div>
                 <div className="card-head">
                   <div className="card-head-img"><ImgBenefit benefit={cur.benefit}/></div>
-                  <div className="card-head-cate">{cur.category}</div>
+                  <CateBox category={cur.category}/>
                 </div>
                 <h4 className="card-title">{cur.title}</h4>
                 <p className="card-contents">{cur.summary}</p>
                 <div className="card-foot">
-                  <p className="card-period">{cur.apply_period.length >= 16 ? ('~ ' + cur.apply_period.split("~")[1].toString().trim()) : cur.apply_period}</p>
+                  <p className="card-period">{cur.apply_period?.length >= 16 ? ('~ ' + cur.apply_period.split("~")[1].toString().trim()) : cur.apply_period}</p>
                   <div className="card-agency">
-                    <div className="card-agency-logo"><Center/></div>
-                    <span className="card-agency-name">중앙부처</span>
+                    <div className="card-agency-logo"><ImgLocation location={cur.location}/></div>
+                    <span className="card-agency-name">{cur.location}</span>
                   </div>
                 </div>
               </MainCard>
@@ -132,8 +133,12 @@ const MainCard = styled.div`
     align-items: flex-end;
   }
   .card-head-img {
-    width: 4rem;
-    height: 4rem;
+    width: 5.6rem;
+    height: 5.6rem;
+    svg{
+      width: 100%;
+      height: 100%;
+    }
   }
   .card-head-cate {
     display: flex;
@@ -179,6 +184,7 @@ const MainCard = styled.div`
   }
   .card-agency-logo {
     margin-right: 0.5rem;
+    display: flex;
   }
   .card-agency-name {
     font: ${props => props.theme.font.body};
@@ -188,7 +194,7 @@ const MainCard = styled.div`
     color: ${props => props.theme.color.w};
     .card-head-img{
       border-radius: 50%;
-      background-color: ${props => props.theme.color.kakao};
+      background-color: ${props => props.theme.color.o1};
     }
     .card-head-cate {
       border: 1px solid ${props => props.theme.color.w};

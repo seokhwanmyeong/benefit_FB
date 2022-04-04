@@ -2,6 +2,9 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import instance from "../../shared/api";
 
+import { actionCreators as userActions } from "./user";
+import { actionCreators as postActions } from "./post";
+
 //Action
 const SET_LIKE_LIST = "SET_LIKE_LIST";
 const ADD_LIKE = "ADD_LIKE";
@@ -14,28 +17,58 @@ const deleteLike = createAction(DELETE_LIKE, (postId) => ({ postId }));
 
 // initialState
 const initialState = {
-  like_list: [],
+  my_like_folder: [],
 };
 
 //middlewares
 const setMyLikeFB = () => {
     return function (dispatch, getState) {
+        dispatch(postActions.loading(true))
         instance.get(`/user/pick`).then((res) => {
-            console.log(res.data.ZzimList);
-            dispatch(setMyLikeList(res.data.ZzimList));
+            console.log(res.data.list);
+            dispatch(setMyLikeList(res.data.list));
         }).catch((error) => {
             console.log(error)
         })
+        dispatch(postActions.loading(false))
     };
-} 
-const setLikeFB = (postId, result) => {
+}
+const setLikeFB = (folderId, postId, status) => {
   return function (dispatch, getState) {
-    console.log("찜시작")
-    console.log(postId, result);
     instance.post(`/detail/${postId}/zzim`, {
-        zzim_status: result
+        folderId : folderId,
+        zzim_status : status 
     }).then((res) => {
-        res.data.ok ? dispatch(addLike(postId)) : dispatch(deleteLike(postId))
+        let user_folder = getState().user.user_folder;
+        let _user_folder = []
+        if(status){
+            console.log("좋아요")
+            _user_folder = user_folder.map(cur => {
+                if(cur.folderId == folderId){
+                    if(cur.postId_list){
+                        return {...cur, postId_list: [...cur.postId_list, String(postId)]}
+                    }else{
+                        return {...cur, postId_list: [String(postId)]}
+                    }
+                }
+                return cur
+            })
+        }else{
+            console.log("싫어요")
+            _user_folder = user_folder.map(cur => {
+                if(cur.folderId == folderId){
+                    let new_arr = cur.postId_list.filter(list => {
+                        return list != postId;
+                    })
+                    console.log(new_arr)
+                    return {...cur, postId_list: [...new_arr]}
+                }
+                return cur;
+            })
+        }
+        dispatch(postActions.setDetailLike(status))
+        dispatch(userActions.setUserFolder(_user_folder))
+        localStorage.setItem('user_folder', JSON.stringify(_user_folder))
     }).catch((error) => {
         console.log(error)
     })
@@ -47,15 +80,14 @@ export default handleActions(
   {
     [SET_LIKE_LIST]: (state, action) =>
     produce(state, (draft) => {
-        draft.like_list = action.payload.list;
+        draft.my_like_folder = action.payload.list;
     }),
     [ADD_LIKE]: (state, action) =>
     produce(state, (draft) => {
-        draft.like_list.push(action.payload.postId);
+        draft.like_list.push({postId: action.payload.postId});
     }),
     [DELETE_LIKE]: (state, action) =>
     produce(state, (draft) => {
-        console.log(state.like_list)
         draft.like_list = state.like_list.filter(cur => cur.postId !== action.payload.postId)
     }),
   },
@@ -64,10 +96,9 @@ export default handleActions(
 
 // action creator export
 const actionCreators = {
+    setMyLikeList,
     setMyLikeFB,
     setLikeFB,
-    addLike,
-    deleteLike
 };
 
 export { actionCreators };

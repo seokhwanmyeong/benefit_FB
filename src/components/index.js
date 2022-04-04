@@ -1,58 +1,92 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Card from "./Card";
-import MenuLayer from "./MenuLayer";
-import MenuBox from "./MenuBox";
+/* COMMON */
 import Inner from "./Inner";
 import Banner from "./Banner";
+import SessionTitle from "./SessionTitle";
+import ModalPop from "./ModalPop";
+import Spinner from "./Spinner";
+import CateBox from "./CateBox";
+import ImgBenefit from "./common/ImgBenefit";
+import ImgRanking from "./common/ImgRanking";
+import ImgLocation from "./common/ImgLocation";
+import AnimateShare from "./common/AnimateShare"
+import DecoNew from "./common/DecoNew";
+
+/* HEADER */
+import Header from "./header/Header";
+import MenuLayer from "./header/MenuLayer";
+import MenuBox from "./header/MenuBox";
+
+/* FOOTER */
+import Footer from "./footer/Footer";
+
+/* LOGIN */
+import LoginSocial from "./login/LoginSocial";
+
+/* CARD */
+import Card from "./Card";
+import CateBest from "./CateBest";
+import CardSearch from "./CardSearch";
+import CardReview from "./CardReview";
+import CardComment from "./CardComment"
+import BoxComment from "./BoxComment";
+import Category from "./Category";
 import Filter from "./Filter";
 import FilterBox from "./FilterBox";
-import CateBest from "./CateBest";
-import Category from "./Category";
-import CardSearch from "./CardSearch";
-import BenefitImg from "./ImgBenefit";
-import SessionTitle from "./SessionTitle";
-import CardReview from "./CardReview";
-import ModalPop from "./ModalPop";
+import FolderBg from "./card/FolderBg";
+
+/* DETAIL */
+import DetailTap from "./DetailTap";
 import DetailContent from "./DetailContent";
-import ImgBenefit from "./ImgBenefit";
-import ImgRanking from "./ImgRanking";
-import Kakao from "./KakaoLogin";
-import Google from "./GoogleLogin";
-import Naver from "./NaverLogin";
+import DetailSideMenu from "./DetailSideMenu";
+
+/* MYPAGE */
 import Myreview from "./Myreview";
 import Myzzim from "./Myzzim";
-import DetailSideMenu from "./DetailSideMenu";
-import DetailTap from "./DetailTap";
-import CardComment from "./CardComment";
 
-export { 
-    Header, 
-    Footer, 
-    Card, 
-    Inner, 
-    MenuLayer, 
-    MenuBox, 
-    Banner, 
-    Filter, 
-    FilterBox, 
-    Category, 
-    CateBest, 
-    CardSearch, 
-    BenefitImg, 
-    SessionTitle, 
-    CardReview,
+export {
+    /* COMMON */
+    Inner,
+    Banner,
+    SessionTitle,
+    CateBox,
     ModalPop,
-    DetailContent,
+    Spinner,
     ImgBenefit,
     ImgRanking,
-    Kakao,
-    Google,
-    Naver,
+    ImgLocation,
+    AnimateShare,
+    DecoNew,
+    
+    /* HEADER */
+    Header,
+    MenuLayer,
+    MenuBox,
+
+    /* FOOTER */
+    Footer,
+
+    /* LOGIN */
+    LoginSocial,
+
+    /* CARD */
+    Card,
+    CateBest,
+    CardSearch,
+    CardReview,
+    CardComment,
+    BoxComment,
+    Category,
+    Filter,
+    FilterBox,
+    FolderBg,
+
+    /* DETAIL */
+    DetailTap,
+    DetailContent,
+    DetailSideMenu,
+
+    /* MYPAGE */
     Myreview,
     Myzzim,
-    DetailSideMenu,
-    DetailTap,
-    CardComment
 }
  

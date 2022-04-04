@@ -1,8 +1,5 @@
-import { ReactComponent as Center } from "./agency_center.svg";
 import { ReactComponent as SvgMenu } from "./ico_menu.svg";
 import { ReactComponent as SvgShare } from "./ico_share.svg";
-import { ReactComponent as SvgSaving } from "./img_bnf_saving.svg";
-import { ReactComponent as SvgCounsel } from "./img_bnf_counsel.svg";
 import { ReactComponent as SvgView } from "./ico_view.svg";
 import { ReactComponent as SvgClose } from "./ico_close.svg";
 import { ReactComponent as SvgLikeOn } from "./like_on.svg";
@@ -12,22 +9,22 @@ import { ReactComponent as SvgLogin } from "./ico_login.svg";
 import { ReactComponent as SvgSearch } from "./ico_search.svg";
 import { ReactComponent as SvgLoader } from "./loader.svg";
 import { ReactComponent as SvgFilter } from "./ico_filter.svg";
-import { ReactComponent as SvgRank1 } from "./img_rank_1nd.svg";
-import { ReactComponent as SvgRank2 } from "./img_rank_2nd.svg";
-import { ReactComponent as SvgRank3 } from "./img_rank_3nd.svg";
-import { ReactComponent as SvgRank4 } from "./img_rank_4nd.svg";
-import { ReactComponent as SvgRank5 } from "./img_rank_5nd.svg";
 import { ReactComponent as SvgLogo } from "./img_logo.svg";
 import { ReactComponent as SvgPlus } from "./ico_plus.svg";
 import { ReactComponent as SvgReset } from "./ico_reset.svg";
 import { ReactComponent as SvgGotop} from "./ico_gototop.svg";
+import { ReactComponent as SvgLink} from "./ico_link.svg";
+import { ReactComponent as SvgEdit} from "./ico_edit.svg";
+import { ReactComponent as SvgCuration} from "./ico_curation.svg";
+import { ReactComponent as SvgLockOn} from "./ico_lock_on.svg";
+import { ReactComponent as SvgLockOff} from "./ico_lock_off.svg";
+import { ReactComponent as SvgBack} from "./ico_back.svg";
+import { ReactComponent as SvgLogout} from "./ico_logout.svg";
+import { ReactComponent as SvgInstagram} from "./ico_social/ico_instagram.svg"
 
 export { 
-    Center, 
     SvgMenu, 
     SvgShare, 
-    SvgSaving, 
-    SvgCounsel, 
     SvgView, 
     SvgClose, 
     SvgHome, 
@@ -37,13 +34,16 @@ export {
     SvgLikeOff, 
     SvgLoader, 
     SvgFilter,
-    SvgRank1,
-    SvgRank2,
-    SvgRank3,
-    SvgRank4,
-    SvgRank5,
     SvgLogo,
     SvgPlus,
     SvgReset,
-    SvgGotop
+    SvgGotop,
+    SvgLink,
+    SvgEdit,
+    SvgCuration,
+    SvgLockOn,
+    SvgLockOff,
+    SvgBack,
+    SvgLogout,
+    SvgInstagram
 }

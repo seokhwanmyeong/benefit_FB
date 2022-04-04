@@ -64,7 +64,7 @@ const DetailContent = (props) => {
                 <div className="navi navi--next" ref={nextRef}></div>
             </CardNavi>
             <StyleSwiper
-                slidesPerView={"auto"}
+                // slidesPerView={"auto"}
                 modules={[Navigation, Pagination]}
                 pagination={{ el: paginationRef.current, clickable: true }}
                 paginationbulletrender= {{
@@ -81,6 +81,19 @@ const DetailContent = (props) => {
                     swiper.navigation.update();
                 }}
                 spaceBetween={16}
+                breakpoints={{
+                    360 : {
+                        autoHeight: true,
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                        direction: "vertical"
+                    },
+                    808 : {
+                        autoHeight: true,
+                        slidesPerView: 1,
+                        direction: "horizontal"
+                    }
+                }}
             >
                 {sortDB.map((cur, idx) => {
                     return (
@@ -120,15 +133,24 @@ const Content = styled.div`
     }
 `
 const StyleSwiper = styled(Swiper)`
+    padding-bottom: 1px;
     .swiper-wrapper{
         height: 70rem;
+    }
+    @media screen and (max-width: 808px) {
+        .swiper-wrapper{
+            height: auto!important;
+            .swiper-slide{
+                height: auto!important;
+            }
+        }
     }
 `
 const DetailCard = styled.div`
     padding: 1.6rem;
     height: 100%;
     border: 1px solid ${props => props.theme.color.b0};
-    overflow-y: scroll;
+    // overflow-y: scroll;
     table {
         width: 100%;
         height: 100%;
@@ -160,36 +182,36 @@ const DetailCard = styled.div`
     }
 `
 const CardNavi = styled.div`
-  z-index: 11;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  width: 100%;
-  .navi{
+    z-index: 11;
     position: absolute;
     top: 50%;
+    left: 0;
     transform: translateY(-50%);
-    width: 3.2rem;
-    height: 3.2rem;
-    border: 1px solid #000000;
-    border-radius: 50%;
-    cursor: pointer;
-    &.navi--prev{
-      left: -1.6rem;
-      background: ${props => props.theme.color.w} url('${NaviPrev}') no-repeat center center;
+    width: 100%;
+    .navi{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3.2rem;
+        height: 3.2rem;
+        border: 1px solid #000000;
+        border-radius: 50%;
+        cursor: pointer;
+        &.navi--prev{
+            left: -1.6rem;
+            background: ${props => props.theme.color.w} url('${NaviPrev}') no-repeat center center;
+        }
+        &.navi--next{
+            right: -1.6rem;
+            background: ${props => props.theme.color.w} url('${NaviNext}') no-repeat center center;
+        }
+        &.swiper-button-disabled{
+            display: none;
+        }
     }
-    &.navi--next{
-      right: -1.6rem;
-      background: ${props => props.theme.color.w} url('${NaviNext}') no-repeat center center;
-    }
-    &.swiper-button-disabled{
-      display: none;
-    }
-  }
-  @media screen and (max-width: 808px) {
-    display: none;
-  } 
+    @media screen and (max-width: 808px) {
+        display: none;
+    } 
 `;
 const CardPagenation = styled.div`
     margin: 2rem 0 0;

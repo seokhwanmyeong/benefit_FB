@@ -14,6 +14,11 @@ const Title = styled.div`
     h3{
         font: ${props => props.theme.font.styleh3};
     }
+    @media screen and (max-width: 808px) {
+        h3{
+            font: ${props => props.theme.font.title_m};
+        }
+    }
 `
 
 export default SessionTitle;

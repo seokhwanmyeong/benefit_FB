@@ -1,197 +1,159 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { actionCreators as likeActions } from "../redux/modules/like";
-import { ImgBenefit } from './index';
-import { Btn } from "../elements";
-import { SvgView, SvgLikeOn, SvgLikeOff } from '../icons/ico_components'
+import { actionCreators as postActions } from "../redux/modules/post";
+import { ImgBenefit, ModalPop, FolderBg, Spinner } from './index';
+import { SvgLockOn, SvgLockOff } from '../icons/ico_components'
 
 const Myzzim = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const data = useSelector((state) => state.like.like_list);
-    console.log(data)
+    const data = useSelector((state) => state.post.my_folder_list);
+    const loading = useSelector((state) => state.post.is_loading);
+    const modalRef = useRef();
+    const [folderId, setId] = useState();
+    const [folderName, setName] = useState();
+    const [lockstatus, setLock] = useState();
 
-    const linkToDetail = (postId) => {
-        navigate(`/detail/${postId}`, {state: {id: postId}})
+    const ModalHandler = (e, id, name, status) => {
+        e.stopPropagation();
+        modalRef.current.classList.contains("active")
+        ? modalRef.current.classList.remove("active")
+        : modalRef.current.classList.add("active")
+
+        setId(id);
+        setName(name);
+        setLock(status);
     }
 
-    const deleteLike = (e, postId) => { 
+    const lockFolderEvent = (e, folderId, folder_name, folder_status) => {
         e.stopPropagation();
-        dispatch(likeActions.setLikeFB(postId, false));
+        dispatch(postActions.setUpdateFolderFB(folderId, folder_name, !folder_status))
     }
 
     useEffect(() => {
-        dispatch(likeActions.setMyLikeFB());
+        dispatch(postActions.getFolderFB());
     }, [])
 
-    return (
-        <LikeGroup>
-            {data?.map(cur => {
-                return(
-                    <LikeList onClick={() => linkToDetail(cur.postId)} key={cur.postId}>
-                        <div className="card-head">
-                            <ImgBenefit benefit={cur.benefit}/>
-                            <h4 className="card-title">{cur.title}</h4>
-                            <div className="card-head-cate">{cur.category}</div>
-                        </div>
-                        <div className="card-foot">
-                            <div className="card-agency">
-                                <span className="card-agency-name">{cur.operation}</span>
-                            </div>
-                            <p className="card-period">{cur.apply_period}</p>
-                            <div className='card-info'>
-                                <div className='card-view'>
-                                    <SvgView/>
-                                    <span>{cur.view}</span>
-                                </div>
-                                <Btn _onClick={(e) => deleteLike(e, cur.postId)} _className="on">
-                                    <SvgLikeOn/>
-                                </Btn>
-                            </div>
-                        </div>
-                    </LikeList>
-                )
-            })}
-        </LikeGroup>
+    if(loading){
+        return <Spinner type='page'/>;
+    }return (
+        <React.Fragment>
+            <FolderGroup>
+                {data.map(cur => {
+                    return(
+                        <FolderList key={cur.folderId} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
+                            <FolderImg>
+                                <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
+                                <ImgBenefit benefit={cur.benefit}/>
+                            </FolderImg>
+                            <FolderCont>
+                                <FolderName>{cur.folder_name}</FolderName>
+                                <FolderContBot>
+                                    <FolderStatus onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_status)} className={cur.folder_status ? "active" : ""}>편집</FolderStatus>
+                                    <Deco/>
+                                    <LockBtn onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_status)}>
+                                        {cur.folder_status 
+                                        ? <React.Fragment>
+                                            <SvgLockOn/>
+                                            <span>공개중</span>
+                                        </React.Fragment>
+                                        :<React.Fragment>
+                                            <SvgLockOff/>
+                                            <span>비공개</span>
+                                        </React.Fragment>}
+                                    </LockBtn>
+                                </FolderContBot>
+                            </FolderCont>
+                        </FolderList>
+                    )
+                })}
+            </FolderGroup>
+            <ModalPop ref={modalRef} modalId={3} folderId={folderId} folder_name={folderName} lockstatus={lockstatus}/>
+        </React.Fragment>
     );
 };
-
-const LikeGroup = styled.ul`
-    flex-grow: 1;
+const FolderGroup = styled.ul`
+    display: flex;
+    flex-wrap: wrap;
     width: 100%;
-    cursor: pointer;
 `
-const LikeList = styled.li`
-    z-index: 2;
-    padding: 2.4rem 3.1rem 1.6rem 1.6rem; 
-    width: 100%;
-    border-bottom: 1px solid ${props => props.theme.color.filter_pc_color};
-    .card-head {
-        margin: 0 0 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        svg{
-            min-width: 4rem;
-        }
-    }
-    .card-head-img {
-        width: 5.6rem;
-        height: 5.6rem;
-        background-color: #888888;
-    }
-    .card-head-cate {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 7rem;
-        height: 2.4rem;
-        border: 1px solid #000000;
-        font: ${props => props.theme.font.p};
-        color: ${props => props.theme.color.b1};
-    }
-    .card-title {
-        flex-grow: 1;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font: ${props => props.theme.font.styleh5};
-        color: ${props => props.theme.color.b1};
-    }
-    .card-contents {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font: ${props => props.theme.font.p};
-        color: ${props => props.theme.color.b1};
-    }
-    .card-foot {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .card-agency {
-        margin: 0 1.5rem 0 0;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-    .card-agency-logo {
-        margin-right: 0.5rem;
-    }
-    .card-agency-name {
-        font-size: 1.3rem;
-    }
-    .card-period {
-        flex-grow: 1;
-        min-width: 18rem;
-        font: ${props => props.theme.font.p};
-        color: ${props => props.theme.color.b1};
-    }
-    .card-info{
-        display: flex;
-        button{
-            z-index: 13;
-        }
-    }
-    .card-view{
-        display: flex;
-        svg{
-            width: 2rem;
-            height: 2rem;
-        }
-        span{
-            font: ${props => props.theme.font.p};
-            color: ${props => props.theme.color.b1};
-        }
-    }
-    &:hover{
-        background-color: ${props => props.theme.color.p3};
-    }
+const FolderList = styled.li`
+    margin: 0 0 1.6rem;
+    display: flex;
+    width: 50%;
+    cursor: pointer;
     @media screen and (max-width: 808px) {
-        margin: 0 0 1.2rem;
-        border-top: 0;
-        background-color: ${props => props.theme.color.g3};
-        .card-head {
-            margin: 0 0 1rem;
-        }
-        .card-foot {
-            flex-wrap: wrap;
-        }
-        .card-agency {
-            margin: 0 0 1rem;
-            width: 100%;
-            flex-flow: column;
-            align-items: flex-start;
-        }
-        .card-agency-logo {
-            margin-right: 0.5rem;
-        }
-        .card-agency-name {
-            font-size: 1.3rem;
-        }
-        .card-period {
-            flex-grow: 1;
-            font-size: 1.3rem;
-        }
-        .card-info{
-            display: flex;
-        }
-        .card-view{
-            display: flex;
+    } 
+    @media screen and (max-width: 600px) {
+        width: 100%;
+    } 
+`
+const FolderImg = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 12rem;
+    height: 12rem;
+    border-radius: 17.0936px;
+    overflow: hidden;
+    svg{
+        z-index: 1;
+        width: 10rem;
+        height: 10rem;
+        path{
+            fill: ${props => props.theme.color.w};
         }
     }
+`
+const FolderCont = styled.div`
+    padding: 0.8rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`
+const FolderContBot = styled.div`
+    display: flex;
+    align-items: center;
+`
+const FolderStatus = styled.div`
+    font: ${props => props.theme.font.curation_author};
+    color ${props => props.theme.color.p2};
+`
+const FolderName = styled.h4`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font: ${props => props.theme.font.curation_title};
+`
+const LockBtn = styled.button`
+    display: flex;
+    align-items: center;
+    svg{
+        width: 1.067rem;
+        heigth: 1.067rem;
+    }
+    font: ${props => props.theme.font.p};
+    color ${props => props.theme.color.p2};
+    svg+span{
+        margin: 0 0 0 2px;
+    }
+`
+const Deco = styled.div`
+    content:"";
+    margin: 0 1.4rem;
+    display: inline-flex;
+    width: 2px;
+    height: 1rem; 
+    background-color: ${props => props.theme.color.p2};
+    pointer-events: none;
 `
 export default Myzzim;

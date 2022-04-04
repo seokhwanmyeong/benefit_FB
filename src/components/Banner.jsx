@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import styled, {keyframes} from 'styled-components';
+import styled from 'styled-components';
 
 import { actionCreators as postActions } from '../redux/modules/post';
 import { Input } from '../elements';
-import { SvgLoader } from "../icons/ico_components"
+import { SvgLoader } from "../icons/ico_components";
+import { BannerDeco1, BannerDeco2, BannerDeco3 } from "../img/img_svg"
 
 const Banner = (props) => {
     const dispatch = useDispatch();
@@ -19,7 +20,8 @@ const Banner = (props) => {
         education : "all",
         benefit : ["all"],
         location : ["all"],
-        limit : "all",
+        age: "all",
+        major: "all",
         special_limit : "all",
     }
 
@@ -36,6 +38,9 @@ const Banner = (props) => {
     }
     return (
         <StyleBanner>
+            <Deco/>
+            <Deco2/>
+            <Deco3/>
             <div className='banner-text'>
                 <p>검색해봐요<br/>청년혜택, 바로, 지금</p>
                 <Input 
@@ -48,7 +53,39 @@ const Banner = (props) => {
         </StyleBanner>
     );
 };
-
+const Deco = styled(BannerDeco1)`
+    position: absolute;
+    top: 0;
+    left: 2%;
+    display: flex;
+    width: 96%;
+    height: 100%;
+    @media screen and (max-width: 808px) {
+        display: none;
+    }
+`
+const Deco2 = styled(BannerDeco2)`
+    position: absolute;
+    top: -2vw;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+`
+const Deco3 = styled(BannerDeco3)`
+    position: absolute;
+    top: -3%;
+    left: 3%;
+    display: none;
+    width: 94%;
+    height: 100%;
+    rect{
+        height: 105%;
+    }
+    @media screen and (max-width: 808px) {
+        display: flex;
+    }
+`
 const StyleBanner = styled.div`
     position: relative;
     width: 100%;
@@ -56,7 +93,8 @@ const StyleBanner = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${props => props.theme.color.g3};
+    background-color: ${props => props.theme.color.p1};
+    border-radius: 0px 0px 24px 24px;
     .banner-text{
         padding: 0 20.4rem;
         width: 100%;
@@ -67,12 +105,22 @@ const StyleBanner = styled.div`
         p{
             margin: 0 0 2.4rem;
             font: ${props => props.theme.font.styleh3};
+            color: ${props => props.theme.color.w};
             text-align: center;
         }
     }
     @media screen and (max-width: 808px) {
+        height: 41.41vw;
         .banner-text{
             padding: 0 16.4103vw;
+        }
+    }
+    @media screen and (max-width: 500px) {
+        .banner-text{
+            p{
+                margin: 0 0 1.2rem;
+                font: ${props => props.theme.font.styleh5};
+            }
         }
     }
 `

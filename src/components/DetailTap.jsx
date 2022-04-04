@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { CardReview, CardComment } from '../components/index';
-import { Btn } from '../elements';
+import { CardReview, BoxComment, ModalPop } from '../components/index';
+import { BtnTap, BtnText } from '../elements';
 
 const DetailTap = (props) => {
-    const { data } = props;
-    // console.log(data)
+    const { review_link, comment } = props;
+    const modalRef = useRef();
+    const token = localStorage.getItem("ybrn");
 
     const [tabState, setTabState] = useState({
         tapReview: true,
         tapComment: false,
     });
+    
     const tabHandler = (event) => {
         const newTabState = { ...tabState };
         const activeTab = event.currentTarget.id;
@@ -23,46 +25,62 @@ const DetailTap = (props) => {
         setTabState(newTabState);
     };
 
+    const ModalHandler = () => {
+        if(!token){
+            alert("로그인해주세요");
+            return;
+        }
+
+        modalRef.current.classList.contains("active")
+        ? modalRef.current.classList.remove("active")
+        : modalRef.current.classList.add("active")
+    }
+
     return (
-        <div>
+        <Wrap>
             <DetailTapHead>
-                <Btn
+                <BtnTap
                     _id="tapReview"
-                    _onClick={tabHandler}
-                    _text="블로그 후기"
                     _className={tabState.tapReview ? "active" : ""}
-                />
-                <Btn
-                    _id="tapComment"
                     _onClick={tabHandler}
-                    _text="간단 후기"
+                    text="블로그 후기"
+                    count={2}
+                />
+                <BtnTap
+                    _id="tapComment"
                     _className={tabState.tapComment ? "active" : ""}
+                    _onClick={tabHandler}
+                    text="간단 후기"
+                    count={2}
                 />
             </DetailTapHead>
-            <div>
-                {
-                    tabState.tapReview ? <CardReview _type='grid' _line={2} _view={3} data={data}/> : <CardComment/>
-                }
-            </div>
-        </div>
+            <DetailTapContents>
+                {tabState.tapReview 
+                ? <React.Fragment>
+                    <BtnText onClick={ModalHandler} text='SNS 후기 등록하기'/>
+                    <CardReview _type='grid' _auto={true} _line={2} _view={3} data={review_link}/> 
+                </React.Fragment>
+                : <BoxComment data={comment}/>}
+            </DetailTapContents>
+            <ModalPop ref={modalRef}/>
+        </Wrap>
     );
 };
+const Wrap = styled.div`
+    @media screen and (max-width: 808px) {
+        padding: 0 1.6rem 3.2rem
+    } 
+`
 const DetailTapHead = styled.div`
     margin-bottom: 3.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    button{
-        width: 50%;
-        height: 6.7rem;
-        font: normal 500 1.6rem/1.3 Noto sans, sans-serif;
-        color: ${props => props.theme.color.b0};
-        box-shadow: inset 0 -1px 0 ${props => props.theme.color.p1};
-        &.active{
-            font-weight: 600;
-            box-shadow: inset 0 -5px 0 ${props => props.theme.color.p1};
-        }
-    }
+`
+const DetailTapContents = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 `
 
 export default DetailTap;

@@ -1,9 +1,9 @@
 import React, { useContext, useRef, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css, keyframes} from 'styled-components';
 import { useDispatch } from "react-redux"
 import { FilterController } from './Filter';
 
-import { Btn, Input } from '../elements';
+import { Btn, BtnCircle, Input } from '../elements';
 import { SvgClose, SvgReset } from '../icons/ico_components'
 import { CheckTrue, CheckFalse } from "../icons/ico_url"
 import { actionCreators as postActions } from "../redux/modules/post"
@@ -25,7 +25,10 @@ const FilterBox = () => {
     const [job_status, setJob] = useState("all");
     const [education, setEdu] = useState("all");
     const [benefit, setBenefit] = useState(["all"]);
-    const [limit, setLimit] = useState("all");
+
+    const [age, setAge] = useState("all");
+    const [major, setMajor] = useState("all");
+
     const [special_limit, setSlimit] = useState("all");
     const [apply_period, setPeriod] = useState(["all"]);
     // const [category, setCate] = useState(["all"]);
@@ -55,7 +58,7 @@ const FilterBox = () => {
                 "마감일 임박 (14일 미만)",
                 "신청 예정 (14일 미만)",
                 "기타",
-                "마감",
+                // "마감",
             ],
             overlap: true
         },
@@ -73,14 +76,18 @@ const FilterBox = () => {
             name: "지원내용", 
             content: [
                 "전체",
-                "cash",
-                "clothes",
-                "edu",
-                "equipment",
-                "place",
-                "support",
-                "counsel",
-                "consulting",
+                "돈",
+                "옷",
+                "컨설팅",
+                "상담",
+                "교육",
+                "장비",
+                "공간",
+                "건강",
+                "주거",
+                "스펙",
+                "문화생활",
+                "기타",
             ],
             overlap: true
         },
@@ -109,14 +116,31 @@ const FilterBox = () => {
             ],
             overlap: true
         },
-        "limit" : { 
-            name: "나이·전공제한", 
+        "age" : {
+            name: "나이제한", 
             content: [
                 "제한 O",
                 "제한 X"
             ],
             overlap: false
         },
+        "major" : {
+            name: "전공제한", 
+            content: [
+                "제한 O",
+                "제한 X"
+            ],
+            overlap: false
+        },
+
+        // "limit" : { 
+        //     name: "나이·전공제한", 
+        //     content: [
+        //         "제한 O",
+        //         "제한 X"
+        //     ],
+        //     overlap: false
+        // },
         "special_limit" : { 
             name: `기타제한대상\nex) 군인, 소득제한, etc`, 
             content: [
@@ -141,8 +165,12 @@ const FilterBox = () => {
         education: education,
         benefit : benefit,
         location : location,
-        limit : limit,
+        age: age,
+        major: major,
+        // limit : limit,
         special_limit : special_limit,
+        order: "인기순",
+        paging: 1,
     }
 
     const onChangeAll = (e, id) => {
@@ -256,28 +284,51 @@ const FilterBox = () => {
     };
 
     const onRadio = (e, id) => {
-        // console.log(e.target, id)
         switch(id){
             case 'job_status': 
-                console.log(e.currentTarget.checked);
-                if(e.currentTarget.checked){
-                    setJob(e.currentTarget.value);
-                }else {
-                    setJob("");
+                if(select_filter[id] === e.currentTarget.value){
+                    setJob("all")
                     e.currentTarget.checked = false;
+                }else {
+                    setJob(e.currentTarget.value)
+                    e.currentTarget.checked = true;
                 }
                 break;
             case 'education': 
-                // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setEdu("all") : setEdu(e.currentTarget.value)
+                if(select_filter[id] === e.currentTarget.value){
+                    setEdu("all")
+                    e.currentTarget.checked = false;
+                }else {
+                    setEdu(e.currentTarget.value)
+                    e.currentTarget.checked = true;
+                }
                 break;
-            case 'limit': 
-                // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setLimit("all") : setLimit(e.currentTarget.value == '제한 X' ? 'false' : 'true')
+            case 'age': 
+                if(select_filter[id] === e.currentTarget.value){
+                    setAge("all")
+                    e.currentTarget.checked = false;
+                }else {
+                    setAge(e.currentTarget.value)
+                    e.currentTarget.checked = true;
+                }
+                break;
+            case 'major': 
+                if(select_filter[id] === e.currentTarget.value){
+                    setMajor("all")
+                    e.currentTarget.checked = false;
+                }else {
+                    setMajor(e.currentTarget.value)
+                    e.currentTarget.checked = true;
+                }
                 break;
             case 'special_limit': 
-                // console.log(e.currentTarget.value);
-                select_filter[id] === id ? setSlimit("all") : setSlimit(e.currentTarget.value == '제한 X' ? 'false' : 'true')
+                if(select_filter[id] === e.currentTarget.value){
+                    setSlimit("all")
+                    e.currentTarget.checked = false;
+                }else {
+                    setSlimit(e.currentTarget.value)
+                    e.currentTarget.checked = true;
+                }
                 break;
             default : 
                 // console.log(e.currentTarget.value);
@@ -289,16 +340,17 @@ const FilterBox = () => {
         setTxt("all")
         setJob("all");
         setEdu("all");
-        setLimit("all");
+        setAge("all");
+        setMajor("all");
         setSlimit("all");
         setPeriod(["all"]);
         setBenefit(["all"]);
         setLocate(["all"]);
         // setCate(["all"]);
-        inputRef.current.value = "";
-
+        inputRef.current.value= '';
+        inputRef.current.parentNode.classList.remove('active')
         document.getElementById(`apply_period`).checked = false;
-        document.getElementById(`category`).checked = false;
+        document.getElementById(`benefit`).checked = false;
         document.getElementById(`location`).checked = false;
     }
 
@@ -308,14 +360,35 @@ const FilterBox = () => {
 
     const adaptOption = () => {
         console.log("검색시작")
-        dispatch(postActions.setCate('c0'));
-        dispatch(postActions.getCateListFB(select_filter));
+
+        dispatch(postActions.setCate('all'));
+        dispatch(postActions.getCateListFB(select_filter, ['all']));
+        dispatch(postActions.setFilterState(true));
         toggleState();
+    }
+    
+    const handleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            console.log('enter press')
+            adaptOption();
+        }
+    }
+
+    const acodianHandler = (e, id) => {
+        // console.log(e.currentTarget)
+        // console.log(id)
+        if(e.currentTarget.classList.contains('active')){
+            e.currentTarget.classList.remove('active');
+            document.getElementById(id).classList.remove('active');
+        }else {
+            e.currentTarget.classList.add('active');
+            document.getElementById(id).classList.add('active');
+        }
     }
 
     useEffect(() => {
         // console.log(select_filter)
-    }, [txt, job_status, apply_period, education, benefit, location, limit, special_limit,])
+    }, [txt, job_status, apply_period, education, benefit, location, age, major, special_limit,])
 
     return (
         <Filter className={isOpen ? 'active' : 'inactive'}>
@@ -325,179 +398,222 @@ const FilterBox = () => {
                     <SvgClose/>
                 </Btn>
             </div>
-            <FilterDeco>세부검색</FilterDeco>
             <FilterWrap>
                 <ResultGroup>
                     <GroupProperty className='int-search'>
                         <h5>검색어</h5>
-                        <Input _ref={inputRef} _onChange={onInput} _type='text' _placeholder='ex) 학자금 대출' />
+                        <Input _ref={inputRef} _onChange={onInput} _onKeyPress={handleKeyPress} _type='text_search' _placeholder='ex) 학자금 대출' />
                     </GroupProperty>
-                    <hr/>
                     <GroupProperty className='btn-group'>
-                        <Btn _type="normal" _onClick={reset} _className="btn-reset" _width="4.8rem" _bg={'#E5E5E5'}><SvgReset/></Btn>
-                        <Btn _type="normal" _onClick={adaptOption} _text='검색하기'/>
+                        <BtnCircle _onClick={reset} _className="btn-reset" _size="3.6rem" _bg={'#FFFFFF'}><SvgReset/></BtnCircle>
+                        <Btn _type="small" _onClick={adaptOption} _width='100%' _text='검색하기'/>
                     </GroupProperty>
                 </ResultGroup>
-                {Object.entries(filter_list).map((cur) => {
-                    // console.log(cur)
-                    return(
-                        <React.Fragment>
-                            <GroupProperty>
-                                <p>{cur[1].name}</p>
-                            </GroupProperty>
-                            <GroupContents key={cur[0]}>
-                                {
-                                    cur[1].overlap 
-                                    ? 
-                                        cur[1].content.map((list, idx) => {
-                                            // console.log(cur[0]+`${idx}`)
-                                            return (
-                                                <label key={cur[0] + `${idx}`} className="check-label">
-                                                    <input 
-                                                        onChange={(e) => idx === 0 ? onChangeAll(e, cur[0]) : onCheckBox(e, cur[0])} 
-                                                        id={idx === 0 ? cur[0] : null} 
-                                                        type="checkbox" 
-                                                        value={list} 
-                                                        checked={idx === 0 ? null : select_filter[cur[0]].includes(list)} 
-                                                        className='check-int'
-                                                    />
-                                                    <span className='check-box'></span>
-                                                    <p className='check-cont'>{list}</p>
-                                                </label>
-                                            )
-                                        })
-                                    :
-                                        cur[1].content.map((list, idx) => {
-                                            // console.log(cur[0]+`${idx}`)
-                                            return (
-                                                <label className="check-label">
-                                                    <input 
-                                                        onChange={(e) => {onRadio(e, cur[0])}} key={cur[0] + `${idx}`}
-                                                        type="radio"  
-                                                        name={cur[0]} 
-                                                        value={list} 
-                                                        checked={select_filter[cur[0]] === list} 
-                                                        className='check-int'
-                                                    />
-                                                    <span className='check-box'></span>
-                                                    <p className='check-cont'>{list}</p>
-                                                </label>
-                                            )
-                                        })
-                                }
-                            </GroupContents>
-                        </React.Fragment>
-                    )
-                })}
+                <Hr type='dash'/>
+                <ContentGroup>
+                    {Object.entries(filter_list).map((cur, idx) => {
+                        // console.log('main_'+cur[0])
+                        return(
+                            <React.Fragment>
+                                <GroupProperty key={'main_'+cur[0]} onClick={(e) => acodianHandler(e, 'tap' + idx)} type='acodian'>
+                                    <p>{cur[1].name}</p>
+                                </GroupProperty>
+                                <Hr/>
+                                <GroupContents id={'tap' + idx} key={cur[0]}>
+                                    {
+                                        cur[1].overlap 
+                                        ? 
+                                            cur[1].content.map((list, idx) => {
+                                                // console.log(cur[0]+`${idx}`)
+                                                return (
+                                                    <label key={cur[0] + `${idx}`} className="check-label">
+                                                        <input 
+                                                            onChange={(e) => idx === 0 ? onChangeAll(e, cur[0]) : onCheckBox(e, cur[0])} 
+                                                            id={idx === 0 ? cur[0] : null} 
+                                                            type="checkbox" 
+                                                            value={list} 
+                                                            checked={idx === 0 ? null : select_filter[cur[0]].includes(list)} 
+                                                            className='check-int'
+                                                        />
+                                                        <span className='check-box'></span>
+                                                        <p className='check-cont'>{list}</p>
+                                                    </label>
+                                                )
+                                            })
+                                        :
+                                            cur[1].content.map((list, idx) => {
+                                                // console.log(cur[0]+`${idx}`)
+                                                return (
+                                                    <label key={cur[0] + `${idx}`} className="check-label">
+                                                        <input 
+                                                            onClick={(e) => {onRadio(e, cur[0])}}
+                                                            type="radio"  
+                                                            name={cur[0]} 
+                                                            value={list} 
+                                                            checked={select_filter[cur[0]] === list ? true : false}
+                                                            className='check-int'
+                                                            readOnly
+                                                        />
+                                                        <span className='check-box'></span>
+                                                        <p className='check-cont'>{list}</p>
+                                                    </label>
+                                                )
+                                            })
+                                    }
+                                </GroupContents>
+                            </React.Fragment>
+                        )
+                    })}
+                </ContentGroup>
             </FilterWrap>
         </Filter>
     );
 };        
+const TabOpen = keyframes`
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
+const TabClose = keyframes`
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+`;
 const Filter = styled.div`
+    z-index: 10;
     position: relative;
     margin-left: 1.6rem;
-    width: 27rem;
-    height: 80vh;
-    order: 2;
     display: flex;
     flex-direction: column;
-    z-index: 10;
+    width: 27rem;
+    order: 2;
     .filter-head{
+        padding: 2rem 1.6rem;
         display:none;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #000000;
+        h4{
+            font: ${props => props.theme.font.option_title};
+            font-size: 2rem;
+            color: ${props => props.theme.color.b0};
+        }
     }
     @media screen and (max-width: 808px) {
         z-index: 10;
         position: fixed;
         right: 0;
         top: 0;
+        padding: 0;
         display: none;
         flex-direction: column;
         width: 100%;
         height: 100%;
         background-color: #ffffff;
+        
         &.active {
             display: flex;
         }
         .filter-head{
-            padding: 2rem 1.6rem;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #000000;
-            h4{
-                font: ${props => props.theme.font.option_title};
-                font-size: 2rem;
-                color: ${props => props.theme.color.b0};
-            }
         }
     }
 `
 const FilterWrap = styled.div`
-    width: 27rem;
-    height: 80vh;
+    z-index: 10;
+    transform: translateY(-50px);
+    padding: 5rem 0 3rem;
     display: flex;
     flex-direction: column;
-    z-index: 10;
-    background-color: #ffffff;
-    overflow-y: scroll;
-    border: 1px solid ${props => props.theme.color.g3};
-    border-top: 0;
-    border-radius: 0 0.4rem 0.4rem;
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: ${props => props.theme.color.filter_pc_color};
-        border-radius: 0 10px 0 0;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: ${props => props.theme.color.g3};
-        border-radius: 0 10px 0 0;
-    }
+    width: 27rem;
+    // height: 80vh;
+    background-color: ${props => props.theme.color.w};
+    border: 1px solid ${props => props.theme.color.p5};
+    border-radius: 24px;
+    overflow: hidden;
     @media screen and (max-width: 808px) {
-        z-index: 10;
+        transform: translateY(0px);
         position: absolute;
         right: 0;
         top: 7.8rem;
-        padding: 0 1.6rem 20rem;
-        flex-direction: column;
+        padding: 0 1.6rem 11rem;
         width: 100%;
-        height: 100%;
+        height: 93vh;
+        border: 0;
         &::-webkit-scrollbar {
             width: 0px;
         }
     }
+    &::-webkit-scrollbar {
+        width: 0px;
+    }
 `
 const ResultGroup = styled.div`
-    background-color: ${props => props.theme.color.filter_pc_color};
-    hr{
-        margin: 0 auto;
-        width: 83%;
-        border-bottom: 1px solid ${props => props.theme.color.g3};
-    }
     @media screen and (max-width: 808px) {
         background-color: ${props => props.theme.color.w};
-        hr{
-            width: 100%;
-            border-bottom: 1px solid ${props => props.theme.color.g1};
-        }
     }
 `
 const GroupProperty = styled.div`
-    padding: 1.6rem 1.6rem 1.2rem;
+    position: relative;
+    padding: 2rem 1.6rem 1.6rem;
+    cursor: pointer;
+    ${props => props.type ==='acodian' ? css`
+        &:before{
+            content: '';
+            position: absolute;
+            right: 31px;
+            top: 50%;
+            transform: translateY(-50%);
+            transform: rotate(-45deg);
+            display: inline-block;
+            width: 10px;
+            height: 1px;
+            background-color: ${props => props.theme.color.b0};
+        }
+        &:after{
+            content: '';
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            transform: rotate(45deg);
+            display: inline-block;
+            width: 10px;
+            height: 1px;
+            background-color: ${props => props.theme.color.b0};
+        }
+        &.active{
+            display: flex;
+            &:before{
+                transform: rotate(45deg);
+            }
+            &:after{
+                transform: rotate(-45deg);
+            }
+        }
+    ` : ''};
+
     p{
         font: ${props => props.theme.font.option_title};
         color: ${props => props.theme.color.b0};
         white-space: pre-line;
     }
     &.int-search{
+        padding: 0rem 1.6rem;
         h5{
-            margin: 0 0 2.4rem;
+            margin: 0 0 1.2rem;
             font: ${props => props.theme.font.option_title};
             color: ${props => props.theme.color.b0};
         }
     }
     &.btn-group{
+        padding: 2rem 1.6rem 3.2rem;
         display: flex;
         .btn-reset{
             flex-shrink: 0;
@@ -518,27 +634,28 @@ const GroupProperty = styled.div`
         &.btn-group{
             z-index: 11;
             position: fixed;
-            bottom: 0;
+            bottom: 1rem;
             left: 0;
             width: 100%;
             background-color: ${props => props.theme.color.w};
             border-top: 1px solid ${props => props.theme.color.p2};
             border-radius: 2.4rem 2.4rem 0 0;
             .btn-reset{
-                width: 14rem;
-                &:after{
-                    content: "초기화";
-                    color: ${props => props.theme.color.b0}
-                }
+                // width: 5rem;
+                // &:after{
+                //     content: "초기화";
+                //     color: ${props => props.theme.color.b0}
+                // }
             }
         }
     }
 `   
 const GroupContents = styled.div`
-    padding: 3.2rem 2rem;
-    display: flex;
+    padding: 2.4rem 1.5rem;
+    display: none;
     flex-wrap: wrap;
-    background-color: ${props => props.theme.color.g3};
+    animation: 0.3s ${TabClose} ease-out;
+
     label{
         margin: 1.6rem 0 0;
         display: block;
@@ -567,6 +684,11 @@ const GroupContents = styled.div`
             font: ${props => props.theme.font.option_selected};
         }
     }
+    &.active{
+        display: flex;
+        animation: 0.3s ${TabOpen} ease-out;
+    }
+
     @media screen and (max-width: 808px) {
         border-bottom: 1px solid ${props => props.theme.color.g1};
         label{
@@ -574,21 +696,19 @@ const GroupContents = styled.div`
         }
     }
 `
-const FilterDeco = styled.div`
-    position: absolute;
-    top: -4rem;
-    left: 1px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 8.4rem;
-    height: 4rem;
-    border-radius: 12px 12px 0px 0px;
-    background-color: ${props => props.theme.color.filter_pc_color};
-    font: ${props => props.theme.font.p};
-    color: ${props => props.theme.color.p1};
+const Hr = styled.hr`
+    margin: 0 auto;
+    width: 90%;
+    border-bottom: ${props => props.type === 'dash' ? '1px dashed' : '1px solid'};
+    border-color: ${props => props.type === 'dash' ? props.theme.color.p2 : props.theme.color.b0};
     @media screen and (max-width: 808px) {
-        display: none;
+        width: 100%;
+    }
+`
+const ContentGroup = styled.div`
+    @media screen and (max-width: 808px) {
+        height: 80vh;
+        overflow-y: scroll;
     }
 `
 

@@ -1,5 +1,5 @@
 import React, {useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { actionCreators as postActions } from '../redux/modules/post';
@@ -11,6 +11,10 @@ const FilterController = React.createContext();
 
 const Filter = () => {
     const dispatch = useDispatch();
+    const standard = useSelector(state => state.post.order);
+    const cate = useSelector(state => state.post.cate);
+    const option = useSelector(state => state.post.options);
+    const filter_state = useSelector(state => state.post.filter_state);
 
     //인기순, 마감임박순 관련 정렬을 위한 state
     const [tabState, setTabState] = useState({
@@ -33,6 +37,7 @@ const Filter = () => {
     const arrayHandler = (e) => {
         const newTabState = { ...tabState };
         const activeTab = e.currentTarget.id;
+        const localOptions = JSON.parse(localStorage.getItem('options'))
 
         for (let key in newTabState) {
             key === activeTab
@@ -40,22 +45,26 @@ const Filter = () => {
             : (newTabState[key] = false);
         };
         setTabState(newTabState);
-        dispatch(postActions.setStandard(e.currentTarget.id));
+        if(e.currentTarget.id === 'popul'){
+            dispatch(postActions.setStandard('인기순'));
+            dispatch(postActions.getCateListFB(localOptions, cate))
+        }else{
+            dispatch(postActions.setStandard('마감임박순'));
+            dispatch(postActions.getCateListFB(localOptions, cate))
+        }
     };
     
     return (
         <FilterController.Provider value={{toggleState, isOpen, FilterExit}}>
             <FilterHead>
                 <FilterArr>
-                    <Btn _id="popul" _ariaLabel="인기순 정렬" _onClick={arrayHandler} _className={tabState.popul ? 'active': ''} _text='인기순'/>
-                    <Btn _id="period" _ariaLabel="마감 임박순 정렬" _onClick={arrayHandler} _className={tabState.period ? 'active': ''} _text='마감 임박순'/>
+                    <Btn _id="popul" _ariaLabel="인기순 정렬" _onClick={arrayHandler} _className={standard === '인기순' ? 'active': ''} _text='인기순'/>
+                    <Btn _id="period" _ariaLabel="마감 임박순 정렬" _onClick={arrayHandler} _className={standard === '마감임박순' ? 'active': ''} _text='마감 임박순'/>
                 </FilterArr>
-                <FilterToggleBtn _className="btn-filter" _ariaLabel="필터메뉴" _ariahaspopup={!isOpen} _ref={FilterExit} _onClick={toggleState}>
-                    <div className='btn-filter-box'>
-                        <span className='filter-on'>ON</span>
-                        <SvgFilter/>
-                        <span className='filter-off'>Off</span>    
-                    </div>
+                <FilterToggleBtn className={filter_state ? 'btn-filter active' : 'btn-filter'} ariaLabel="필터메뉴" ariahaspopup={!isOpen} ref={FilterExit} onClick={toggleState}>
+                    <span className='filter-cont'><SvgFilter/></span>
+                    <span className='filter-text'>{filter_state ? 'on' : 'off'}</span>
+                    <input type='checkbox' checked={filter_state}/>
                 </FilterToggleBtn>
             </FilterHead>
             <FilterBox/>
@@ -68,46 +77,89 @@ const FilterHead = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    .btn-filter{
-        position: relative;
-        display: none;
-        width: 68px;
-        height: 28px;
-        overflow-x: hidden;
-        .btn-filter-box{
-            .filter-on{
-                display: block;
-                width: 68px;
-                height: 28px;
-            }
-            .filter-off{
-                display: block;
-                width: 68px;
-                height: 28px;
-            }
-        }
-    }
     @media screen and (max-width: 808px){
+        margin: 0 0 2.4rem;
         .btn-filter{
             display: block;
         }
     }
 `
-const FilterToggleBtn = styled(Btn)`
+const FilterToggleBtn = styled.button`
+    font-size: 0px;
+    position: relative;
+    display: inline-block;
+    width: 56px;
+    height: 28px;
+    margin: 10px;
+    background-color: ${props => props.theme.color.g2}; 
+    cursor: pointer;
+    border-radius: 16px;
+    input{
+        cursor: inherit;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        opacity: 0;
+        z-index: 1;
+        margin: 0px;
+    }
+    .filter-cont{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        top: 0px;
+        left: 3px;
+        border-radius: 16px;
+        background-color: rgb(255, 255, 255);
+        position: relative;
+        transition: all 200ms ease 0s;
+    }
+    .filter-text{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font: ${props => props.theme.font.align_default};
+        color: ${props => props.theme.color.b0};
+    }
     &.active{
-
+        background-color: ${props => props.theme.color.p32};
+        .filter-cont{
+            left: 3px;
+            background-color: ${props => props.theme.color.w};
+        }
+        .filter-text{
+            left: 28px;
+            font: ${props => props.theme.font.align_default};
+            color: ${props => props.theme.color.w};
+        }
     }
 `
 const FilterArr = styled.div`
+    display: flex;
     button{
-        padding: 0 1.2rem;
-        height: 3.2rem;
-        border-radius: 16px;
-        font: ${props => props.theme.font.p};
-        color: ${props => props.theme.color.b1};
+        padding: 6px 8px;
+        border: 1px solid ${props => props.theme.color.p5};
+        font: ${props => props.theme.font.align_default};
+        color: ${props => props.theme.color.b3};
         &.active{
-            background-color: ${props => props.theme.color.filter_pc_color};
-            font-weight: 700;
+            background-color: ${props => props.theme.color.p5};
+            font: ${props => props.theme.font.align_tab};
+        }
+        &:first-child{
+            border-radius: 4px 0 0 4px;
+        }
+        &:last-child{
+            border-radius: 0 4px 4px 0;
         }
     }
 `

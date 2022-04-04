@@ -1393,5 +1393,28 @@
             "https://kyobolifeblog.co.kr/4632"
         ]
         
-    }
+    },
+    "testreview" : [
+        {
+            "commentId" : "1",
+            "postId" : "1",
+            "title" : "정책 이름",
+            "content" : "코멘트 내용",
+            "createdAt" : "작성 시간"
+        },
+        {
+            "commentId" : "2",
+            "postId" : "2",
+            "title" : "정책 이름",
+            "content" : "코멘트 내용",
+            "createdAt" : "작성 시간"
+        },
+        {
+            "commentId" : "3",
+            "postId" : "3",
+            "title" : "정책 이름",
+            "content" : "코멘트 내용",
+            "createdAt" : "작성 시간"
+        }
+    ]
 }

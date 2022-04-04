@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
-import { Myzzim, Myreview } from "../components/index";
-import { Btn } from "../elements";
+import { Myzzim, Myreview, Spinner, ModalPop } from "../components/index";
+import { BtnTap, BtnText } from "../elements";
 import styled from "styled-components";
 
 const Mypage = (props) => {
+  const modalRef = useRef();
+  const loading = useSelector((state) => state.post.is_loading);
   let user = JSON.parse(localStorage.getItem("user"))
 
   const [tabState, setTabState] = useState({
@@ -23,6 +26,12 @@ const Mypage = (props) => {
     setTabState(newTabState);
   };
 
+  const ModalHandler = () => {
+    modalRef.current.classList.contains("active")
+    ? modalRef.current.classList.remove("active")
+    : modalRef.current.classList.add("active")
+  }
+
   return (
     <MypageWrap>
       <MypageTitle>
@@ -30,24 +39,30 @@ const Mypage = (props) => {
         <p className="user-nickname">{user.nickname}님!</p>
       </MypageTitle>
       <MypageTap>
-          <Btn
+          <BtnTap
               _id="tapLike"
               _onClick={tabHandler}
-              _text="찜한 정책"
+              text="찜한 정책"
               _className={tabState.tapLike ? "active" : ""}
+              count={2}
           />
-          <Btn
+          <BtnTap
               _id="tapComment"
               _onClick={tabHandler}
-              _text="나의 댓글"
+              text="나의 댓글"
               _className={tabState.tapComment ? "active" : ""}
+              count={2}
           />
       </MypageTap>
       <MypageContent>
-          {
-              tabState.tapLike ? <Myzzim/> : <Myreview/>
-          }
+        {tabState.tapLike 
+        ? <React.Fragment>
+            <BtnText onClick={ModalHandler} text='폴더만들기 >' margin='0 0 2rem'/>
+            <Myzzim/> 
+        </React.Fragment>
+        : <Myreview/>}
       </MypageContent>
+      <ModalPop modalId={2} ref={modalRef}/>
     </MypageWrap>
   );
 };
@@ -73,18 +88,10 @@ const MypageTap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  button{
-      width: 50%;
-      height: 6.7rem;
-      font: normal 500 1.6rem/1.3 Noto sans, sans-serif;
-      color: ${props => props.theme.color.b0};
-      box-shadow: inset 0 -1px 0 ${props => props.theme.color.p1};
-      &.active{
-          font-weight: 600;
-          box-shadow: inset 0 -5px 0 ${props => props.theme.color.p1};
-      }
-  }
 `
 const MypageContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 `
 export default Mypage;

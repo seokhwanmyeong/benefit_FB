@@ -117,7 +117,7 @@ const Curation = () => {
                         return(
                             <FolderList key={cur.folderId} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
                                 <FolderImg>
-                                    <FolderBg cate={{c1: cur.c1, c2: cur.c1, c3: cur.c1, c4: cur.c1}}/>
+                                    <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
                                     <ImgBenefit benefit={cur.benefit}/>
                                 </FolderImg>
                                 <FolderCont>

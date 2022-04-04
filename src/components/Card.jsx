@@ -161,7 +161,7 @@ const MainCard = styled.div`
   }
   .card-contents {
     margin: 0 0 1.6rem;
-    height: 5.9rem;
+    height: 5.6rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

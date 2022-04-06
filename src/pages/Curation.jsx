@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from "../redux/modules/post";
 import { ImgBenefit, ModalPop, FolderBg, Spinner } from '../components/index';
 import { SvgLockOn, SvgLockOff } from '../icons/ico_components'
+import { commonAni } from '../styles/Animation'
+import { Btn } from '../elements';
 
 const Curation = () => {
     const userId = useSelector(state => state.user.user.userId);
@@ -17,8 +19,8 @@ const Curation = () => {
     const modalRef = useRef();
     const [folderId, setId] = useState();
     const [folderName, setName] = useState();
+    const [folderCont, setContent] = useState();
     const [lockstatus, setLock] = useState();
-    // const [lockState, setLock] = useState(true);
 
     let lock_list = [];
     user_folder?.forEach(cur => {
@@ -26,9 +28,31 @@ const Curation = () => {
             return lock_list = [...lock_list, cur.folderId];
         }
     })
-    // console.log(lock_list)
 
-    const ModalHandler = (e, id, name, status) => {
+    const [tabState, setTabState] = useState({
+        popul: true,
+        period: false,
+    });
+
+    //인기순, 마감임박순 관련 handler 함수
+    const arrayHandler = (e) => {
+        const newTabState = { ...tabState };
+        const activeTab = e.currentTarget.id;
+
+        for (let key in newTabState) {
+            key === activeTab
+            ? (newTabState[key] = true)
+            : (newTabState[key] = false);
+        };
+        setTabState(newTabState);
+        if(e.currentTarget.id === 'popul'){
+            dispatch(postActions.getCurationFB('default'))
+        }else{
+            dispatch(postActions.getCurationFB('period'))
+        }
+    };
+
+    const ModalHandler = (e, id, name, content, status) => {
         e.stopPropagation();
         modalRef.current.classList.contains("active")
         ? modalRef.current.classList.remove("active")
@@ -36,31 +60,17 @@ const Curation = () => {
 
         setId(id);
         setName(name);
+        setContent(content)
         setLock(status);
     }
 
-    const lockFolderEvent = (e, folderId, folder_name, folder_status) => {
+    const lockFolderEvent = (e, folderId, folder_name, folder_content, folder_status) => {
         e.stopPropagation();
-        dispatch(postActions.setUpdateFolderFB(folderId, folder_name, !folder_status))
-        // e.stopPropagation();
-        // console.log(e.currentTarget)
-        // if(e.currentTarget.classList.contains('on')){
-        //     e.currentTarget.classList.remove('on')
-        //     lock_list = lock_list.filter(cur => {
-        //         return cur !== folderId
-        //     })
-        //     console.log(lock_list)
-        //     dispatch(postActions.setUpdateFolderFB(folderId, folder_name, status));
-        // }else{
-        //     e.currentTarget.classList.add('on')
-        //     lock_list = [...lock_list, folderId]
-        //     console.log(lock_list)
-        //     dispatch(postActions.setUpdateFolderFB(folderId, folder_name, status));
-        // }
+        dispatch(postActions.setUpdateFolderFB(folderId, folder_name, folder_content, !folder_status))
     }
 
     useEffect(() => {
-        dispatch(postActions.getCurationFB());
+        dispatch(postActions.getCurationFB('default'));
     }, [])
 
     if(loading){
@@ -77,16 +87,17 @@ const Curation = () => {
                         return null;
                     }else{
                         return(
-                            <BestCard key={cur.folderId} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
+                            <BestCard key={`cura${cur.folderId}`} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
                                 <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
                                 <FolderCont padding='0'>
-                                    <FolderName color='white'>{cur.folder_name}</FolderName>
+                                    <FolderName type='best' color='white'>{cur.folder_name}</FolderName>
+                                    <FolderMemo type='best' color='white'>{cur.folder_content}</FolderMemo>
                                     {userId === cur.userId 
                                     ? 
                                     <FolderContBot>
-                                        <FolderStatus color='white' onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_status)}>편집</FolderStatus>
+                                        <FolderStatus color='white' onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>편집</FolderStatus>
                                         <Deco color='white'/>
-                                        <LockBtn color='white' onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_status)}>
+                                        <LockBtn color='white' onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>
                                             {cur.folder_status 
                                             ? <React.Fragment>
                                                 <SvgLockOn/>
@@ -109,26 +120,31 @@ const Curation = () => {
                     }
                 })}
             </CurationBest>
+            <FilterArr>
+                <Btn _id="popul" _ariaLabel="인기순 정렬" _onClick={arrayHandler} _className={tabState.popul ? 'active': ''} _text='인기순'/>
+                <Btn _id="period" _ariaLabel="최신 작성순 정렬" _onClick={arrayHandler} _className={tabState.period ? 'active': ''} _text='최신 작성순'/>
+            </FilterArr>
             <FolderGroup>
                 {folder_list.map((cur, idx) => {
                     if(idx < 2){
                         return null;
                     }else{
                         return(
-                            <FolderList key={cur.folderId} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
+                            <FolderList key={`cura${cur.folderId}`} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
                                 <FolderImg>
-                                    <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
+                                    <FolderBg type='small' cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
                                     <ImgBenefit benefit={cur.benefit}/>
                                 </FolderImg>
                                 <FolderCont>
                                     <FolderName>{cur.folder_name}</FolderName>
+                                    <FolderMemo>{cur.folder_content}</FolderMemo>
                                     <FolderCont padding='0'>
                                         {userId === cur.userId 
                                         ? 
                                         <FolderContBot>
-                                            <FolderStatus onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name)}>편집</FolderStatus>
+                                            <FolderStatus onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>편집</FolderStatus>
                                             <Deco/>
-                                            <LockBtn onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_status)}>
+                                            <LockBtn onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>
                                                 {cur.folder_status 
                                                 ? <React.Fragment>
                                                     <SvgLockOn/>
@@ -149,12 +165,14 @@ const Curation = () => {
                     }
                 })}
             </FolderGroup>
-            <ModalPop ref={modalRef} modalId={3} folderId={folderId} folder_name={folderName} lockstatus={lockstatus}/>
+            <ModalPop ref={modalRef} modalId={3} folderId={folderId} folder_name={folderName} folder_content={folderCont} lockstatus={lockstatus}/>
         </CurationWrap>
     );
 };
 const CurationWrap = styled.div`
     padding: 5.6rem 10.4rem;
+    transition: 0.5s linear;
+    animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px) {
         padding: 5.6rem 1.4rem;
     } 
@@ -172,12 +190,14 @@ const CurationTitle = styled.div`
 const FolderGroup = styled.ul`
     display: flex;
     flex-wrap: wrap;
+    transition: 0.5s linear;
 `
 const FolderList = styled.li`
     margin: 0 0 1.6rem;
     display: flex;
     width: 50%;
     cursor: pointer;
+    transition: 0.5s linear;
     @media screen and (max-width: 808px) {
     } 
     @media screen and (max-width: 600px) {
@@ -219,10 +239,30 @@ const FolderName = styled.h4`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
-    width: 100%;
+    width: ${props => props.type === 'best' ? '88%' : '100%'};
+    min-height: 3.6rem;
     overflow: hidden;
     text-overflow: ellipsis;
     font: ${props => props.theme.font.curation_title};
+    color ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.p1};
+    line-height: 1.2;
+    @media screen and (max-width: 808px) {
+        width: ${props => props.type === 'best' ? '78%' : '100%'};
+    } 
+    @media screen and (max-width: 808px) {
+        width: ${props => props.type === 'best' ? '100%' : '100%'};
+    } 
+`
+const FolderMemo = styled.p`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    width: ${props => props.type === 'best' ? '60%' : '100%'};
+    min-height: 3.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font: ${props => props.theme.font.curation_author};
     color ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.b0};
 `
 const FolderNick = styled.p`
@@ -230,12 +270,15 @@ const FolderNick = styled.p`
     color: ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.b0};
 `
 const CurationBest = styled.div`
-    margin: 0 0 6.2rem;
+    margin: 0 0 3.2rem;
     display: flex;
-    justify-content: space-between;
+    @media screen and (max-width: 600px) {
+        justify-content: space-between;
+    } 
 `
 const BestCard = styled.div`
     position: relative;
+    margin: 0 5% 0 0;
     padding: 3.2rem 2.4rem;
     display: flex;
     width: 45%;
@@ -243,6 +286,10 @@ const BestCard = styled.div`
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
+    @media screen and (max-width: 600px) {
+        margin: 0;
+        width: 48%;
+    } 
 `
 const LockBtn = styled.button`
     display: flex;
@@ -282,6 +329,26 @@ const FolderIcon = styled.div`
         height: auto;
         path{
             fill: ${props => props.theme.color.w};
+        }
+    }
+`
+const FilterArr = styled.div`
+    margin: 0 0 3.2rem;
+    display: flex;
+    button{
+        padding: 6px 8px;
+        border: 1px solid ${props => props.theme.color.p5};
+        font: ${props => props.theme.font.align_default};
+        color: ${props => props.theme.color.b3};
+        &.active{
+            background-color: ${props => props.theme.color.p5};
+            font: ${props => props.theme.font.align_tab};
+        }
+        &:first-child{
+            border-radius: 4px 0 0 4px;
+        }
+        &:last-child{
+            border-radius: 0 4px 4px 0;
         }
     }
 `

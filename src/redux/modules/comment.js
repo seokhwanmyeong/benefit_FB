@@ -84,7 +84,6 @@ const deleteCommentFB = (commentId) => {
             commentId: commentId
         }
     }).then((res) => {
-        console.log(res)
         dispatch(deleteComment(commentId))
         // : alert("다시 시도해주세요")
     }).catch((error) => {

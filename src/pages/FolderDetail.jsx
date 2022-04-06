@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { actionCreators as postActions } from "../redux/modules/post";
-import { ImgBenefit, CateBox, AnimateShare, DecoNew, ModalPop, FolderBg } from '../components/index';
+import { ImgBenefit, CateBox, AnimateShare, DecoNew, ModalPop, FolderBg, Nonlayer } from '../components/index';
 import { BtnCircle } from "../elements/index";
-import { SvgLikeOn, SvgLikeOff, SvgShare, SvgEdit, SvgBack } from '../icons/ico_components'
+import { SvgLikeOn, SvgLikeOff, SvgShare, SvgEdit, SvgBack, SvgView } from '../icons/ico_components';
 
 const FolderDetail = () => {
     const params = useParams();
@@ -22,6 +22,7 @@ const FolderDetail = () => {
     const [postId, setPostId] = useState();
     const [folderId, setId] = useState();
     const [folderName, setName] = useState();
+    const [folderCont, setContent] = useState();
     const [lockstatus, setLock] = useState();
     const token = localStorage.getItem("ybrn");
     const folder_main = folder_contents.maincuration?.[0];
@@ -125,14 +126,16 @@ const FolderDetail = () => {
         }
     }
 
-    const editModalHandler = (e, id, name, status) => {
+    const editModalHandler = (e, id, name, content, status) => {
         e.stopPropagation();
         editRef.current.classList.contains("active")
         ? editRef.current.classList.remove("active")
         : editRef.current.classList.add("active")
         console.log(id, name)
+        
         setId(id);
-        setName(name)
+        setName(name);
+        setContent(content);
         setLock(status);
     }
     
@@ -146,18 +149,27 @@ const FolderDetail = () => {
                 <SvgBack/>
                 <span>Back</span>
             </BtnBack>
+            <Nav>
+                <Link to={'/curation'}>Curation</Link>
+                <span>{folder_main?.folder_name}</span>
+            </Nav>
             <FolderInfo>
                 <FolderBg shadow={true} cate={{c1: folder_main?.c1, c2: folder_main?.c2, c3: folder_main?.c3, c4: folder_main?.c4}}/>
                 <InfoLeft>
-                    {userId === folder_main?.userId 
+                    {/* {userId === folder_main?.userId 
                     ? <span>{folder_main.nickname} 님의</span>
                     : null
-                    }
-                    <p>{folder_main?.folder_name}</p>
+                    } */}
+                    <h4>{folder_main?.folder_name}</h4>
+                    <p>{folder_main?.folder_content}</p>
+                    <InfoView>
+                        <SvgView/>
+                        <span>{folder_main?.folder_view}</span>
+                    </InfoView>
                     <InfoBtnGroup>
                         {userId === folder_main?.userId
                         ? <React.Fragment>
-                            <BtnCircle _onClick={(e) => editModalHandler(e, params.id, folder_main.folder_name, folder_main.folder_status)}>
+                            <BtnCircle _onClick={(e) => editModalHandler(e, params.id, folder_main.folder_name, folder_main.folder_content, folder_main.folder_status)}>
                                 <SvgEdit/>
                             </BtnCircle>
                             <BtnCircle _onClick={onShareEvent}>
@@ -195,7 +207,9 @@ const FolderDetail = () => {
                                     </div>
                                     <div className="card-foot">
                                         <p className="card-agency">{cur.location}</p>
-                                        <p className="card-period">{cur.apply_period}</p>
+                                        <p className="card-period">
+                                            ~ {cur.apply_end?.replace(/(\\r\\n|\\n|\\r)/g, '\n')}
+                                        </p>
                                     </div>
                                 </ListInfo>
                                 <ListLike>
@@ -216,11 +230,15 @@ const FolderDetail = () => {
                         </List>
                     )
                 })}
+                {(post_list?.length === 1 & post_list?.postId == null) 
+                ? <Nonlayer path='/folder'/>
+                : null
+                }
             </ListGroup>
             <AnimateShare ref={ref}/>
             <ModalPop ref={addRef} modalId={4} postId={postId}/>
             <ModalPop ref={deleteRef} modalId={5} postId={postId}/>
-            <ModalPop ref={editRef} modalId={3} folderId={folderId} folder_name={folderName} lockstatus={lockstatus}/>
+            <ModalPop ref={editRef} modalId={3} folderId={folderId} folder_name={folderName} folder_content={folderCont} lockstatus={lockstatus}/>
         </FolderWrap>
     );
 };
@@ -345,6 +363,7 @@ const ListInfo = styled.div`
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        min-width: 5rem;
         display: -webkit-box;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
@@ -401,20 +420,48 @@ const InfoLeft = styled.div`
         margin: 0 0 8px;
         font: ${props => props.theme.font.styleh5};
     }
-    p{
+    h4{
+        margin: 0 0 8px;
         font: ${props => props.theme.font.styleh3};
+    }
+    p{
+        margin: 0 0 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        font: ${props => props.theme.font.body};
     }
 `
 const InfoRight = styled.div`
     z-index: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     svg{
-        width: 10rem;
-        height: 10rem;
+        width: 14rem;
+        height: 14rem;
         path{
             fill: ${props => props.theme.color.w};
         }
+    }
+    @media screen and (max-width: 500px) {
+        width: 10rem;
+        height: 10rem;
+    }
+`
+const InfoView = styled.div`
+    display: flex;
+    align-items: center;
+    svg{
+        path{
+            fill: ${props => props.theme.color.w};
+        }
+    }
+    span{
+        margin: 0 0 0 0.4rem;
+        transform: translateY(1px);
     }
 `
 const InfoBtnGroup = styled.div`
@@ -442,6 +489,36 @@ const BtnBack = styled.button`
     }
     @media screen and (max-width: 808px) {
         display:none;
+    }
+`
+const Nav = styled.nav`
+    margin: 0 0 1.2rem;
+    display:none;
+    align-items: center;
+    font: ${props => props.theme.font.styleh5};
+    color: ${props => props.theme.color.b0};
+    a{
+        display: flex;
+        font: ${props => props.theme.font.styleh5};
+        color: ${props => props.theme.color.b0};
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    span{
+        display: flex;
+    }
+    a+span{
+        &:before{
+            content: ">";
+            margin: 0 0.5rem;
+            display: flex;
+            font: ${props => props.theme.font.styleh5};
+            color: ${props => props.theme.color.b0};
+        }
+    }
+    @media screen and (max-width: 808px) {
+        display: flex;
     }
 `
 

@@ -51,7 +51,7 @@ const CardComment = (props) => {
             <CommentGroup>
                 {data?.map(cur => {
                     return (
-                        <CommentList onClick={() => navigate(`/detail/${cur.postId}`)} key={cur.commentId}>
+                        <CommentList onClick={() => navigate(`/detail/${cur.postId}`)} key={`comment${cur.commentId}`}>
                             <div className='comment-top'>
                                 <p>{cur.createdAt?.split('T')[0].replaceAll('-','.')}</p>
                             </div>

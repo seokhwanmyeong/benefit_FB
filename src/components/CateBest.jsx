@@ -278,6 +278,7 @@ const CardNavi = styled.div`
         height: 3.2rem;
         border: 1px solid #000000;
         border-radius: 50%;
+        cursor: pointer;
         &.navi--prev{
             background: #ffffff url('${NaviPrev}') no-repeat center center;
         }

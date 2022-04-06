@@ -129,7 +129,6 @@ const Detail = (props) => {
     useEffect(() => {
         dispatch(postActions.getOnePostFB(paramsId));
     }, [])
-    console.log(data)
 
     if(loading){
         return <Spinner type='page'/>;
@@ -437,7 +436,7 @@ const DetailCard = styled.div`
         vertical-align: top;
     }
     td{
-        font: ${props => props.theme.font.p};
+        font: ${props => props.theme.font.body};
         color: ${props => props.theme.color.b0};
         text-align: left;
         vertical-align: top;

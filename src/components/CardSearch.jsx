@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import styled from "styled-components";
 import { useNavigate } from 'react-router-dom';
 
-import { ImgBenefit, CateBox, DecoNew, ModalPop, ImgLocation } from './index';
+import { ImgBenefit, CateBox, DecoNew, ModalPop, ImgLocation, Nonlayer } from './index';
 import { BtnCircle } from '../elements';
 import { SvgLikeOn, SvgLikeOff } from '../icons/ico_components';
 
@@ -10,11 +10,9 @@ const CardSearch = (props) => {
     const { data, user_like_list } = props;
     const navigate = useNavigate();
     const token = localStorage.getItem("ybrn");
-    // const [modalId, setModal] = useState(4);
     const [postId, setPostId] = useState();
     const addRef = useRef();
     const deleteRef = useRef();
-    // console.log(user_like_list)
 
     const linkToDetail = (postId, cate) => {
         navigate(`/detail/${postId}`, {state: {cate: cate}})
@@ -103,6 +101,7 @@ const CardSearch = (props) => {
                     </SearchList>
                 )
             })}
+            {data?.length === 0 && <Nonlayer path='/search'/>}
             <ModalPop ref={addRef} modalId={4} postId={postId}/>
             <ModalPop ref={deleteRef} modalId={5} postId={postId}/>
         </SearchGroup>

@@ -192,6 +192,7 @@ const MainCard = styled.div`
   &:hover{
     background-color: ${props => props.theme.color.p2};
     color: ${props => props.theme.color.w};
+    transition: 0.3s;
     .card-head-img{
       border-radius: 50%;
       background-color: ${props => props.theme.color.o1};
@@ -248,6 +249,7 @@ const CardNavi = styled.div`
     height: 3.2rem;
     border: 1px solid #000000;
     border-radius: 50%;
+    cursor: pointer;
     &.navi--prev{
       left: -4rem;
       background: ${props => props.theme.color.w} url('${NaviPrev}') no-repeat center center;

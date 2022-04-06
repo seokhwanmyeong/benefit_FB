@@ -22,7 +22,6 @@ const BoxComment = (props) => {
     
     const addComment = (e) => {
         console.log(comment);
-        e.currentTarget.previousSibling.value = "";
         if(comment === ""){
             alert('내용을 입력해주세요')
             return;
@@ -31,6 +30,13 @@ const BoxComment = (props) => {
         setComment("");
         ref.current.classList.remove('active');
         e.currentTarget.previousSibling.value = "";
+        e.currentTarget.parentNode.previousSibling.classList.remove('active');
+    }
+
+    const cancleComment = (e) => {
+        ref.current.classList.remove('active');
+        e.currentTarget.previousSibling.previousSibling.value = "";
+        e.currentTarget.parentNode.previousSibling.classList.remove('active');
     }
 
     const deleteComment = (commentId) => {
@@ -49,7 +55,7 @@ const BoxComment = (props) => {
         e.currentTarget.previousSibling.value = "";
     }
 
-    const openTextareaHandler = () => {
+    const openTextareaHandler = (e) => {
         if(!token){
             alert("로그인해주세요");
             return;
@@ -82,6 +88,7 @@ const BoxComment = (props) => {
                 <CommentTextarea ref={ref}>
                     <textarea onChange={onChangeTextarea} placeholder='댓글을 입력해주세요'></textarea>
                     <Btn _type="small" _onClick={addComment} _text='등록하기'/>
+                    <Btn _type="small" _onClick={cancleComment} _text='취소'/>
                 </CommentTextarea>
             </CommentInput>
             <CommentGroup>
@@ -129,6 +136,9 @@ const CommentOpenBox = styled.div`
     border: 1px solid ${props => props.theme.color.g1};
     font: ${props => props.theme.font.p};
     color: ${props => props.theme.color.g1};
+    &.active{
+        display: none;
+    }
 `;
 const CommentTextarea = styled.div`
     margin: 1.4rem 0 0;
@@ -136,8 +146,10 @@ const CommentTextarea = styled.div`
     ${props => props.theme.font.p};
     &.active{
         display: flex;
-        flex-direction: column;
         align-items: flex-end;
+        justify-content: flex-end;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
     textarea{
         margin: 0 0 1.4rem;
@@ -155,6 +167,9 @@ const CommentTextarea = styled.div`
             font: ${props => props.theme.font.p};
             color: ${props => props.theme.color.g1};
         }
+    }
+    button+button{
+        margin: 0 0 0 0.5rem;
     }
 `;
 const CommentGroup = styled.ul`

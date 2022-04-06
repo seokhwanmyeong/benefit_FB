@@ -6,10 +6,13 @@ const size = {
 };
 
 const Theme = {
+    /* 공통 폰트 */
     fontFamily: {
         primary: 'Noto Sans, "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
         Ohneuleun : 'Ohneuleun'
     },
+
+    /* 디자인 지정 폰트 */
     font : {
         styleh1 : 'normal 600 3.6rem/1.3 Noto sans, sans-serif',
         styleh2 : 'normal 600 3.2rem/1.3 Noto sans, sans-serif',
@@ -44,6 +47,7 @@ const Theme = {
         curation_author: 'normal 600 1.2rem/1.3 Noto sans, sans-serif',
         social_rv_author: 'normal 400 1rem/1.3 Noto sans, sans-serif',
     },
+
     /* p = primary, s = secondary, o = other, b = black, g = gray, w = white, w1 = warning */
     color: {
         p1: '#183E6C',
@@ -68,6 +72,8 @@ const Theme = {
         filter_pc_color: 'rgba(170, 196, 228, 1)',
         google: `rgb(35 31 32 / 54%)`
     },
+
+    /* 카테고리별 디자인 color */
     cate_color:{
         finance: 'rgba(24, 160, 251, 1)',
         covid: 'rgba(239, 51, 51, 1)',
@@ -76,6 +82,8 @@ const Theme = {
         recruit: 'rgba(162, 89, 255, 1)',
         welfare: 'rgba(245, 192, 1, 1)'
     },
+
+    /* social 가이라인 color */
     social_login: {
         kakao: '#FEE500',
         naver: '#03C75A',

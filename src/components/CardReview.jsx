@@ -117,33 +117,5 @@ const Preview = styled(LinkPreview)`
     }
   }
 `
-// const CardNavi = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 100%;
-//   .navi{
-//     position: absolute;
-//     top: 50%;
-//     transform: translateY(-50%);
-//     width: 20px;
-//     height: 20px;
-//     &.navi--prev{
-//       left: -30px;
-//       background: url('${NaviPrev}') no-repeat center center;
-//     }
-//     &.navi--next{
-//       right: -30px;
-//       background: url('${NaviNext}') no-repeat center center;
-//     }
-//     &.swiper-button-disabled{
-//       display: none;
-//     }
-//   }
-//   @media screen and (max-width: 808px) {
-//     display: none;
-//   } 
-// `;
 
 export default CardReview;

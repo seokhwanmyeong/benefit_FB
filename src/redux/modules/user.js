@@ -21,23 +21,26 @@ const initialState = {
 };
 
 const loginFB = (user_code) => {
-    return function (dispatch, getState) {
+    return function (dispatch) {
+        /* 카카오 인가코드 전달 */
         instance.get(`/auth/kakao/callback?code=${user_code}`)
         .then((res) => {
-            console.log(res.data)
-            let token = res.data.user.token;
-            let _user_folder = res.data.result2.map(cur => {
+            const token = res.data.user.token;
+            const _user_folder = res.data.result2.map(cur => {
                 cur.postId_list = cur.postId_list?.split(',')
                 return cur;
             })
-            let user_info = {
+            const user_info = {
                 nickname : res.data.user.nickname,
                 userId : res.data.user.userId,
             };
 
+            /* 토큰과 각정보들을 localstorage에 저장 */
             localStorage.setItem("ybrn", token);
             localStorage.setItem("user", JSON.stringify(user_info));
             localStorage.setItem("user_folder", JSON.stringify(_user_folder));
+
+            /* 해당정보들 store 저장을 위한 dispatch */
             dispatch(setUserFolder(_user_folder))
             dispatch(setUser(user_info));
             history.push("/");
@@ -49,33 +52,18 @@ const loginFB = (user_code) => {
 };
 
 const loginCheckFB = () => {
-    return function (dispatch, getState, { history }) {
-        // console.log("넘어옴")
+    return function (dispatch) {
+        /* local 저장정보 user info dispatch구간 */
         let user_info = JSON.parse(localStorage.getItem("user"));
         let _user_folder = JSON.parse(localStorage.getItem("user_folder"));
         dispatch(setUserFolder(_user_folder))
         dispatch(setUser(user_info));
-        // instance.get("/users/me")
-        // .then((res) => {
-        //     console.log("로그인 유지 데이터", res);
-        //     return;
-        //     if (res.data.ok) {
-        //         console.log("로그인 유지중", res.data.message);
-        //         dispatch(setUser(id));
-        //     } else {
-        //         dispatch(logoutFB());
-        //         console.log("로그아웃 되었어요");
-        //     }
-        // })
-        // .catch((error) => {
-        //     console.log("로그유지 axios통신 과정중 에러발생");
-        //     console.log(error.code, error.message);
-        // });
     };
 };
 
 const logoutFB = () => {
     return function (dispatch) {
+        /* localstorage data reset */
         localStorage.removeItem("user");
         localStorage.removeItem("ybrn");
         localStorage.removeItem("user_folder");
@@ -94,11 +82,11 @@ export default handleActions(
         }),
     [SET_USER_FOLDER]: (state, action) =>
         produce(state, (draft) => {
-            console.log(action.payload.user_folder)
             draft.user_folder = [...action.payload.user_folder];
         }),
     [LOG_OUT]: (state, action) =>
         produce(state, (draft) => {
+            /* user info reset */
             draft.user = {
                 nickname: "",
                 userId: "",

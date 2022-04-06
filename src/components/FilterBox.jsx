@@ -7,12 +7,14 @@ import { Btn, BtnCircle, Input } from '../elements';
 import { SvgClose, SvgReset } from '../icons/ico_components'
 import { CheckTrue, CheckFalse } from "../icons/ico_url"
 import { actionCreators as postActions } from "../redux/modules/post"
+import { commonAni } from '../styles/Animation';
 
 const FilterBox = () => {
     const dispatch = useDispatch();
     const inputRef = useRef();
+    const user_options = JSON.parse(localStorage.getItem('options'));
     const { toggleState, isOpen, FilterExit } = useContext(FilterController);
-
+    console.log(user_options)
     //메뉴가 열리면 초점이 보내질 요소를 가리킬 ref
     const FilterEntrance = useRef();
 
@@ -21,18 +23,17 @@ const FilterBox = () => {
     }, [isOpen, FilterEntrance, FilterExit])
 
      //비어있을 경우 value = "empty"
-    const [txt, setTxt] = useState("all"); 
-    const [job_status, setJob] = useState("all");
-    const [education, setEdu] = useState("all");
-    const [benefit, setBenefit] = useState(["all"]);
-
-    const [age, setAge] = useState("all");
-    const [major, setMajor] = useState("all");
-
-    const [special_limit, setSlimit] = useState("all");
-    const [apply_period, setPeriod] = useState(["all"]);
+    const [txt, setTxt] = useState(user_options ? user_options.txt : "all"); 
+    const [job_status, setJob] = useState(user_options ? user_options.job_status : "all");
+    const [education, setEdu] = useState(user_options ? user_options.education : "all");
+    const [age, setAge] = useState(user_options ? user_options.age : "all");
+    const [major, setMajor] = useState(user_options ? user_options.major : "all");
+    const [special_limit, setSlimit] = useState(user_options ? user_options.special_limit : "all");
+    
+    const [benefit, setBenefit] = useState(user_options ? Array.from(user_options.benefit) : ["all"]);
+    const [location, setLocate] = useState(user_options ? Array.from(user_options.location) : ["all"]);
+    const [apply_period, setPeriod] = useState(user_options ? Array.from(user_options.apply_period) : ["all"]);
     // const [category, setCate] = useState(["all"]);
-    const [location, setLocate] = useState(["all"]);
 
     const filter_list = {
         "job_status" : { 
@@ -352,6 +353,8 @@ const FilterBox = () => {
         document.getElementById(`apply_period`).checked = false;
         document.getElementById(`benefit`).checked = false;
         document.getElementById(`location`).checked = false;
+        dispatch(postActions.setCate('all'));
+        dispatch(postActions.getCateListFB(select_filter, ['all']));
     }
 
     const onInput = (e) => {
@@ -386,8 +389,10 @@ const FilterBox = () => {
         }
     }
 
+    console.log(Object.entries(select_filter))
+
     useEffect(() => {
-        // console.log(select_filter)
+        console.log(select_filter)
     }, [txt, job_status, apply_period, education, benefit, location, age, major, special_limit,])
 
     return (
@@ -408,6 +413,40 @@ const FilterBox = () => {
                         <BtnCircle _onClick={reset} _className="btn-reset" _size="3.6rem" _bg={'#FFFFFF'}><SvgReset/></BtnCircle>
                         <Btn _type="small" _onClick={adaptOption} _width='100%' _text='검색하기'/>
                     </GroupProperty>
+                    <div>
+                        {Object.entries(select_filter).map(cur => {
+                            console.log(cur)
+                            if(cur[0] === 'order' || cur[0] === 'paging'){
+                                return null;
+                            }else if(cur[1] instanceof Array){
+                                // if(cur[1][0] instanceof Object){
+                                //     return (
+                                //         (cur[1][0].map(list => {
+                                //             console.log(list)
+                                //             return <div>{list === 'all' ? '전체' : list}</div>
+                                //         }))
+                                //     )
+                                // }else{
+                                //     return (
+                                //         (cur[1].map(list => {
+                                //             console.log(list)
+                                //             return <div>{list === 'all' ? '전체' : list}</div>
+                                //         }))
+                                //     )
+                                // }
+                                return (
+                                    (cur[1].map(list => {
+                                        console.log(list)
+                                        return <div>{list === 'all' ? '전체' : list}</div>
+                                    }))
+                                )
+                            }else {
+                                return(
+                                    <div className={cur[0]}>{cur[1] === 'all' ? '전체' : cur[1]}</div>
+                                )
+                            }
+                        })}
+                    </div>
                 </ResultGroup>
                 <Hr type='dash'/>
                 <ContentGroup>
@@ -469,20 +508,20 @@ const FilterBox = () => {
         </Filter>
     );
 };        
-const TabOpen = keyframes`
+const tabAnimate = (start, end) => keyframes`
     0% {
-        opacity: 0;
+        opacity: ${start};
     }
     100% {
-        opacity: 1;
+        opacity: ${end};
     }
-`;
-const TabClose = keyframes`
+`
+const acodianArrow = (deg) => keyframes`
     0% {
-        opacity: 1;
+        transform: rotate(${deg});
     }
     100% {
-        opacity: 1;
+        transform: rotate(-${deg});
     }
 `;
 const Filter = styled.div`
@@ -528,7 +567,7 @@ const Filter = styled.div`
 const FilterWrap = styled.div`
     z-index: 10;
     transform: translateY(-50px);
-    padding: 5rem 0 3rem;
+    padding: 2rem 0 3rem;
     display: flex;
     flex-direction: column;
     width: 27rem;
@@ -570,10 +609,11 @@ const GroupProperty = styled.div`
             right: 31px;
             top: 50%;
             transform: translateY(-50%);
-            transform: rotate(-45deg);
+            transform: rotate(45deg);
+            animation: 0.3s ${acodianArrow('-45deg')} ease-out;
             display: inline-block;
             width: 10px;
-            height: 1px;
+            height: 1.5px;
             background-color: ${props => props.theme.color.b0};
         }
         &:after{
@@ -582,19 +622,22 @@ const GroupProperty = styled.div`
             right: 24px;
             top: 50%;
             transform: translateY(-50%);
-            transform: rotate(45deg);
+            transform: rotate(-45deg);
+            animation: 0.3s ${acodianArrow('45deg')} ease-out;
             display: inline-block;
             width: 10px;
-            height: 1px;
+            height: 1.5px;
             background-color: ${props => props.theme.color.b0};
         }
         &.active{
             display: flex;
             &:before{
-                transform: rotate(45deg);
+                animation: 0.3s ${acodianArrow('45deg')} ease-out;
+                transform: rotate(-45deg);
             }
             &:after{
-                transform: rotate(-45deg);
+                animation: 0.3s ${acodianArrow('-45deg')} ease-out;
+                transform: rotate(45deg);
             }
         }
     ` : ''};
@@ -654,12 +697,13 @@ const GroupContents = styled.div`
     padding: 2.4rem 1.5rem;
     display: none;
     flex-wrap: wrap;
-    animation: 0.3s ${TabClose} ease-out;
+    animation: 0.3s ${tabAnimate('1', '0')} ease-out;
 
     label{
         margin: 1.6rem 0 0;
         display: block;
         min-width: 50%;
+        animation: 0.3s ${commonAni} ease-out;
         &:first-child{
             margin: 0 0 0;
             width: 100%;
@@ -674,6 +718,7 @@ const GroupContents = styled.div`
                 width: 24px;
                 height: 24px;
                 background: url(${CheckFalse}) center center / contain no-repeat;
+                animation: 0.3s ${commonAni} ease-out;
             }
             .check-int:checked + .check-box{
                 background: url(${CheckTrue}) center center / contain no-repeat;
@@ -686,7 +731,7 @@ const GroupContents = styled.div`
     }
     &.active{
         display: flex;
-        animation: 0.3s ${TabOpen} ease-out;
+        animation: 0.3s ${tabAnimate('0', '1')} ease-out;
     }
 
     @media screen and (max-width: 808px) {

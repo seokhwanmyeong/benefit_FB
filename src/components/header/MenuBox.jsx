@@ -7,6 +7,7 @@ import { Btn } from '../../elements';
 import { SvgHome, SvgLogin, SvgSearch, SvgClose, SvgLogo, SvgCuration, SvgLogout } from '../../icons/ico_components'
 import { actionCreators as userActions } from '../../redux/modules/user';
 import { MenuController } from './MenuLayer';
+import { commonAni } from '../../styles/Animation';
 
 const MenuBox = (props) => {
     const dispatch = useDispatch();
@@ -65,13 +66,15 @@ const MenuBox = (props) => {
                 <ul>
                     {menu_list.map((cur, idx) => {
                         if(idx === 0){
-                            return <li className={location.pathname === cur.path ? 'active' : ''} key={idx}><Link to={cur.path} onClick={toggleState} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
+                            return <li className={location.pathname === cur.path ? 'active' : ''} key={cur.name}><Link to={cur.path} onClick={toggleState} ref={MenuEntrance}>{cur.img}{cur.name}</Link></li>
                         }else if(cur.name === 'Search'){
-                            return <li className={location.pathname === cur.path ? 'active' : ''} key={idx}><Link to={{pathname: cur.path}} onClick={toggleState}>{cur.img}{cur.name}</Link></li>
+                            return <li className={location.pathname === cur.path ? 'active' : ''} key={cur.name}><Link to={cur.path} onClick={toggleState}>{cur.img}{cur.name}</Link></li>
                         }else if(cur.name === 'Logout'){
-                            return <li key={idx}><Link to={cur.path} onClick={logoutHandler}>{cur.img}{cur.name}</Link></li>
+                            return <li key={cur.name}><Link to={cur.path} onClick={logoutHandler}>{cur.img}{cur.name}</Link></li>
+                        }else if(cur.name === 'Curation'){
+                            return <li className={location.pathname === cur.path || location.pathname.includes('/folder') ? 'active' : ''} key={cur.name}><Link to={cur.path} onClick={toggleState}>{cur.img}{cur.name}</Link></li>
                         }
-                        return <li className={location.pathname === cur.path ? 'active' : ''} key={idx}><Link to={cur.path} onClick={toggleState} >{cur.img}{cur.name}</Link></li>
+                        return <li className={location.pathname === cur.path ? 'active' : ''} key={cur.name}><Link to={cur.path} onClick={toggleState} >{cur.img}{cur.name}</Link></li>
                     })}
                 </ul>
             </Nav>
@@ -187,6 +190,7 @@ const Nav = styled.nav`
             justify-content: center;
             width: 11rem;
             height: calc(8rem - 1px);
+            animation: 0.5s ${commonAni} ease-out;
             a{
                 display: flex;
                 align-items: center;

@@ -15,9 +15,10 @@ const Myzzim = (props) => {
     const modalRef = useRef();
     const [folderId, setId] = useState();
     const [folderName, setName] = useState();
+    const [folderCont, setContent] = useState();
     const [lockstatus, setLock] = useState();
 
-    const ModalHandler = (e, id, name, status) => {
+    const ModalHandler = (e, id, name, content, status) => {
         e.stopPropagation();
         modalRef.current.classList.contains("active")
         ? modalRef.current.classList.remove("active")
@@ -25,36 +26,39 @@ const Myzzim = (props) => {
 
         setId(id);
         setName(name);
+        setContent(content);
         setLock(status);
     }
 
-    const lockFolderEvent = (e, folderId, folder_name, folder_status) => {
+    const lockFolderEvent = (e, folderId, folder_name, folder_content, folder_status) => {
         e.stopPropagation();
-        dispatch(postActions.setUpdateFolderFB(folderId, folder_name, !folder_status))
+        dispatch(postActions.setUpdateFolderFB(folderId, folder_name, folder_content, !folder_status))
     }
 
     useEffect(() => {
         dispatch(postActions.getFolderFB());
     }, [])
 
+    console.log(data)
     if(loading){
         return <Spinner type='page'/>;
     }return (
         <React.Fragment>
             <FolderGroup>
-                {data.map(cur => {
+                {data.map((cur, idx) => {
                     return(
-                        <FolderList key={cur.folderId} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
+                        <FolderList key={`my${cur.folderId}${idx}`} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
                             <FolderImg>
-                                <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
+                                <FolderBg type='small' cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
                                 <ImgBenefit benefit={cur.benefit}/>
                             </FolderImg>
                             <FolderCont>
                                 <FolderName>{cur.folder_name}</FolderName>
+                                <FolderMemo>{cur.folder_content}</FolderMemo>
                                 <FolderContBot>
-                                    <FolderStatus onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_status)} className={cur.folder_status ? "active" : ""}>편집</FolderStatus>
+                                    <FolderStatus onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)} className={cur.folder_status ? "active" : ""}>편집</FolderStatus>
                                     <Deco/>
-                                    <LockBtn onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_status)}>
+                                    <LockBtn onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>
                                         {cur.folder_status 
                                         ? <React.Fragment>
                                             <SvgLockOn/>
@@ -71,7 +75,7 @@ const Myzzim = (props) => {
                     )
                 })}
             </FolderGroup>
-            <ModalPop ref={modalRef} modalId={3} folderId={folderId} folder_name={folderName} lockstatus={lockstatus}/>
+            <ModalPop ref={modalRef} modalId={3} folderId={folderId} folder_name={folderName} folder_content={folderCont} lockstatus={lockstatus}/>
         </React.Fragment>
     );
 };
@@ -129,10 +133,30 @@ const FolderName = styled.h4`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: break-all;
-    width: 100%;
+    width: ${props => props.type === 'best' ? '88%' : '100%'};
+    min-height: 4.6rem;
     overflow: hidden;
     text-overflow: ellipsis;
     font: ${props => props.theme.font.curation_title};
+    color ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.p2};
+    @media screen and (max-width: 808px) {
+        width: ${props => props.type === 'best' ? '78%' : '100%'};
+    } 
+    @media screen and (max-width: 808px) {
+        width: ${props => props.type === 'best' ? '100%' : '100%'};
+    } 
+`
+const FolderMemo = styled.p`
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    width: ${props => props.type === 'best' ? '60%' : '100%'};
+    min-height: 3.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font: ${props => props.theme.font.curation_author};
+    color ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.b0};
 `
 const LockBtn = styled.button`
     display: flex;

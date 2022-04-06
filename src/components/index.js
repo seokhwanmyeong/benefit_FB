@@ -10,6 +10,7 @@ import ImgRanking from "./common/ImgRanking";
 import ImgLocation from "./common/ImgLocation";
 import AnimateShare from "./common/AnimateShare"
 import DecoNew from "./common/DecoNew";
+import Nonlayer from "./common/Nonlayer";
 
 /* HEADER */
 import Header from "./header/Header";
@@ -56,6 +57,7 @@ export {
     ImgLocation,
     AnimateShare,
     DecoNew,
+    Nonlayer,
     
     /* HEADER */
     Header,

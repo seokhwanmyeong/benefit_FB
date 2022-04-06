@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 
+/* Module */
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as likeActions } from '../redux/modules/like';
+
+/* Components, elements, etc */
 import { CardSearch, Filter, Category, Spinner } from "../components/index";
 import { Btn } from '../elements/index';
 
@@ -13,12 +16,15 @@ const Search = (props) => {
     const list = useSelector(state => state.post.search_list);
     const cate_list = useSelector(state => state.post.cate);
     const order = useSelector(state => state.post.order);
-    const options = useSelector(state => state.post.options);
-    const paging = useSelector(state => state.post.paging);
+    const basic_options = useSelector(state => state.post.options);
+    const user_options = JSON.parse(localStorage.getItem('options'));
     const loading = useSelector(state => state.post.is_loading);
     const user_folder = useSelector(state => state.user.user_folder);
     const [data, setData] = useState([]);
+    // const options = user_options ? user_options : basic_options 
+    const options = basic_options 
 
+    /* 초기 각 폴더의 찜한 리스트들 */
     let like_list = [];
     user_folder?.forEach(cur => {
         if(cur.postId_list){
@@ -26,12 +32,12 @@ const Search = (props) => {
         }
     })
 
+    /* 더보기 관련 */
     const requestMoreList = () => {
-        console.log(JSON.parse(localStorage.getItem('options')))
-        console.log(order)
-        console.log(paging)
+        // console.log(JSON.parse(localStorage.getItem('options')))
+        // console.log(order)
+        // console.log(paging)
         const localOptions = JSON.parse(localStorage.getItem('options'))
-
         dispatch(postActions.getMoreListFB(localOptions, cate_list))
     }
 
@@ -42,11 +48,14 @@ const Search = (props) => {
     useEffect(() => {
         let middle = [];
         let _like_list = [];
-
+        
+        /* cate선택별 데이터들을 합치는 구간 */
         cate_list.map((cur, idx) => {
             if(cur === 'all') cur = 'c0'
             for(let y = 0; y < list[cur].length; y++){
                 middle.push(list[cur][y]);
+
+                /* cate선택별 데이터와 유저의 찜한 리스트들 대조구간 */
                 if(list[cur][y]["Zzims.zzim_status"] === "true")
                     _like_list.push({postId: list[cur][y].postId})
             }
@@ -55,7 +64,7 @@ const Search = (props) => {
 
         dispatch(likeActions.setMyLikeList(_like_list))
         setData(middle);
-    }, [list,cate_list, order])
+    }, [list, cate_list, order])
 
     if(loading){
         return <Spinner type='page'/>;

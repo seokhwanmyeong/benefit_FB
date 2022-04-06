@@ -10,12 +10,13 @@ import { Input, Btn, BtnText } from "../elements/index"
 import { SvgLockOn, SvgLockOff } from '../icons/ico_components'
 
 const ModalPop = (props, ref) => {
-    const { modalId, postId, folderId, folder_name, lockstatus } = props;
+    const { modalId, postId, folderId, folder_name, folder_content, lockstatus } = props;
     const dispatch = useDispatch();
     const params = useParams();
     const paramsId = params.id;
     const testref = useRef();
     const test2ref = useRef();
+    const test3ref = useRef();
     const selectRef = useRef();
 
     const user_folder = useSelector(state => state.user.user_folder);
@@ -57,7 +58,8 @@ const ModalPop = (props, ref) => {
         setHref("");
         setOption("");
         if(testref.current !== undefined) testref.current.value = "";
-        if(test2ref.current !== undefined) test2ref.current.value = "";
+        if(test2ref.current !== undefined) test2ref.current.value = folder_name;
+        if(test3ref.current !== undefined) test3ref.current.value = folder_content;
         if(selectRef.current !== undefined) selectRef.current.value = 'default';
     }
 
@@ -78,6 +80,10 @@ const ModalPop = (props, ref) => {
     const inputHandler = (e) => {
         setValue(e.currentTarget.value);
     }
+    const [contState, setCont] = useState("");
+    const inputContHandler = (e) => {
+        setCont(e.currentTarget.value);
+    }
 
     /* 폴더이벤트 관련 */
     const [option, setOption] = useState("");
@@ -95,10 +101,10 @@ const ModalPop = (props, ref) => {
     }
 
     const updateFolderHandler = (e) => {
-        console.log(option, valueState, lock)
+        // console.log(option, valueState, lock)
         ref.current.classList.remove("active");
         depthHandler(e);
-        dispatch(postActions.setUpdateFolderFB(option, valueState, lock))
+        dispatch(postActions.setUpdateFolderFB(option, valueState, contState, lock))
     }
 
     const deleteFolderHandler = (e) => {
@@ -126,6 +132,7 @@ const ModalPop = (props, ref) => {
         ModalHandler(e);
         selectRef.current.value = 'default';
     }
+    
     const unlikeListHandler = (e) => {
         if(selectRef.current.value === ''){
             alert('폴더를 선택해주세요');
@@ -142,24 +149,30 @@ const ModalPop = (props, ref) => {
     }
 
     const fixSelectHandler = (e) => {
-        console.log(e.currentTarget.value)
+        // console.log(e.currentTarget.value)
         let folder = user_folder.filter(cur => {
             return cur.folderId == e.currentTarget.value
         })
 
         selectHandler(e);
         test2ref.current.value = folder[0].folder_name;
+        test3ref.current.value = folder[0].folder_content;
         setValue(folder[0].folder_name);
+        setCont(folder[0].folder_content)
     }
 
     React.useEffect(() => {
-        console.log(folderId, folder_name)
+        // console.log(folderId, folder_name)
         setOption(folderId)
         setValue(folder_name)
+        setCont(folder_content)
         setLock(lockstatus)
         
         if(test2ref.current?.value !== undefined){
             test2ref.current.value = folder_name !== undefined ? folder_name : ""
+        }
+        if(test3ref.current?.value !== undefined){
+            test3ref.current.value = folder_content !== undefined ? folder_content : ""
         }
     },[folderId, folder_name, lockstatus])
 
@@ -205,7 +218,10 @@ const ModalPop = (props, ref) => {
                             })}
                         </Select>
                         <CurationEdit>
+                            <h5>폴더 제목</h5>
                             <Input defaultValue={valueState} _key={folder_name} _ref={test2ref} _onChange={inputHandler} intId='common' _type='text' _placeholder='폴더명을 입력해주세요'/>
+                            <h5>폴더 설명</h5>
+                            <Input defaultValue={contState} _key={folder_content} _ref={test3ref} _onChange={inputContHandler} intId='common' _type='text' _placeholder='설명을 입력해주세요'/>
                             <BtnText color='red' onClick={deleteFolderHandler} text='삭제하기'/>
                             {/* <BtnText onClick={lockFolderHandler} text='잠금'/> */}
                             <LockBtn className={lockstatus ? 'on' : ''}onClick={lockFolderHandler}>

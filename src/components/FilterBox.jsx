@@ -14,7 +14,6 @@ const FilterBox = () => {
     const inputRef = useRef();
     const user_options = JSON.parse(localStorage.getItem('options'));
     const { toggleState, isOpen, FilterExit } = useContext(FilterController);
-    console.log(user_options)
     //메뉴가 열리면 초점이 보내질 요소를 가리킬 ref
     const FilterEntrance = useRef();
 
@@ -168,10 +167,9 @@ const FilterBox = () => {
         location : location,
         age: age,
         major: major,
-        // limit : limit,
         special_limit : special_limit,
-        order: "인기순",
-        paging: 1,
+        // order: "인기순",
+        // paging: 1,
     }
 
     const onChangeAll = (e, id) => {
@@ -338,6 +336,18 @@ const FilterBox = () => {
     };
 
     const reset = () => {
+        const reset_options = {
+            txt: "all",
+            job_status : "all",
+            education : "all",
+            benefit : ["all"],
+            apply_period : ["all"],
+            location : ["all"],
+            age: "all",
+            major: "all",
+            special_limit : "all",
+        }
+
         setTxt("all")
         setJob("all");
         setEdu("all");
@@ -347,14 +357,13 @@ const FilterBox = () => {
         setPeriod(["all"]);
         setBenefit(["all"]);
         setLocate(["all"]);
-        // setCate(["all"]);
         inputRef.current.value= '';
         inputRef.current.parentNode.classList.remove('active')
         document.getElementById(`apply_period`).checked = false;
         document.getElementById(`benefit`).checked = false;
         document.getElementById(`location`).checked = false;
         dispatch(postActions.setCate('all'));
-        dispatch(postActions.getCateListFB(select_filter, ['all']));
+        dispatch(postActions.getCateListFB(reset_options, ['all']));
     }
 
     const onInput = (e) => {
@@ -362,8 +371,6 @@ const FilterBox = () => {
     }
 
     const adaptOption = () => {
-        console.log("검색시작")
-
         dispatch(postActions.setCate('all'));
         dispatch(postActions.getCateListFB(select_filter, ['all']));
         dispatch(postActions.setFilterState(true));
@@ -372,14 +379,11 @@ const FilterBox = () => {
     
     const handleKeyPress = (e) => {
         if(e.key === 'Enter'){
-            console.log('enter press')
             adaptOption();
         }
     }
 
     const acodianHandler = (e, id) => {
-        // console.log(e.currentTarget)
-        // console.log(id)
         if(e.currentTarget.classList.contains('active')){
             e.currentTarget.classList.remove('active');
             document.getElementById(id).classList.remove('active');
@@ -389,10 +393,8 @@ const FilterBox = () => {
         }
     }
 
-    console.log(Object.entries(select_filter))
-
     useEffect(() => {
-        console.log(select_filter)
+        // console.log(select_filter)
     }, [txt, job_status, apply_period, education, benefit, location, age, major, special_limit,])
 
     return (
@@ -413,40 +415,31 @@ const FilterBox = () => {
                         <BtnCircle _onClick={reset} _className="btn-reset" _size="3.6rem" _bg={'#FFFFFF'}><SvgReset/></BtnCircle>
                         <Btn _type="small" _onClick={adaptOption} _width='100%' _text='검색하기'/>
                     </GroupProperty>
-                    <div>
+                    <GroupOptions>
                         {Object.entries(select_filter).map(cur => {
-                            console.log(cur)
                             if(cur[0] === 'order' || cur[0] === 'paging'){
                                 return null;
                             }else if(cur[1] instanceof Array){
-                                // if(cur[1][0] instanceof Object){
-                                //     return (
-                                //         (cur[1][0].map(list => {
-                                //             console.log(list)
-                                //             return <div>{list === 'all' ? '전체' : list}</div>
-                                //         }))
-                                //     )
-                                // }else{
-                                //     return (
-                                //         (cur[1].map(list => {
-                                //             console.log(list)
-                                //             return <div>{list === 'all' ? '전체' : list}</div>
-                                //         }))
-                                //     )
-                                // }
                                 return (
-                                    (cur[1].map(list => {
-                                        console.log(list)
-                                        return <div>{list === 'all' ? '전체' : list}</div>
-                                    }))
+                                        (cur[1].map(list => {
+                                        return <SelectOption>{filter_list[cur[0]].name} : {list === 'all' ? '전체' : list}</SelectOption>
+                                        }))
+                                )
+                            }else if(cur[0] === 'txt'){
+                                return(
+                                        <SelectOption>검색어 : {cur[1] === 'all' ? '전체' : cur[1]}</SelectOption>
+                                )
+                            }else if(cur[0] === 'special_limit'){
+                                return(
+                                        <SelectOption>기타제한대상 : {cur[1] === 'all' ? '전체' : cur[1]}</SelectOption>
                                 )
                             }else {
                                 return(
-                                    <div className={cur[0]}>{cur[1] === 'all' ? '전체' : cur[1]}</div>
+                                        <SelectOption>{filter_list[cur[0]].name} : {cur[1] === 'all' ? '전체' : cur[1]}</SelectOption>
                                 )
                             }
                         })}
-                    </div>
+                    </GroupOptions>
                 </ResultGroup>
                 <Hr type='dash'/>
                 <ContentGroup>
@@ -606,7 +599,7 @@ const GroupProperty = styled.div`
         &:before{
             content: '';
             position: absolute;
-            right: 31px;
+            right: 30.48px;
             top: 50%;
             transform: translateY(-50%);
             transform: rotate(45deg);
@@ -656,7 +649,7 @@ const GroupProperty = styled.div`
         }
     }
     &.btn-group{
-        padding: 2rem 1.6rem 3.2rem;
+        padding: 2rem 1.6rem;
         display: flex;
         .btn-reset{
             flex-shrink: 0;
@@ -680,16 +673,9 @@ const GroupProperty = styled.div`
             bottom: 1rem;
             left: 0;
             width: 100%;
-            background-color: ${props => props.theme.color.w};
-            border-top: 1px solid ${props => props.theme.color.p2};
+            background-color: #ffffff;
+            border-top: 1px solid #3B74B9;
             border-radius: 2.4rem 2.4rem 0 0;
-            .btn-reset{
-                // width: 5rem;
-                // &:after{
-                //     content: "초기화";
-                //     color: ${props => props.theme.color.b0}
-                // }
-            }
         }
     }
 `   
@@ -754,6 +740,40 @@ const ContentGroup = styled.div`
     @media screen and (max-width: 808px) {
         height: 80vh;
         overflow-y: scroll;
+    }
+`
+const GroupOptions = styled.div`
+    padding: 2rem 1.6rem 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    @media screen and (max-width: 808px) {
+        padding: 0rem 1.6rem 1.6rem;
+    }
+`
+const SelectOption = styled.li`
+    margin: 0 0.4rem 0.4rem;
+    padding: 0.4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 24px;
+    background-color: ${props => props.theme.color.p32};
+    color: ${props => props.theme.color.w};
+    font: ${props => props.theme.font.option_selected};
+`
+const Options = styled.ul`
+    margin: 1.2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    font: ${props => props.theme.font.styleh5};
+    border-bottom: 1px solid ${props => props.theme.color.p5};
+    &:last-child {
+        border: 0;
+    }
+    @media screen and (max-width: 808px) {
+        margin: 0.4rem 0.8rem;
+        align-items: center;
+        border: 0;
     }
 `
 

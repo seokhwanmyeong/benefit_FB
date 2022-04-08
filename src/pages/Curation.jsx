@@ -2,6 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
 
 import { actionCreators as postActions } from "../redux/modules/post";
 import { ImgBenefit, ModalPop, FolderBg, Spinner } from '../components/index';
@@ -82,43 +88,64 @@ const Curation = () => {
                 <p>이렇게 정책을 찜하고 계시네요!</p>
             </CurationTitle>
             <CurationBest>
-                {folder_list.map((cur, idx) => {
-                    if(idx >= 2){
-                        return null;
-                    }else{
-                        return(
-                            <BestCard key={`cura${cur.folderId}`} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
-                                <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
-                                <FolderCont padding='0'>
-                                    <FolderName type='best' color='white'>{cur.folder_name}</FolderName>
-                                    <FolderMemo type='best' color='white'>{cur.folder_content}</FolderMemo>
-                                    {userId === cur.userId 
-                                    ? 
-                                    <FolderContBot>
-                                        <FolderStatus color='white' onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>편집</FolderStatus>
-                                        <Deco color='white'/>
-                                        <LockBtn color='white' onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>
-                                            {cur.folder_status 
-                                            ? <React.Fragment>
-                                                <SvgLockOn/>
-                                                <span>공개중</span>
-                                            </React.Fragment>
-                                            :<React.Fragment>
-                                                <SvgLockOff/>
-                                                <span>비공개</span>
-                                            </React.Fragment>}
-                                        </LockBtn>
-                                    </FolderContBot>
-                                    : <FolderNick color='white'>{cur.nickname}</FolderNick>
-                                    }
-                                </FolderCont>
-                                <FolderIcon>
-                                    <ImgBenefit benefit={cur.benefit}/>
-                                </FolderIcon>
-                            </BestCard>
-                        )
-                    }
-                })}
+                <Swiper
+                    spaceBetween={1}
+                    modules={[Autoplay]}
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }}
+                    breakpoints={{
+                        0 : {
+                            slidesPerView: 1,
+                            spaceBetween: 0,
+                        },
+                        500 : {
+                            slidesPerView: 2,
+                            spaceBetween: 16,
+                        },
+                        600 : {
+                            spaceBetween: 1,
+                            slidesPerView: 2,
+                        }
+                    }}
+                >
+                    {folder_list.map((cur, idx) => {
+                        if(idx >= 2){
+                            return null;
+                        }else{
+                            return(
+                                <SwiperSlide>
+                                    <BestCard key={`cura${cur.folderId}`} onClick={() => navigate(`/folder/${cur.folderId}`, {state: {folder_name: cur.folder_name}})}>
+                                        <FolderBg cate={{c1: cur.c1, c2: cur.c2, c3: cur.c3, c4: cur.c4}}/>
+                                        <FolderCont padding='0'>
+                                            <FolderName type='best' color='white'>{cur.folder_name}</FolderName>
+                                            <FolderMemo type='best' color='white'>{cur.folder_content}</FolderMemo>
+                                            <FolderContBot>
+                                                <FolderStatus color='white' onClick={(e) => ModalHandler(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>편집</FolderStatus>
+                                                <Deco color='white'/>
+                                                <LockBtn color='white' onClick={(e) => lockFolderEvent(e, cur.folderId, cur.folder_name, cur.folder_content, cur.folder_status)}>
+                                                    {cur.folder_status 
+                                                    ? <React.Fragment>
+                                                        <SvgLockOn/>
+                                                        <span>공개중</span>
+                                                    </React.Fragment>
+                                                    :<React.Fragment>
+                                                        <SvgLockOff/>
+                                                        <span>비공개</span>
+                                                    </React.Fragment>}
+                                                </LockBtn>
+                                            </FolderContBot>
+                                        </FolderCont>
+                                        <FolderIcon className='ico-benefit'>
+                                            <ImgBenefit benefit={cur.benefit}/>
+                                        </FolderIcon>
+                                    </BestCard>
+                                </SwiperSlide>
+                            )
+                        }
+                    })}
+                </Swiper>
             </CurationBest>
             <FilterArr>
                 <Btn _id="popul" _ariaLabel="인기순 정렬" _onClick={arrayHandler} _className={tabState.popul ? 'active': ''} _text='인기순'/>
@@ -171,7 +198,6 @@ const Curation = () => {
 };
 const CurationWrap = styled.div`
     padding: 5.6rem 10.4rem;
-    transition: 0.5s linear;
     animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px) {
         padding: 5.6rem 1.4rem;
@@ -198,6 +224,7 @@ const FolderList = styled.li`
     width: 50%;
     cursor: pointer;
     transition: 0.5s linear;
+    overflow: hidden;
     @media screen and (max-width: 808px) {
     } 
     @media screen and (max-width: 600px) {
@@ -222,6 +249,12 @@ const FolderImg = styled.div`
             fill: ${props => props.theme.color.w};
         }
     }
+    &:hover{
+        svg{
+            transform: scale(1.15);
+            transition: 0.3s;
+        }
+    }
 `
 const FolderCont = styled.div`
     z-index: 2;
@@ -233,6 +266,7 @@ const FolderCont = styled.div`
 const FolderStatus = styled.div`
     font: ${props => props.theme.font.curation_author};
     color ${props => props.color === 'white' ? props.theme.color.w : props.theme.color.p2};
+    line-height: 1;
 `
 const FolderName = styled.h4`
     display: -webkit-box;
@@ -272,8 +306,19 @@ const FolderNick = styled.p`
 const CurationBest = styled.div`
     margin: 0 0 3.2rem;
     display: flex;
+    .swiper{
+        width: 100%;
+        .swiper-slide{
+            padding: 0 5% 0 0;
+        }
+    }
     @media screen and (max-width: 600px) {
         justify-content: space-between;
+        .swiper{
+            .swiper-slide{
+                padding: 0;
+            }
+        }
     } 
 `
 const BestCard = styled.div`
@@ -281,14 +326,28 @@ const BestCard = styled.div`
     margin: 0 5% 0 0;
     padding: 3.2rem 2.4rem;
     display: flex;
-    width: 45%;
+    width: 100%;
     height: 18.8rem;
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
+    &:hover{
+        div{
+            transform: scale(1.1);
+            &:last-child{
+                transform: unset;
+            }
+        }
+        .ico-benefit{
+            svg{
+                width: 50%;
+                transition: 0.3s;
+            }
+        }
+    }
     @media screen and (max-width: 600px) {
         margin: 0;
-        width: 48%;
+        width: 100%;
     } 
 `
 const LockBtn = styled.button`

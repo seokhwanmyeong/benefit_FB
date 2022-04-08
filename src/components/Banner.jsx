@@ -33,7 +33,9 @@ const Banner = (props) => {
         if(e.key === 'Enter'){
             console.log('enter press')
             navigate('/search');
+            dispatch(postActions.setCate('all'));
             dispatch(postActions.setOptions(basic_option))
+            dispatch(postActions.setFilterState(true));
         }
     }
     return (

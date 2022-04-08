@@ -6,6 +6,7 @@ import { actionCreators as commentActions } from '../redux/modules/comment';
 import { ImgBenefit } from '../components/index'
 import { Btn } from '../elements';
 import { useNavigate } from 'react-router-dom';
+import { commonAni, layerShow, layerDown } from '../styles/Animation'
 
 const CardComment = (props) => {
     const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const CardComment = (props) => {
     );
 };
 const CommentGroup = styled.ul`
+    animation: 0.3s ${commonAni} ease-out;
     li+li{
         margin: 4px 0 0;
     }
@@ -132,6 +134,13 @@ const CommentList = styled.li`
         &.update{
             right: 6rem; 
         }
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    &:hover{
+        transition: 0.3s ease-out;
+        background-color: ${props => props.theme.color.p5};
     }
     @media screen and (max-width: 808px) {
         display: flex;
@@ -145,11 +154,13 @@ const CommentList = styled.li`
 const CommentTextarea = styled.div`
     margin: 1.4rem 0 0;
     display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    animation: 0.5s ${layerDown} ease-out;
     ${props => props.theme.font.p};
     &.active{
+        animation: 0.5s ${layerShow} ease-out;
         display: flex;
-        flex-direction: column;
-        align-items: flex-end;
     }
     textarea{
         margin: 0 0 1.4rem;

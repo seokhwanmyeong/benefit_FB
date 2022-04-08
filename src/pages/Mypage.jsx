@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Myzzim, Myreview, Spinner, ModalPop } from "../components/index";
 import { BtnTap, BtnText } from "../elements";
 import styled from "styled-components";
+import { commonAni } from '../styles/Animation'
 
 const Mypage = (props) => {
   const modalRef = useRef();
@@ -68,6 +69,7 @@ const Mypage = (props) => {
 };
 const MypageWrap = styled.div`
   padding: 5.6rem 10.4rem 3.2rem;
+  animation: 0.3s ${commonAni} ease-out;
   @media screen and (max-width: 808px){
     padding: 2.4rem 1.6rem 3.2rem;
   }

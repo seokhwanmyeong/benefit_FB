@@ -4,7 +4,7 @@ import Theme from '../../styles/Theme';
 import { FolderDeco1, FolderDeco2, FolderDecoSmall } from '../../img/img_url'
 
 const FolderBg = (props) => {
-    const { cate, shadow, blur, type } = props;
+    const { cate, shadow, blur, type, radius } = props;
 
     const color_group = {
         "코로나19" : Theme.cate_color.covid,
@@ -25,6 +25,7 @@ const FolderBg = (props) => {
             shadow={shadow}
             blur={blur}
             type={type}
+            radius={radius}
         >   
         </FolderBgBox>
     );
@@ -36,6 +37,7 @@ const FolderBgBox = styled.div`
     top: 0;
     width: 100%;
     height: 100%;
+    border-radius: ${props => props.radius ? props.radius : ''};
     ${props => props.shadow ? css`
         box-shadow: inset 0px -20px 20px 1px #ffffff;
     ` : ''};
@@ -50,8 +52,8 @@ const FolderBgBox = styled.div`
     &:before{
         content: "";
         position: absolute;
-        top: 0.6rem;
-        left: 0.6rem;
+        top: 0;
+        left: 0;
         display: flex;
         width: 100%;
         height: 100%;

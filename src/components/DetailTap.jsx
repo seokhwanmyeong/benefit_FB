@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { CardReview, BoxComment, ModalPop } from '../components/index';
 import { BtnTap, BtnText } from '../elements';
+import { commonAni } from '../styles/Animation'
 
 const DetailTap = (props) => {
     const { review_link, comment } = props;
@@ -81,6 +82,7 @@ const DetailTapContents = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    animation: 0.3s ${commonAni} ease-out;
 `
 
 export default DetailTap;

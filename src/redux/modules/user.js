@@ -45,7 +45,7 @@ const loginFB = (user_code) => {
             dispatch(setUser(user_info));
             history.push("/");
         }).catch((error) => {
-            console.log("실패다!", error);
+            console.log("실패", error);
             history.replace("/login");
         })
     };

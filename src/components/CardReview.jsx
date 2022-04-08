@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 
 import { actionCreators as postActions } from '../redux/modules/post';
 import { BtnText } from '../elements';
+import { commonAni } from '../styles/Animation'
 
 // Import Swiper styles
 import "swiper/css";
@@ -73,6 +74,7 @@ const CardReview = (props) => {
 const ReviewWrap = styled.div`
   display: flex;
   width: 100%;
+  animation: 0.3s ${commonAni} ease-out;
   .swiper{
     width: 100%;
   }

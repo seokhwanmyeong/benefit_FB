@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 
 import { actionCreators as commentActions } from '../redux/modules/comment';
 import { Btn, BtnText } from '../elements';
+import { commonAni, layerShow, layerDown } from '../styles/Animation'
 
 const BoxComment = (props) => {
     const dispatch = useDispatch();
@@ -21,7 +22,6 @@ const BoxComment = (props) => {
     }
     
     const addComment = (e) => {
-        console.log(comment);
         if(comment === ""){
             alert('내용을 입력해주세요')
             return;
@@ -62,8 +62,10 @@ const BoxComment = (props) => {
         }
         if(ref.current.classList.contains('active')){
             ref.current.classList.remove('active');
+            e.currentTarget.remove('active');
         }else{
             ref.current.classList.add('active');
+            e.currentTarget.classList.add('active');
         }
     }
 
@@ -122,6 +124,7 @@ const BoxComment = (props) => {
 };
 const CommentWrap = styled.div`
     width: 100%;
+    animation: 0.3s ${commonAni} ease-out;
 `;
 const CommentInput = styled.div`
     margin: 2rem 0;
@@ -150,6 +153,7 @@ const CommentTextarea = styled.div`
         justify-content: flex-end;
         flex-direction: row;
         flex-wrap: wrap;
+        animation: 0.3s ${layerShow} ease-out;
     }
     textarea{
         margin: 0 0 1.4rem;

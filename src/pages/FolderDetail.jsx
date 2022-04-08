@@ -7,6 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 import { ImgBenefit, CateBox, AnimateShare, DecoNew, ModalPop, FolderBg, Nonlayer } from '../components/index';
 import { BtnCircle } from "../elements/index";
 import { SvgLikeOn, SvgLikeOff, SvgShare, SvgEdit, SvgBack, SvgView } from '../icons/ico_components';
+import { commonAni } from '../styles/Animation'
 
 const FolderDetail = () => {
     const params = useParams();
@@ -142,7 +143,7 @@ const FolderDetail = () => {
     useEffect(() => {
         dispatch(postActions.getFolderContFB(params?.id));
     }, [])
-
+    
     return (
         <FolderWrap>
             <BtnBack onClick={() => navigate(-1)}>
@@ -154,7 +155,7 @@ const FolderDetail = () => {
                 <span>{folder_main?.folder_name}</span>
             </Nav>
             <FolderInfo>
-                <FolderBg shadow={true} cate={{c1: folder_main?.c1, c2: folder_main?.c2, c3: folder_main?.c3, c4: folder_main?.c4}}/>
+                <FolderBg radius='17.0936px' cate={{c1: folder_main?.c1, c2: folder_main?.c2, c3: folder_main?.c3, c4: folder_main?.c4}}/>
                 <InfoLeft>
                     {/* {userId === folder_main?.userId 
                     ? <span>{folder_main.nickname} 님의</span>
@@ -230,7 +231,7 @@ const FolderDetail = () => {
                         </List>
                     )
                 })}
-                {(post_list?.length === 1 & post_list?.postId == null) 
+                {(post_list?.length === 1 && post_list[0].postId === null) 
                 ? <Nonlayer path='/folder'/>
                 : null
                 }
@@ -275,6 +276,7 @@ const BtnSimpleModal = styled.button`
 `
 const FolderWrap = styled.div`
     padding: 2.4rem 16.8rem;
+    animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px) {
         padding: 1.6rem 1.6rem;
     }
@@ -302,6 +304,7 @@ const List = styled.li`
     border-radius: 8px;
     &:hover{
         background-color: ${props => props.theme.color.p5};
+        transition: 0.3s;
     }
     @media screen and (max-width: 808px) {
         padding: 1.6rem; 
@@ -406,12 +409,11 @@ const ListLike = styled.div`
 `
 const FolderInfo = styled.div`
     position: relative;
-    margin: 0 0 1.6rem;
+    margin: 0 0 3.6rem;
     padding: 3.5rem 2.5rem;
     display: flex;
     justify-content: space-between;
-    border-radius: 17.0936px 17.0936px 0 0;
-    overflow: hidden;
+    border-radius: 17.0936px;
 `
 const InfoLeft = styled.div`
     z-index: 1;
@@ -465,6 +467,8 @@ const InfoView = styled.div`
     }
 `
 const InfoBtnGroup = styled.div`
+    position: absolute;
+    bottom: -24px;
     margin: 13px 0 0;
     display: flex;
     button+button{

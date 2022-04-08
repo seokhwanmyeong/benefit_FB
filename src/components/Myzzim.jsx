@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from "../redux/modules/post";
 import { ImgBenefit, ModalPop, FolderBg, Spinner } from './index';
 import { SvgLockOn, SvgLockOff } from '../icons/ico_components'
+import { commonAni } from '../styles/Animation'
 
 const Myzzim = (props) => {
     const dispatch = useDispatch();
@@ -39,7 +40,6 @@ const Myzzim = (props) => {
         dispatch(postActions.getFolderFB());
     }, [])
 
-    console.log(data)
     if(loading){
         return <Spinner type='page'/>;
     }return (
@@ -83,6 +83,7 @@ const FolderGroup = styled.ul`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    animation: 0.3s ${commonAni} ease-out;
 `
 const FolderList = styled.li`
     margin: 0 0 1.6rem;
@@ -113,6 +114,12 @@ const FolderImg = styled.div`
             fill: ${props => props.theme.color.w};
         }
     }
+    &:hover{
+        svg{
+            transform: scale(1.15);
+            transition: 0.3s;
+        }
+    }
 `
 const FolderCont = styled.div`
     padding: 0.8rem 1.6rem;
@@ -127,6 +134,9 @@ const FolderContBot = styled.div`
 const FolderStatus = styled.div`
     font: ${props => props.theme.font.curation_author};
     color ${props => props.theme.color.p2};
+    &:hover{
+        text-decoration: underline;
+    }
 `
 const FolderName = styled.h4`
     display: -webkit-box;
@@ -169,6 +179,9 @@ const LockBtn = styled.button`
     color ${props => props.theme.color.p2};
     svg+span{
         margin: 0 0 0 2px;
+    }
+    &:hover{
+        text-decoration: underline;
     }
 `
 const Deco = styled.div`

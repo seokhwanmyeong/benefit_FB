@@ -12,7 +12,7 @@ import Startup from "./img_cate/img_startup_vint.jpg";
 import Welfare from "./img_cate/img_welfare_vint.jpg";
 
 /* Folder deco img */
-import FolderDeco1 from "./img_deco/img_folder_deco.svg";
+import FolderDeco1 from "./img_deco/img_folder_deco.png";
 import FolderDeco2 from "./img_deco/img_folder_deco2.svg";
 import FolderDecoSmall from "./img_deco/img_folder_deco_small.svg";
 

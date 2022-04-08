@@ -178,6 +178,18 @@ const getCateListFB = (option, cate) => {
       localStorage.setItem('options', JSON.stringify(localOption));
       dispatch(getCateList(res.data));
       dispatch(setStandard(order))
+      const reset_options = {
+        txt: "all",
+        job_status : "all",
+        education : "all",
+        benefit : ["all"],
+        apply_period : ["all"],
+        location : ["all"],
+        age: "all",
+        major: "all",
+        special_limit : "all",
+      }
+      dispatch(setOptions(reset_options))
     })
     .catch((error) => {
       console.log(error)
@@ -198,10 +210,6 @@ const getMoreListFB = (option, cate) => {
     /* 검색란이 비어있을 경우 'all' data 통신하기로 약속 */
     if(option.txt === "") option.txt = "all"
     // category포함 / 모두면 "all"
-
-    console.log('옵션', option)
-    console.log('카테고리', cate)
-    console.log('페이징 + 1', option.paging + 1)
 
     instance.post(
       "/search",
@@ -404,10 +412,9 @@ const setUpdateFolderFB = (folderId, folder_name, folder_content, status) => {
           dispatch(getFolder(_my_folder));
         }else if(history.location.pathname.includes('/folder')){
           let folder_contents = getState().post.folder_contents;
-          // console.log(folder_contents)
           let folder_main = [{...folder_contents.maincuration[0], folder_name: folder_name, folder_content: folder_content, folder_status: Number(status)}]
           let new_arr = {...folder_contents, maincuration: folder_main}
-          // console.log(new_arr)
+
           dispatch(getFolderCont(new_arr));
         }else if(history.location.pathname.includes('/curation')){
           let _folder_list = getState().post.folder_list;
@@ -565,12 +572,10 @@ export default handleActions(
       }),
     [SET_LINK]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
         draft.review_link = [...state.review_link, action.payload.list]
       }),
     [DELETE_LINK]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state)
         draft.review_link = action.payload.list
       }),
     [SET_FOLDER]: (state, action) =>

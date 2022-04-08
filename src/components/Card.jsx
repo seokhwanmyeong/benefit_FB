@@ -14,6 +14,7 @@ import { ImgBenefit, ImgRanking, ImgLocation, CateBox } from './index';
 import { SvgPlus } from "../icons/ico_components";
 import { NaviPrev, NaviNext } from "../icons/ico_url";
 import { CardDeco1, CardDeco2, CardDeco3 } from "../img/img_url";
+import { commonAni } from '../styles/Animation'
 
 const Card = (props) => {
   const dispatch = useDispatch();
@@ -189,10 +190,12 @@ const MainCard = styled.div`
   .card-agency-name {
     font: ${props => props.theme.font.body};
   }
+  div{
+    transition: 0.1s;
+  }
   &:hover{
     background-color: ${props => props.theme.color.p2};
     color: ${props => props.theme.color.w};
-    transition: 0.3s;
     .card-head-img{
       border-radius: 50%;
       background-color: ${props => props.theme.color.o1};

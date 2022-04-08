@@ -9,6 +9,7 @@ import { actionCreators as likeActions } from '../redux/modules/like';
 /* Components, elements, etc */
 import { CardSearch, Filter, Category, Spinner } from "../components/index";
 import { Btn } from '../elements/index';
+import { commonAni } from '../styles/Animation'
 
 // import axios from 'axios';
 const Search = (props) => {
@@ -75,15 +76,19 @@ const Search = (props) => {
                 <Filter/>
                 <CardSearch data={data} user_like_list={like_list}/>
             </ResponseFilter>
-            <SearchMoreList>
+            {data.length > 0
+            ?<SearchMoreList>
                 <Btn _onClick={requestMoreList} _type='large' _text='더 보기'/>
             </SearchMoreList>
+            : null
+            }
         </React.Fragment>
     );
 };
 const ResponseFilter = styled.div`
     display: flex;
     flex-wrap: wrap;
+    animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px){
         padding: 0 1.6rem;
     }
@@ -91,6 +96,7 @@ const ResponseFilter = styled.div`
 const SearchMoreList = styled.div`
     padding: 2rem 28rem 4.8rem 0;
     width: 100%;
+    animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px){
         padding: 2rem 1.6rem 8rem;
     }

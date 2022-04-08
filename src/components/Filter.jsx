@@ -151,6 +151,7 @@ const FilterArr = styled.div`
         border: 1px solid ${props => props.theme.color.p5};
         font: ${props => props.theme.font.align_default};
         color: ${props => props.theme.color.b3};
+        height: 3.2rem;
         &.active{
             background-color: ${props => props.theme.color.p5};
             font: ${props => props.theme.font.align_tab};

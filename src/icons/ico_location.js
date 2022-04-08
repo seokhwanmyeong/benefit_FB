@@ -36,11 +36,7 @@ import { ReactComponent as SvgYangpyeong} from "./ico_location/yang-pyeong.svg";
 import { ReactComponent as SvgYeoju} from "./ico_location/yeoju.svg";
 import { ReactComponent as SvgYongin} from "./ico_location/yongin.svg";
 import { ReactComponent as SvgPyeongtaek} from "./ico_location/pyeong-taek.svg";
-import { ReactComponent as SvgCenter} from "./ico_location/kor.svg";
-import { ReactComponent as SvgSeoul} from "./ico_location/seoul.svg";
 export { 
-    SvgSeoul,
-    SvgCenter,
     SvgAnseong,
     SvgAnyang,
     SvgBucheon,

@@ -39,7 +39,6 @@ const addCommentFB = (postId, nickname, userId, content) => {
             postId: postId,
             content: content
         }).then((res) => {
-            console.log(res)
             let today = new Date();   
             let year = today.getFullYear(); 
             let month = ('0' + (today.getMonth() + 1)).slice(-2);
@@ -48,7 +47,6 @@ const addCommentFB = (postId, nickname, userId, content) => {
             let minutes = ('0' + today.getMinutes()).slice(-2);
             let seconds = ('0' + today.getSeconds()).slice(-2);
             let time = year + '.' + month + '.' + date + ' ' + hours + ':' + minutes + ':' + seconds
-            console.log(time)
             let new_list = {
                 commentId: res.data.commentId.CommentId,
                 nickname: nickname[0] + '****',

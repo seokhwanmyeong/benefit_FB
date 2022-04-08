@@ -25,7 +25,6 @@ const setMyLikeFB = () => {
     return function (dispatch, getState) {
         dispatch(postActions.loading(true))
         instance.get(`/user/pick`).then((res) => {
-            console.log(res.data.list);
             dispatch(setMyLikeList(res.data.list));
         }).catch((error) => {
             console.log(error)
@@ -42,7 +41,6 @@ const setLikeFB = (folderId, postId, status) => {
         let user_folder = getState().user.user_folder;
         let _user_folder = []
         if(status){
-            console.log("좋아요")
             _user_folder = user_folder.map(cur => {
                 if(cur.folderId == folderId){
                     if(cur.postId_list){
@@ -54,13 +52,11 @@ const setLikeFB = (folderId, postId, status) => {
                 return cur
             })
         }else{
-            console.log("싫어요")
             _user_folder = user_folder.map(cur => {
                 if(cur.folderId == folderId){
                     let new_arr = cur.postId_list.filter(list => {
                         return list != postId;
                     })
-                    console.log(new_arr)
                     return {...cur, postId_list: [...new_arr]}
                 }
                 return cur;

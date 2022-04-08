@@ -7,6 +7,7 @@ import { actionCreators as postActions } from '../redux/modules/post';
 import { ImgBenefit, DetailSideMenu, DetailTap, Spinner, CateBox, AnimateShare, ModalPop} from '../components/index';
 import { SvgView, SvgLikeOn, SvgLikeOff, SvgShare } from '../icons/ico_components'
 import { Btn, BtnCircle } from '../elements';
+import { commonAni } from '../styles/Animation'
 
 const Detail = (props) => {
     const dispatch = useDispatch();
@@ -323,12 +324,13 @@ const CardLike = styled.div`
 `
 const DetailWrap = styled.div`
     padding: 5.2rem 10.5rem;
+    animation: 0.3s ${commonAni} ease-out;
     @media screen and (max-width: 808px) {
         padding: 0 0 1.5rem;
     }
 `
 const DetailBox = styled.div`
-    padding: 5.6rem 9.2rem 3.2rem;
+    padding: 5.6rem 3.2rem 3.2rem;
     background-color: ${props => props.theme.color.p5};
     border-radius: 32px;
     @media screen and (max-width: 808px) {

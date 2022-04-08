@@ -64,7 +64,7 @@ const CateBest = (props) => {
                 swiper.navigation.update();
                 }}
                 modules={[Navigation, EffectFade]}
-                loop={true}
+                // loop={true}
                 effect={"fade"}
                 breakpoints={{
                     0 : {

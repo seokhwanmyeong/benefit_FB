@@ -34,9 +34,7 @@ const CardSearch = (props) => {
 
     const addModalHandler = (e, postId) => {
         e.stopPropagation();
-        console.log('1')
         let arr_class = document.getElementsByClassName('modal_simple');
-        // setModal(4)
         setPostId(postId)
         addRef.current.classList.contains("active")
         ? addRef.current.classList.remove("active")
@@ -49,9 +47,7 @@ const CardSearch = (props) => {
 
     const deleteModalHandler = (e, postId) => {
         e.stopPropagation();
-        console.log('1')
         let arr_class = document.getElementsByClassName('modal_simple');
-        // setModal(5)
         setPostId(postId)
         deleteRef.current.classList.contains("active")
         ? deleteRef.current.classList.remove("active")
@@ -147,7 +143,7 @@ const SearchGroup = styled.ul`
     }
     @media screen and (max-width: 808px) {
         li+li{
-            margin: 12px 0 0;
+            margin: 20px 0 0;
         }
     }
 `
@@ -159,6 +155,7 @@ const SearchList = styled.li`
     width: 100%;
     border: 1px solid ${props => props.theme.color.p5};
     border-radius: 8px;
+    transition: 0.3s;
     &:hover{
         background-color: ${props => props.theme.color.p5};
     }

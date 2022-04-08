@@ -103,7 +103,7 @@ https://www.notion.so/3-95e793c2c7e745178dd80a27c802dbc1
 <summary>API 명세서</summary>
 <div markdown="1">
 
-  준비중입니다
+  https://www.notion.so/0eb0d46ffe2041328c56ef683541c30f?v=2443fe69bab84bbab3990a30cf1bab08
 
 </div>
 </details>

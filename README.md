@@ -108,14 +108,5 @@ https://www.notion.so/3-95e793c2c7e745178dd80a27c802dbc1
 </div>
 </details>
 
-<details>
-<summary>ERD</summary>
-<div markdown="1">
-
-  <img src="https://user-images.githubusercontent.com/91252981/161984970-225d27f9-3d71-4701-825a-e5dacaa5ba75.png">
-
-</div>
-</details>
-
 ---
 
